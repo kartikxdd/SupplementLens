@@ -13,7 +13,11 @@ const state = {
   filterInBudget: false,
   filterLabOnly: false,
   filterNoProp: false,
+  filterSugarPreference: 'no-preference',
   filterSoy: false,
+  filterSoyBased: false,
+  filterPlantBased: false,
+  filterWhey: false,
   filterGluten: false,
   filterNoArtificial: false,
   filterZeroSugar: false,
@@ -51,7 +55,16 @@ function filteredProducts() {
   }
   if (state.filterLabOnly) list = list.filter((p) => p.thirdPartyTested);
   if (state.filterNoProp) list = list.filter((p) => !p.proprietaryBlend);
+  if (state.filterSugarPreference === 'low') {
+    list = list.filter((p) => (p.addedSugar || 0) <= 5);
+  }
+  if (state.filterSugarPreference === 'zero') {
+    list = list.filter((p) => (p.addedSugar || 0) <= 0);
+  }
   if (state.filterSoy) list = list.filter((p) => !(p.allergens || []).includes('soy'));
+  if (state.filterSoyBased) list = list.filter((p) => (p.allergens || []).includes('soy') || p.category === 'plant');
+  if (state.filterPlantBased) list = list.filter((p) => p.category === 'plant');
+  if (state.filterWhey) list = list.filter((p) => p.category === 'whey');
   if (state.filterGluten) list = list.filter((p) => !(p.allergens || []).includes('gluten'));
   if (state.filterNoArtificial) list = list.filter((p) => !(p.allergens || []).includes('artificial') && !p.artificial);
   if (state.filterZeroSugar) list = list.filter((p) => (p.addedSugar || 0) <= 0);
@@ -85,14 +98,14 @@ function renderCategories() {
       .map((c) => {
         const count = state.catalog.filter((p) => p.category === c.id).length;
         return `<button type="button" class="cat-card ${state.category === c.id ? 'active' : ''}" data-category="${c.id}">
-          <div class="cat-visual">${c.icon}</div>
-          <div class="cat-label">${Shared.escapeHtml(c.name)} · ${count}</div>
+          <span class="cat-label">${Shared.escapeHtml(c.name)}</span>
+          <span class="cat-count">${count}</span>
         </button>`;
       })
       .join('') +
     `<button type="button" class="cat-card view-all ${state.category === 'all' ? 'active' : ''}" data-category="all">
-      <div class="cat-visual">▦</div>
-      <div class="cat-label">All (${state.catalog.length})</div>
+      <span class="cat-label">All</span>
+      <span class="cat-count">${state.catalog.length}</span>
     </button>`;
 
   grid.querySelectorAll('[data-category]').forEach((btn) => {
@@ -115,7 +128,7 @@ function renderCategoryBrief() {
   el.innerHTML = `
     <div class="flex flex-wrap gap-4 justify-between">
       <div class="max-w-3xl">
-        <h3 class="font-display font-bold text-lg">${c.icon} ${Shared.escapeHtml(c.name)}</h3>
+        <h3 class="font-display font-bold text-lg">${Shared.escapeHtml(c.name)}</h3>
         <p class="text-sm text-brand-muted mt-2 leading-relaxed">${Shared.escapeHtml(c.description)}</p>
       </div>
       <div>
@@ -252,6 +265,8 @@ function renderPrefChips() {
   }
 
   state.prefs.allergens.forEach((a) => {
+    const value = String(a).toLowerCase();
+    if (value === 'soy' && !state.filterSoy && !state.filterSoyBased) return;
     chips.push(`<span class="pref-chip alert">${Shared.escapeHtml(a)}</span>`);
   });
 
@@ -351,7 +366,7 @@ function initEvents() {
   document.getElementById('filterToggle').addEventListener('click', () => {
     document.getElementById('filterPanel').classList.toggle('hidden');
   });
-  ['filterSafeOnly', 'filterInBudget', 'filterLabOnly', 'filterNoProp', 'filterSoy', 'filterGluten', 'filterNoArtificial', 'filterZeroSugar'].forEach((id) => {
+  ['filterSafeOnly', 'filterInBudget', 'filterLabOnly', 'filterNoProp', 'filterSoy', 'filterSoyBased', 'filterPlantBased', 'filterWhey', 'filterGluten', 'filterNoArtificial', 'filterZeroSugar'].forEach((id) => {
     const el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('change', (e) => {
@@ -359,6 +374,14 @@ function initEvents() {
       renderProducts();
     });
   });
+
+  const sugarPref = document.getElementById('filterSugarPreference');
+  if (sugarPref) {
+    sugarPref.addEventListener('change', (e) => {
+      state.filterSugarPreference = e.target.value;
+      renderProducts();
+    });
+  }
   document.getElementById('detailClose').addEventListener('click', closeDetail);
   document.getElementById('detailBackdrop').addEventListener('click', closeDetail);
   document.getElementById('trayClear').addEventListener('click', () => {

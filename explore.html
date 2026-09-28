@@ -73,6 +73,25 @@
         </div>
 
         <div class="border-t border-brand-border pt-3">
+          <div class="text-[10px] uppercase tracking-wider text-brand-muted mb-2">Quick filters</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="text-sm text-brand-muted">
+              <span class="block mb-1">Sugar preference</span>
+              <select id="filterSugarPreference" class="field-input-plain !py-2 !px-2.5 text-sm">
+                <option value="no-preference">No preference</option>
+                <option value="low">Low sugar</option>
+                <option value="zero">Zero sugar</option>
+              </select>
+            </label>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-2 mt-3">
+            <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterSoyBased" /> Soy based</label>
+            <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterPlantBased" /> Plant based</label>
+            <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterWhey" /> Whey</label>
+          </div>
+        </div>
+
+        <div class="border-t border-brand-border pt-3">
           <div class="text-[10px] uppercase tracking-wider text-brand-muted mb-2">Ingredient filters</div>
           <div class="grid sm:grid-cols-2 gap-2">
             <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterSoy" /> Soy-free only</label>
