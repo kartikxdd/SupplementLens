@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — SupplementLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { bg: '#0B0F12', surface: '#141A1F', border: '#2A343D', text: '#E8ECEF', muted: '#8A99A6', sage: '#2DD4BF' },
+          },
+          fontFamily: {
+            display: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand-lockup">
+        <span class="logo-badge">NC</span>
+        <span>
+          <span class="brand-name">SupplementLens</span>
+          <span class="brand-tag">Your profile</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
+        <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
+        <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+    <div>
+      <h1 class="font-display font-bold text-2xl text-brand-text">Profile</h1>
+      <p class="text-sm text-brand-muted mt-1">
+        Preferences drive allergen flags, score weighting, and budget checks across Explore &amp; Compare.
+        Saved locally for now — later this maps to a Supabase user profile.
+      </p>
+    </div>
+
+    <form id="profileForm" class="glass rounded-2xl p-5 sm:p-6 space-y-1">
+      <label class="field">
+        <span>Display name (optional)</span>
+        <input type="text" id="prefName" placeholder="e.g. Alex" maxlength="40" />
+      </label>
+
+      <label class="field">
+        <span>Fitness goal</span>
+        <select id="prefGoal">
+          <option value="">No goal selected</option>
+          <option value="bulking">Bulking</option>
+          <option value="cutting">Cutting</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+      </label>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="field">
+          <span>Daily calorie target</span>
+          <input type="number" id="prefCalories" min="800" max="6000" step="50" />
+        </label>
+        <label class="field">
+          <span>Protein target (g/day)</span>
+          <input type="number" id="prefProtein" min="40" max="400" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Monthly supplement budget</span>
+        <div class="flex gap-2 items-center">
+          <span class="text-lg text-brand-sage font-semibold">₹</span>
+          <input type="number" id="prefBudget" min="0" class="flex-1" placeholder="e.g. 2000" />
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Are you lactose intolerant?</span>
+        <select id="prefLactoseIntolerant">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Do you want less artificial ingredients?</span>
+        <select id="prefLowArtificial">
+          <option value="0">No preference</option>
+          <option value="1">Yes, reduce artificial fillers / sweeteners</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Sugar preference</span>
+        <select id="prefSugarPreference">
+          <option value="no-preference">No preference</option>
+          <option value="low-sugar">Low sugar</option>
+          <option value="no-sugar">No sugar</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Lab-tested preference</span>
+        <select id="prefLabOnly">
+          <option value="0">Show all · mild weight</option>
+          <option value="1">Strongly prefer 3rd-party tested</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Weight units (display)</span>
+        <select id="prefUnits">
+          <option value="g">Grams</option>
+          <option value="oz">Ounces</option>
+        </select>
+      </label>
+
+      <div class="flex flex-wrap gap-3 pt-4">
+        <button type="submit" class="btn-teal px-5 py-2.5 rounded-lg text-sm font-semibold">Save profile</button>
+        <button type="button" id="resetProfile" class="btn-outline px-5 py-2.5 rounded-lg text-sm">Reset defaults</button>
+        <a href="explore.html" class="btn-ghost px-5 py-2.5 rounded-lg text-sm">Back to Explore</a>
+      </div>
+      <p id="saveStatus" class="text-xs text-brand-sage hidden pt-2">Saved. Explore &amp; Compare will use these settings.</p>
+    </form>
+
+    <section class="glass rounded-2xl p-5">
+      <h2 class="section-label mb-3">Live preview</h2>
+      <div id="profilePreview" class="text-sm text-brand-muted space-y-2"></div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    const form = document.getElementById('profileForm');
+    const saved = Shared.loadPrefs();
+
+    function applyPrefsToForm(prefs) {
+      document.getElementById('prefName').value = prefs.displayName || '';
+      document.getElementById('prefGoal').value = prefs.goal || '';
+      document.getElementById('prefCalories').value = prefs.calories || 2200;
+      document.getElementById('prefProtein').value = prefs.protein || 160;
+      document.getElementById('prefBudget').value = prefs.budget || 2000;
+      document.getElementById('prefLactoseIntolerant').value = prefs.lactoseIntolerant ? '1' : '0';
+      document.getElementById('prefLowArtificial').value = prefs.lowArtificial ? '1' : '0';
+      document.getElementById('prefSugarPreference').value = prefs.sugarPreference || 'no-preference';
+      document.getElementById('prefLabOnly').value = prefs.preferLab ? '1' : '0';
+      document.getElementById('prefUnits').value = prefs.units || 'g';
+
+      document.querySelectorAll('.pref-allergen').forEach((box) => {
+        box.checked = (prefs.allergens || []).includes(box.value);
+      });
+    }
+
+    function collectPrefsFromForm() {
+      const prefs = Shared.loadPrefs();
+      prefs.displayName = document.getElementById('prefName').value.trim();
+      prefs.goal = document.getElementById('prefGoal').value || '';
+      prefs.calories = Number(document.getElementById('prefCalories').value) || 2200;
+      prefs.protein = Number(document.getElementById('prefProtein').value) || 160;
+      prefs.budget = Number(document.getElementById('prefBudget').value) || 2000;
+      prefs.currency = 'INR';
+      prefs.lactoseIntolerant = document.getElementById('prefLactoseIntolerant').value === '1';
+      prefs.lowArtificial = document.getElementById('prefLowArtificial').value === '1';
+      prefs.sugarPreference = document.getElementById('prefSugarPreference').value || 'no-preference';
+      prefs.lowSugar = prefs.sugarPreference === 'low-sugar' || prefs.sugarPreference === 'no-sugar';
+      prefs.preferLab = document.getElementById('prefLabOnly').value === '1';
+      prefs.units = document.getElementById('prefUnits').value || 'g';
+      prefs.allergens = [...document.querySelectorAll('.pref-allergen:checked')].map((el) => el.value);
+      if (prefs.lactoseIntolerant) {
+        if (!prefs.allergens.includes('lactose')) prefs.allergens.push('lactose');
+      } else {
+        prefs.allergens = prefs.allergens.filter((v) => v !== 'lactose');
+      }
+      if (prefs.lowArtificial) {
+        if (!prefs.allergens.includes('artificial')) prefs.allergens.push('artificial');
+      } else {
+        prefs.allergens = prefs.allergens.filter((v) => v !== 'artificial');
+      }
+      return prefs;
+    }
+
+    applyPrefsToForm(saved);
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const prefs = collectPrefsFromForm();
+      Shared.savePrefs(prefs);
+      const status = document.getElementById('saveStatus');
+      status.classList.remove('hidden');
+      status.textContent = 'Saved. Explore & Compare will use these settings.';
+    });
+
+    document.getElementById('resetProfile').addEventListener('click', () => {
+      const defaultPrefs = { ...Shared.DEFAULT_PREFS };
+      Shared.savePrefs(defaultPrefs);
+      applyPrefsToForm(defaultPrefs);
+      const status = document.getElementById('saveStatus');
+      status.classList.remove('hidden');
+      status.textContent = 'Defaults restored.';
+    });
+  </script>
+</body>
+</html>

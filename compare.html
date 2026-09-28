@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare — SupplementLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { bg: '#0B0F12', surface: '#141A1F', border: '#2A343D', text: '#E8ECEF', muted: '#8A99A6', sage: '#2DD4BF' },
+          },
+          fontFamily: {
+            display: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand-lockup">
+        <span class="logo-badge">NC</span>
+        <span>
+          <span class="brand-name">SupplementLens</span>
+          <span class="brand-tag">Compare desk</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
+        <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
+        <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h1 class="font-display font-bold text-2xl text-brand-text">Compare</h1>
+        <p class="text-sm text-brand-muted mt-1">Two slots. Add from Explore or search below. Same-category pairs score fairest.</p>
+      </div>
+      <div class="norm-toggle rounded-lg p-0.5 flex text-xs font-medium">
+        <button type="button" class="norm-btn active px-3 py-1.5 rounded-md" data-mode="serving">Per serving</button>
+        <button type="button" class="norm-btn px-3 py-1.5 rounded-md" data-mode="per100g">Per 100g</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="compare-add-box glass rounded-xl p-4">
+        <label class="field mb-0"><span>Add to slot A</span>
+          <input type="search" id="searchSlotA" class="field-input-plain" placeholder="Type code or name…" autocomplete="off" />
+        </label>
+        <ul id="suggestA" class="autocomplete-list hidden"></ul>
+      </div>
+      <div class="compare-add-box glass rounded-xl p-4">
+        <label class="field mb-0"><span>Add to slot B</span>
+          <input type="search" id="searchSlotB" class="field-input-plain" placeholder="Type code or name…" autocomplete="off" />
+        </label>
+        <ul id="suggestB" class="autocomplete-list hidden"></ul>
+      </div>
+    </div>
+
+    <div id="compareMismatch" class="hidden rounded-xl border border-brand-border bg-brand-surface px-4 py-3 text-sm text-brand-muted" style="border-left: 3px solid #C4A35A"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="compareSlots"></div>
+
+    <section class="glass rounded-2xl p-5">
+      <h2 class="font-display font-semibold mb-4">Criterion scorecard</h2>
+      <div id="scorecardTable" class="overflow-x-auto"></div>
+    </section>
+
+    <section class="glass rounded-2xl p-5">
+      <h2 class="font-display font-semibold mb-4">Macro &amp; active table</h2>
+      <div id="macroTable" class="overflow-x-auto"></div>
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="glass rounded-2xl p-5">
+        <h2 class="font-display font-semibold mb-1">Score radar</h2>
+        <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <h2 class="font-display font-semibold mb-1">Cost &amp; impurity bars</h2>
+        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+    </section>
+
+    <section id="verdictCard" class="verdict rounded-2xl p-5 sm:p-6">
+      <p class="text-xs uppercase tracking-widest text-brand-sage font-semibold mb-1">Smart verdict</p>
+      <h2 id="verdictTitle" class="font-display font-bold text-lg sm:text-xl text-brand-text mb-2"></h2>
+      <p id="verdictBody" class="text-sm text-brand-muted leading-relaxed"></p>
+      <ul id="verdictBullets" class="mt-3 grid sm:grid-cols-2 gap-2"></ul>
+    </section>
+
+    <p class="text-center text-sm text-brand-muted">
+      Need more options? <a href="explore.html" class="link-sage">Browse Explore</a> ·
+      Tune flags in <a href="profile.html" class="link-sage">Profile</a>
+    </p>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

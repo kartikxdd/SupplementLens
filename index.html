@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SupplementLens — Lab-grade supplement comparison</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { bg: '#0B0F12', surface: '#141A1F', border: '#2A343D', text: '#E8ECEF', muted: '#8A99A6', sage: '#2DD4BF' },
+          },
+          fontFamily: {
+            display: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand-lockup" data-nav="index.html">
+        <span class="logo-badge">NC</span>
+        <span>
+          <span class="brand-name">SupplementLens</span>
+          <span class="brand-tag">Lab-precision scoring</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
+        <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
+        <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="home-hero">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+        <p class="home-eyebrow">Smart Nutritional &amp; Gym Supplement Comparison</p>
+        <h1 class="home-title">Compare supplements like a lab report — not a marketing page.</h1>
+        <p class="home-lead">
+          SupplementLens scores products inside their own category: protein vs protein, creatine vs creatine.
+          Your allergens, calorie goal, and budget change the verdict so “best” means best <em>for you</em>.
+        </p>
+        <div class="home-cta-row">
+          <a href="explore.html" class="btn-teal px-5 py-3 rounded-lg text-sm font-semibold">Explore catalog</a>
+          <a href="profile.html" class="btn-outline px-5 py-3 rounded-lg text-sm">Set your profile</a>
+          <a href="compare.html" class="btn-ghost px-5 py-3 rounded-lg text-sm">Open compare desk</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 grid sm:grid-cols-3 gap-4">
+      <article class="home-card">
+        <h2>1. Profile</h2>
+        <p>Tell us your goal, macros, budget, and allergen alerts. Conflicts surface as “Not for you” before you waste money.</p>
+        <a href="profile.html" class="link-sage text-sm">Edit profile →</a>
+      </article>
+      <article class="home-card">
+        <h2>2. Explore</h2>
+        <p>Browse by category with searchable entries. Every row shows criterion scores like protein/scoop and added sugar out of 5.</p>
+        <a href="explore.html" class="link-sage text-sm">Browse entries →</a>
+      </article>
+      <article class="home-card">
+        <h2>3. Compare</h2>
+        <p>Park two products in side-by-side slots. Scorecards, macros, charts, and a preference-aware verdict — same category preferred.</p>
+        <a href="compare.html" class="link-sage text-sm">Go to compare →</a>
+      </article>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+      <div class="home-panel">
+        <h2 class="font-display font-bold text-xl mb-3">What this site is (and isn’t)</h2>
+        <div class="grid md:grid-cols-2 gap-8 text-sm text-brand-muted leading-relaxed">
+          <div>
+            <h3 class="text-brand-text font-semibold mb-2">It is</h3>
+            <ul class="space-y-2 list-disc pl-4">
+              <li>A category-aware comparison engine for gym &amp; nutrition supplements</li>
+              <li>A scoring layer for dose honesty, fillers, sugars, allergens, and cost efficiency</li>
+              <li>Built to connect to Supabase later for real product data via API</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-brand-text font-semibold mb-2">It isn’t</h3>
+            <ul class="space-y-2 list-disc pl-4">
+              <li>Medical advice or a substitute for a clinician / dietitian</li>
+              <li>A storefront — no checkout, just decision support</li>
+              <li>Finished brand data yet — placeholders until your database is live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 text-xs text-brand-muted flex flex-wrap justify-between gap-2">
+      <span>SupplementLens · Lab Precision UI</span>
+      <span>Mock catalog · Supabase-ready API layer</span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>
