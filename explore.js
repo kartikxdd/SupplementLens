@@ -14,6 +14,7 @@ const state = {
   filterLabOnly: false,
   filterNoProp: false,
   filterSugarPreference: 'no-preference',
+  filterMyProfileGoals: false,
   filterSoy: false,
   filterSoyBased: false,
   filterPlantBased: false,
@@ -52,6 +53,15 @@ function filteredProducts() {
   if (state.filterSafeOnly) list = list.filter((p) => !Shared.isBlocked(p, state.prefs));
   if (state.filterInBudget) {
     list = list.filter((p) => Shared.productPrice(p, state.prefs) <= state.prefs.budget);
+  }
+  if (state.filterMyProfileGoals) {
+    list = list.filter((p) => {
+      const issues = Shared.preferenceIssues(p, state.prefs);
+      const blockedByProfile = issues.some((issue) => issue.startsWith('Not for you') || issue.startsWith('Over budget') || issue.startsWith('High added sugar'));
+      if (blockedByProfile) return false;
+      const fitScore = Shared.overallScore(p, state.prefs).avg;
+      return fitScore >= 3.2;
+    });
   }
   if (state.filterLabOnly) list = list.filter((p) => p.thirdPartyTested);
   if (state.filterNoProp) list = list.filter((p) => !p.proprietaryBlend);
@@ -264,6 +274,10 @@ function renderPrefChips() {
     chips.push(`<span class="pref-chip">${Shared.escapeHtml(state.prefs.goal)}</span>`);
   }
 
+  if (state.filterMyProfileGoals) {
+    chips.push('<span class="pref-chip">My profile goals</span>');
+  }
+
   state.prefs.allergens.forEach((a) => {
     const value = String(a).toLowerCase();
     if (value === 'soy' && !state.filterSoy && !state.filterSoyBased) return;
@@ -366,12 +380,13 @@ function initEvents() {
   document.getElementById('filterToggle').addEventListener('click', () => {
     document.getElementById('filterPanel').classList.toggle('hidden');
   });
-  ['filterSafeOnly', 'filterInBudget', 'filterLabOnly', 'filterNoProp', 'filterSoy', 'filterSoyBased', 'filterPlantBased', 'filterWhey', 'filterGluten', 'filterNoArtificial', 'filterZeroSugar'].forEach((id) => {
+  ['filterSafeOnly', 'filterInBudget', 'filterLabOnly', 'filterNoProp', 'filterMyProfileGoals', 'filterSoy', 'filterSoyBased', 'filterPlantBased', 'filterWhey', 'filterGluten', 'filterNoArtificial', 'filterZeroSugar'].forEach((id) => {
     const el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('change', (e) => {
       state[id] = e.target.checked;
       renderProducts();
+      renderPrefChips();
     });
   });
 
@@ -394,6 +409,7 @@ function initEvents() {
 async function boot() {
   initEvents();
   try {
+    state.prefs = Shared.loadPrefs();
     const [categories, supplements] = await Promise.all([Api.getCategories(), Api.getSupplements()]);
     state.categories = categories;
     state.catalog = supplements;

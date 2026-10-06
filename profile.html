@@ -40,6 +40,7 @@
         <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
         <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
         <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
+        <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
       </nav>
     </div>
   </header>
@@ -49,27 +50,141 @@
       <h1 class="font-display font-bold text-2xl text-brand-text">Profile</h1>
       <p class="text-sm text-brand-muted mt-1">
         Preferences drive allergen flags, score weighting, and budget checks across Explore &amp; Compare.
-        Saved locally for now — later this maps to a Supabase user profile.
+        Saved to your account when signed in. Guest profiles last until you refresh.
       </p>
     </div>
 
     <form id="profileForm" class="glass rounded-2xl p-5 sm:p-6 space-y-1">
-      <label class="field">
-        <span>Display name (optional)</span>
-        <input type="text" id="prefName" placeholder="e.g. Alex" maxlength="40" />
-      </label>
-
-      <label class="field">
-        <span>Fitness goal</span>
-        <select id="prefGoal">
-          <option value="">No goal selected</option>
-          <option value="bulking">Bulking</option>
-          <option value="cutting">Cutting</option>
-          <option value="maintenance">Maintenance</option>
-        </select>
-      </label>
+      <div class="mb-4">
+        <p class="text-xs uppercase tracking-[0.12em] text-brand-muted mb-2">Step 1 · Basics</p>
+        <label class="field">
+          <span>Display name (optional)</span>
+          <input type="text" id="prefName" placeholder="e.g. Alex" maxlength="40" />
+        </label>
+      </div>
 
       <div class="grid sm:grid-cols-2 gap-3">
+        <label class="field">
+          <span>Age</span>
+          <input type="number" id="prefAge" min="12" max="90" step="1" />
+        </label>
+        <label class="field">
+          <span>Sex (for estimate)</span>
+          <select id="prefSex">
+            <option value="">Choose an option</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Height (cm)</span>
+          <input type="number" id="prefHeightCm" min="120" max="230" step="1" />
+        </label>
+        <label class="field">
+          <span>Weight (kg)</span>
+          <input type="number" id="prefWeightKg" min="30" max="250" step="0.5" />
+        </label>
+        <div class="field">
+          <span>Activity level</span>
+          <div class="activity-picker" id="activityPicker">
+            <button type="button" class="activity-trigger" id="activityTrigger" aria-haspopup="listbox" aria-expanded="false">
+              <span id="activityLevelLabel">Choose an activity level</span>
+              <span class="activity-caret">▾</span>
+            </button>
+            <div class="activity-menu" id="activityMenu" role="listbox" aria-label="Activity level">
+              <button type="button" class="activity-option" data-value="sedentary" data-label="Sedentary: little or no exercise">
+                <span class="activity-option-title">Sedentary</span>
+                <span class="activity-option-desc">little or no exercise</span>
+              </button>
+              <button type="button" class="activity-option" data-value="light" data-label="Light: exercise 1–3 times/week">
+                <span class="activity-option-title">Light</span>
+                <span class="activity-option-desc">exercise 1–3 times/week</span>
+              </button>
+              <button type="button" class="activity-option" data-value="moderate" data-label="Moderate: exercise 4–5 times/week">
+                <span class="activity-option-title">Moderate</span>
+                <span class="activity-option-desc">exercise 4–5 times/week</span>
+              </button>
+              <button type="button" class="activity-option" data-value="active" data-label="Active: daily exercise or intense exercise 3–4 times/week">
+                <span class="activity-option-title">Active</span>
+                <span class="activity-option-desc">daily exercise or intense exercise 3–4 times/week</span>
+              </button>
+              <button type="button" class="activity-option" data-value="very-active" data-label="Very Active: intense exercise 6–7 times/week">
+                <span class="activity-option-title">Very Active</span>
+                <span class="activity-option-desc">intense exercise 6–7 times/week</span>
+              </button>
+            </div>
+            <input type="hidden" id="prefActivityLevel" value="" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="glass rounded-xl p-4 border border-brand-border/80">
+          <p class="text-[10px] uppercase tracking-[0.12em] text-brand-muted mb-2">BMI</p>
+          <div id="bmiValue" class="text-2xl font-bold text-brand-text">—</div>
+          <p id="bmiCategory" class="text-xs text-brand-muted mt-1">Your body mass index will show here.</p>
+        </div>
+        <div class="glass rounded-xl p-4 border border-brand-border/80">
+          <p class="text-[10px] uppercase tracking-[0.12em] text-brand-muted mb-2">Calorie guide</p>
+          <div id="calorieValue" class="text-2xl font-bold text-brand-text">—</div>
+          <p id="calorieNote" class="text-xs text-brand-muted mt-1">Estimate based on your body size and routine.</p>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-5 border-t border-brand-border/60">
+        <p class="text-xs uppercase tracking-[0.12em] text-brand-muted mb-2">Step 2 · Your goal</p>
+        <label class="field">
+          <span>What do you want to do?</span>
+          <select id="prefGoal">
+            <option value="">Choose a direction</option>
+            <option value="bulking">Bulk / gain muscle</option>
+            <option value="cutting">Cut / lose body fat</option>
+            <option value="maintenance">Maintain / stay steady</option>
+          </select>
+        </label>
+
+        <div id="goalSummary" class="glass rounded-xl p-4 border border-brand-border/80 text-sm text-brand-muted">
+          Pick a goal and we’ll suggest a better calorie target for you.
+        </div>
+      </div>
+
+      <div class="mt-5 pt-5 border-t border-brand-border/60">
+        <p class="text-xs uppercase tracking-[0.12em] text-brand-muted mb-2">Step 3 · Lifestyle fit</p>
+        <label class="field">
+          <span>Which best describes you?</span>
+          <select id="prefUserType">
+            <option value="">Choose an option</option>
+            <option value="beginner">New to supplements / beginner</option>
+            <option value="daily-life">Daily life / general wellness</option>
+            <option value="gym">Gym / workout / fitness</option>
+            <option value="medical">Health-sensitive / medical-aware</option>
+            <option value="desk-worker">Desk worker / student</option>
+            <option value="busy-professional">Busy professional</option>
+            <option value="senior-active-adult">Senior / active adult (45+)</option>
+            <option value="post-recovery">Post-recovery / wellness</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>What are you mainly trying to improve?</span>
+          <select id="prefSupplementGoal">
+            <option value="">Choose an option</option>
+            <option value="daily-wellness">Daily wellness &amp; basics</option>
+            <option value="gym-performance">Workout performance</option>
+            <option value="weight-management">Weight / body composition</option>
+            <option value="recovery">Recovery &amp; fatigue</option>
+            <option value="not-sure">I’m not sure yet</option>
+            <option value="daily-energy-vitality">Daily energy &amp; vitality</option>
+            <option value="immunity-longevity">Immunity &amp; longevity</option>
+            <option value="joint-bone-mobility">Joint &amp; bone mobility</option>
+            <option value="stress-sleep-quality">Stress &amp; sleep quality</option>
+          </select>
+        </label>
+
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
         <label class="field">
           <span>Daily calorie target</span>
           <input type="number" id="prefCalories" min="800" max="6000" step="50" />
@@ -87,6 +202,22 @@
           <input type="number" id="prefBudget" min="0" class="flex-1" placeholder="e.g. 2000" />
         </div>
       </label>
+
+      <div class="field">
+        <span>Health &amp; lifestyle concerns</span>
+        <div class="health-options">
+          <label class="health-option"><input type="checkbox" class="pref-health" value="lactose" /><span>Lactose intolerant</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="diabetes" /><span>Blood sugar / diabetes concern</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="caffeine" /><span>Caffeine sensitive</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="stomach" /><span>Sensitive stomach / digestion</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="vegan" /><span>Vegan / plant-based</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="medical" /><span>Medication / doctor review needed</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="vitamin-deficiency" /><span class="health-option-copy"><strong>Vitamin D / B12 deficiency</strong><small>Boosts multivitamins and vitamin formulas.</small></span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="joint-discomfort" /><span class="health-option-copy"><strong>Joint / knee discomfort</strong><small>Highlights collagen and omega-3 options.</small></span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="sleep-stress" /><span class="health-option-copy"><strong>Poor sleep / high stress</strong><small>Favors magnesium; penalizes caffeine-heavy products.</small></span></label>
+          <label class="health-option"><input type="checkbox" class="pref-health" value="desk-brain-fog" /><span class="health-option-copy"><strong>Desk work / brain fog</strong><small>Prioritizes L-theanine, electrolytes, or nootropics when available.</small></span></label>
+        </div>
+      </div>
 
       <label class="field">
         <span>Are you lactose intolerant?</span>
@@ -138,7 +269,7 @@
     </form>
 
     <section class="glass rounded-2xl p-5">
-      <h2 class="section-label mb-3">Live preview</h2>
+      <h2 class="section-label mb-3">Your recommendation snapshot</h2>
       <div id="profilePreview" class="text-sm text-brand-muted space-y-2"></div>
     </section>
   </main>
@@ -146,30 +277,210 @@
   <script src="data.js"></script>
   <script src="api.js"></script>
   <script src="shared.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
   <script>
     const form = document.getElementById('profileForm');
-    const saved = Shared.loadPrefs();
+    form.inert = true;
+    let saved = {};
+    let localSaved = {};
+    const localSavedOwnerId = localStorage.getItem('nc_prefs_owner_v1');
+    try {
+      const savedValue = localSavedOwnerId
+        ? localStorage.getItem('nc_prefs_v1')
+        : sessionStorage.getItem('nc_guest_prefs_v1');
+      localSaved = JSON.parse(savedValue || '{}');
+    } catch {
+      localSaved = {};
+    }
+    let currentUser = null;
+    let profileReady = false;
+    let cloudSaveTimer = null;
+
+    function setProfileStatus(message, isError = false) {
+      const status = document.getElementById('saveStatus');
+      status.classList.remove('hidden', 'text-red-300');
+      status.classList.toggle('text-red-300', isError);
+      status.textContent = message;
+    }
+
+    function blankProfileInputs() {
+      return {
+        prefName: '', prefAge: '', prefSex: '', prefHeightCm: '', prefWeightKg: '',
+        prefActivityLevel: '', prefUserType: '', prefSupplementGoal: '', prefGoal: '',
+        prefCalories: '', prefProtein: '', prefBudget: '',
+      };
+    }
+
+    function getGoalMultiplier(goal) {
+      if (goal === 'bulking') return 1.15;
+      if (goal === 'cutting') return 0.85;
+      return 1;
+    }
+
+    function getActivityMultiplier(level) {
+      if (level === 'sedentary') return 1.2;
+      if (level === 'light') return 1.375;
+      if (level === 'moderate') return 1.55;
+      if (level === 'active') return 1.725;
+      return 1.4;
+    }
+
+    function getBmiCategory(bmi) {
+      if (bmi < 18.5) return 'Underweight';
+      if (bmi < 25) return 'Healthy';
+      if (bmi < 30) return 'Overweight';
+      return 'Obesity';
+    }
+
+    function updateCalculatorUI() {
+      const heightCm = Number(document.getElementById('prefHeightCm').value) || 0;
+      const weightKg = Number(document.getElementById('prefWeightKg').value) || 0;
+      const age = Number(document.getElementById('prefAge').value) || 0;
+      const sex = document.getElementById('prefSex').value || 'prefer-not-to-say';
+      const activityLevel = document.getElementById('prefActivityLevel').value || 'moderate';
+      const goal = document.getElementById('prefGoal').value || 'maintenance';
+
+      let bmi = 0;
+      if (heightCm > 0 && weightKg > 0) {
+        bmi = weightKg / ((heightCm / 100) ** 2);
+      }
+
+      const bmiDisplay = Number.isFinite(bmi) && bmi > 0 ? bmi.toFixed(1) : '—';
+      document.getElementById('bmiValue').textContent = bmiDisplay === '—' ? '—' : `${bmiDisplay}`;
+      document.getElementById('bmiCategory').textContent = Number.isFinite(bmi) && bmi > 0
+        ? `${getBmiCategory(bmi)} range` : 'Your body mass index will show here.';
+
+      let bmr = 0;
+      if (heightCm > 0 && weightKg > 0 && age > 0) {
+        if (sex === 'male') bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
+        else if (sex === 'female') bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+        else bmr = 10 * weightKg + 6.25 * heightCm - 5 * age;
+      }
+
+      const baseCalories = bmr > 0 ? Math.round(bmr * getActivityMultiplier(activityLevel)) : 2200;
+      const goalAdjusted = Math.round(baseCalories * getGoalMultiplier(goal || 'maintenance'));
+      const finalCalories = goalAdjusted || 2200;
+      document.getElementById('calorieValue').textContent = `${finalCalories} kcal`;
+      document.getElementById('calorieNote').textContent = goal === 'cutting'
+        ? 'This is a leaner starting point for fat loss.'
+        : goal === 'bulking'
+          ? 'This is a higher starting point for muscle gain.'
+          : 'This is a steady maintenance estimate.';
+
+      const goalSummaryEl = document.getElementById('goalSummary');
+      if (goal === 'cutting') {
+        goalSummaryEl.innerHTML = `Target: about <strong>${Math.max(1600, finalCalories - 300)}–${finalCalories} kcal/day</strong> to support gradual fat loss.`;
+      } else if (goal === 'bulking') {
+        goalSummaryEl.innerHTML = `Target: about <strong>${finalCalories}–${finalCalories + 250} kcal/day</strong> to support muscle gain.`;
+      } else if (goal) {
+        goalSummaryEl.innerHTML = `Target: about <strong>${finalCalories} kcal/day</strong> for maintenance.`;
+      } else {
+        goalSummaryEl.innerHTML = 'Pick a goal and we’ll suggest a better calorie target for you.';
+      }
+
+    }
+
+    function renderRecommendationPreview() {
+      const prefs = collectPrefsFromForm();
+      const summary = Shared.getRecommendationSummary(prefs);
+      const flags = (prefs.healthFlags || []).map((flag) => flag.replace('-', ' '));
+      const goal = prefs.supplementGoal === 'daily-wellness' ? 'daily wellness' :
+        prefs.supplementGoal === 'gym-performance' ? 'workout support' :
+        prefs.supplementGoal === 'weight-management' ? 'weight / body composition' :
+        prefs.supplementGoal === 'recovery' ? 'recovery' :
+        prefs.supplementGoal === 'daily-energy-vitality' ? 'daily energy and vitality' :
+        prefs.supplementGoal === 'immunity-longevity' ? 'immunity and longevity' :
+        prefs.supplementGoal === 'joint-bone-mobility' ? 'joint and bone mobility' :
+        prefs.supplementGoal === 'stress-sleep-quality' ? 'stress and sleep quality' : 'a simple starter plan';
+
+      const userTypeLabels = {
+        'desk-worker': 'desk worker / student',
+        'busy-professional': 'busy professional',
+        'senior-active-adult': 'senior / active adult',
+        'post-recovery': 'post-recovery wellness',
+      };
+
+      const chips = summary.map((item) => `<span class="pref-chip">${Shared.escapeHtml(item)}</span>`).join('');
+      const extras = flags.length ? `Health cues: ${flags.join(', ')}` : 'No major health flags selected yet.';
+      const bmiText = Number.isFinite(prefs.bmi) && prefs.bmi > 0 ? `BMI ${prefs.bmi.toFixed(1)}` : 'BMI estimate pending';
+      const caloriesText = Number.isFinite(prefs.estimatedCalories) ? `${prefs.estimatedCalories} kcal/day` : 'Daily calories pending';
+
+      document.getElementById('profilePreview').innerHTML = `
+        <div class="space-y-3">
+          <p class="text-brand-text font-semibold">Best fit for you</p>
+          <div class="flex flex-wrap gap-2">${chips}</div>
+          <p class="leading-relaxed">
+            This profile leans toward <strong>${Shared.escapeHtml(goal)}</strong> with a <strong>${Shared.escapeHtml(userTypeLabels[prefs.userType] || prefs.userType || 'beginner')}</strong> approach.
+            ${Shared.escapeHtml(extras)}
+          </p>
+          <p class="text-xs text-brand-muted uppercase tracking-[0.12em]">
+            ${Shared.escapeHtml(bmiText)} · ${Shared.escapeHtml(caloriesText)}
+          </p>
+        </div>
+      `;
+    }
 
     function applyPrefsToForm(prefs) {
-      document.getElementById('prefName').value = prefs.displayName || '';
-      document.getElementById('prefGoal').value = prefs.goal || '';
-      document.getElementById('prefCalories').value = prefs.calories || 2200;
-      document.getElementById('prefProtein').value = prefs.protein || 160;
-      document.getElementById('prefBudget').value = prefs.budget || 2000;
+      const inputs = prefs.profileInputs || {};
+      const valueFor = (id, key) => inputs[id] ?? prefs[key] ?? '';
+      document.getElementById('prefName').value = valueFor('prefName', 'displayName');
+      document.getElementById('prefAge').value = valueFor('prefAge', 'age');
+      document.getElementById('prefSex').value = valueFor('prefSex', 'sex');
+      document.getElementById('prefHeightCm').value = valueFor('prefHeightCm', 'heightCm');
+      document.getElementById('prefWeightKg').value = valueFor('prefWeightKg', 'weightKg');
+      const activityValue = valueFor('prefActivityLevel', 'activityLevel');
+      document.getElementById('prefActivityLevel').value = activityValue;
+      const activityLabel = document.getElementById('activityLevelLabel');
+      const selectedOption = document.querySelector(`.activity-option[data-value="${activityValue}"]`);
+      document.querySelectorAll('.activity-option').forEach((option) => {
+        const isSelected = option.dataset.value === activityValue;
+        option.classList.toggle('is-selected', isSelected);
+        option.setAttribute('aria-selected', String(isSelected));
+      });
+      if (activityLabel && selectedOption) {
+        activityLabel.textContent = selectedOption.dataset.label || selectedOption.textContent.trim();
+      }
+      document.getElementById('prefUserType').value = valueFor('prefUserType', 'userType');
+      document.getElementById('prefSupplementGoal').value = valueFor('prefSupplementGoal', 'supplementGoal');
+      document.getElementById('prefGoal').value = valueFor('prefGoal', 'goal');
+      document.getElementById('prefCalories').value = valueFor('prefCalories', 'calories');
+      document.getElementById('prefProtein').value = valueFor('prefProtein', 'protein');
+      document.getElementById('prefBudget').value = valueFor('prefBudget', 'budget');
       document.getElementById('prefLactoseIntolerant').value = prefs.lactoseIntolerant ? '1' : '0';
       document.getElementById('prefLowArtificial').value = prefs.lowArtificial ? '1' : '0';
       document.getElementById('prefSugarPreference').value = prefs.sugarPreference || 'no-preference';
       document.getElementById('prefLabOnly').value = prefs.preferLab ? '1' : '0';
       document.getElementById('prefUnits').value = prefs.units || 'g';
 
+      document.querySelectorAll('.pref-health').forEach((box) => {
+        box.checked = (prefs.healthFlags || []).includes(box.value);
+      });
+
       document.querySelectorAll('.pref-allergen').forEach((box) => {
         box.checked = (prefs.allergens || []).includes(box.value);
       });
+
+      updateCalculatorUI();
+      renderRecommendationPreview();
     }
 
     function collectPrefsFromForm() {
       const prefs = Shared.loadPrefs();
+      prefs.profileInputs = Object.fromEntries(
+        Object.keys(blankProfileInputs()).map((id) => [id, document.getElementById(id).value])
+      );
       prefs.displayName = document.getElementById('prefName').value.trim();
+      prefs.age = Number(document.getElementById('prefAge').value) || 28;
+      prefs.sex = document.getElementById('prefSex').value || 'prefer-not-to-say';
+      prefs.heightCm = Number(document.getElementById('prefHeightCm').value) || 170;
+      prefs.weightKg = Number(document.getElementById('prefWeightKg').value) || 70;
+      prefs.activityLevel = document.getElementById('prefActivityLevel').value || 'moderate';
+      prefs.userType = document.getElementById('prefUserType').value || 'beginner';
+      prefs.supplementGoal = document.getElementById('prefSupplementGoal').value || 'daily-wellness';
+      prefs.routine = ['sedentary', 'light'].includes(prefs.activityLevel) ? 'low' :
+        ['active', 'very-active'].includes(prefs.activityLevel) ? 'high' : 'moderate';
       prefs.goal = document.getElementById('prefGoal').value || '';
       prefs.calories = Number(document.getElementById('prefCalories').value) || 2200;
       prefs.protein = Number(document.getElementById('prefProtein').value) || 160;
@@ -181,6 +492,7 @@
       prefs.lowSugar = prefs.sugarPreference === 'low-sugar' || prefs.sugarPreference === 'no-sugar';
       prefs.preferLab = document.getElementById('prefLabOnly').value === '1';
       prefs.units = document.getElementById('prefUnits').value || 'g';
+      prefs.healthFlags = [...document.querySelectorAll('.pref-health:checked')].map((el) => el.value);
       prefs.allergens = [...document.querySelectorAll('.pref-allergen:checked')].map((el) => el.value);
       if (prefs.lactoseIntolerant) {
         if (!prefs.allergens.includes('lactose')) prefs.allergens.push('lactose');
@@ -192,28 +504,198 @@
       } else {
         prefs.allergens = prefs.allergens.filter((v) => v !== 'artificial');
       }
+
+      const heightCm = prefs.heightCm || 170;
+      const weightKg = prefs.weightKg || 70;
+      if (heightCm > 0 && weightKg > 0) {
+        prefs.bmi = weightKg / ((heightCm / 100) ** 2);
+      } else {
+        prefs.bmi = 0;
+      }
+      const activityMult = getActivityMultiplier(prefs.activityLevel || 'moderate');
+      const goalMult = getGoalMultiplier(prefs.goal || 'maintenance');
+      const sex = prefs.sex || 'prefer-not-to-say';
+      let bmr = 0;
+      if (prefs.heightCm > 0 && prefs.weightKg > 0 && prefs.age > 0) {
+        if (sex === 'male') bmr = 10 * prefs.weightKg + 6.25 * prefs.heightCm - 5 * prefs.age + 5;
+        else if (sex === 'female') bmr = 10 * prefs.weightKg + 6.25 * prefs.heightCm - 5 * prefs.age - 161;
+        else bmr = 10 * prefs.weightKg + 6.25 * prefs.heightCm - 5 * prefs.age;
+      }
+      prefs.estimatedCalories = bmr > 0 ? Math.round(bmr * activityMult * goalMult) : 2200;
       return prefs;
     }
 
-    applyPrefsToForm(saved);
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+    function saveCurrentPrefs() {
       const prefs = collectPrefsFromForm();
+      if (profileReady && currentUser) {
+        localStorage.setItem('nc_prefs_owner_v1', currentUser.id);
+        sessionStorage.removeItem('nc_guest_prefs_v1');
+      }
       Shared.savePrefs(prefs);
-      const status = document.getElementById('saveStatus');
-      status.classList.remove('hidden');
-      status.textContent = 'Saved. Explore & Compare will use these settings.';
+      if (profileReady && currentUser) {
+        clearTimeout(cloudSaveTimer);
+        cloudSaveTimer = setTimeout(() => saveProfileToCloud(prefs), 700);
+      }
+      return prefs;
+    }
+
+    async function saveProfileToCloud(prefs) {
+      if (!currentUser || !window.SupabaseApp?.client) return false;
+      try {
+        const { error } = await window.SupabaseApp.saveProfile(currentUser.id, prefs);
+        if (error) throw error;
+        localStorage.setItem('nc_prefs_owner_v1', currentUser.id);
+        sessionStorage.removeItem('nc_guest_prefs_v1');
+        Shared.savePrefs(prefs);
+        setProfileStatus('Profile saved to your account.');
+        return true;
+      } catch (error) {
+        setProfileStatus(`Cloud save failed; this device still has your changes. ${error.message}`, true);
+        return false;
+      }
+    }
+
+    async function initializeProfilePersistence() {
+      const client = window.SupabaseApp?.client;
+      if (!client) {
+        saved = localSaved;
+        applyPrefsToForm(saved);
+        profileReady = true;
+        form.inert = false;
+        setProfileStatus('Cloud sync unavailable. Your profile saves on this device.');
+        return;
+      }
+
+      try {
+        const { data: { session }, error: sessionError } = await client.auth.getSession();
+        if (sessionError) throw sessionError;
+        currentUser = session?.user || null;
+
+        if (!currentUser) {
+          if (localSavedOwnerId) {
+            localStorage.removeItem('nc_prefs_v1');
+            localStorage.removeItem('nc_prefs_owner_v1');
+            localSaved = {};
+          }
+          saved = localSaved;
+          applyPrefsToForm(saved);
+          setProfileStatus('Guest profile saved on this device. Sign in to sync across devices.');
+          return;
+        }
+
+        const { data: profile, error } = await window.SupabaseApp.loadProfile(currentUser.id);
+        if (error) throw error;
+
+        if (profile?.preferences) {
+          saved = profile.preferences;
+          localStorage.setItem('nc_prefs_owner_v1', currentUser.id);
+          sessionStorage.removeItem('nc_guest_prefs_v1');
+          Shared.savePrefs(saved);
+          applyPrefsToForm(saved);
+          setProfileStatus('Your saved account profile is loaded.');
+        } else if (Object.keys(localSaved).length && (!localSavedOwnerId || localSavedOwnerId === currentUser.id)) {
+          saved = localSaved;
+          applyPrefsToForm(saved);
+          const migrated = await saveProfileToCloud(saved);
+          if (migrated) setProfileStatus('Your existing profile was saved to your account.');
+        } else {
+          if (localSavedOwnerId && localSavedOwnerId !== currentUser.id) {
+            localStorage.removeItem('nc_prefs_v1');
+            localStorage.removeItem('nc_prefs_owner_v1');
+          }
+          saved = {};
+          applyPrefsToForm(saved);
+          setProfileStatus('Signed in. Your profile will sync when you save it.');
+        }
+      } catch (error) {
+        if (currentUser && localSavedOwnerId && localSavedOwnerId !== currentUser.id) {
+          localStorage.removeItem('nc_prefs_v1');
+          localStorage.removeItem('nc_prefs_owner_v1');
+          saved = {};
+        } else {
+          saved = localSaved;
+        }
+        applyPrefsToForm(saved);
+        setProfileStatus(`Cloud profile unavailable; this device still works. ${error.message}`, true);
+      } finally {
+        profileReady = true;
+        form.inert = false;
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const prefs = saveCurrentPrefs();
+      clearTimeout(cloudSaveTimer);
+      if (currentUser) {
+        await saveProfileToCloud(prefs);
+      } else {
+        setProfileStatus('Saved for this tab. Refreshing clears it; sign in to keep it.');
+      }
+      updateCalculatorUI();
+      renderRecommendationPreview();
+      return prefs;
     });
 
-    document.getElementById('resetProfile').addEventListener('click', () => {
-      const defaultPrefs = { ...Shared.DEFAULT_PREFS };
+    form.addEventListener('input', () => {
+      updateCalculatorUI();
+      saveCurrentPrefs();
+      renderRecommendationPreview();
+    });
+    form.addEventListener('change', () => {
+      updateCalculatorUI();
+      saveCurrentPrefs();
+      renderRecommendationPreview();
+    });
+
+    document.getElementById('activityTrigger')?.addEventListener('click', () => {
+      const menu = document.getElementById('activityMenu');
+      const trigger = document.getElementById('activityTrigger');
+      const isOpen = menu.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.activity-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        const value = option.dataset.value;
+        const label = option.dataset.label || option.textContent.trim();
+        const hidden = document.getElementById('prefActivityLevel');
+        hidden.value = value;
+        document.getElementById('activityLevelLabel').textContent = label;
+        document.querySelectorAll('.activity-option').forEach((item) => {
+          const isSelected = item === option;
+          item.classList.toggle('is-selected', isSelected);
+          item.setAttribute('aria-selected', String(isSelected));
+        });
+        document.getElementById('activityMenu').classList.remove('is-open');
+        document.getElementById('activityTrigger').setAttribute('aria-expanded', 'false');
+        saveCurrentPrefs();
+        updateCalculatorUI();
+        renderRecommendationPreview();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const picker = document.getElementById('activityPicker');
+      if (picker && !picker.contains(event.target)) {
+        document.getElementById('activityMenu').classList.remove('is-open');
+        document.getElementById('activityTrigger').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.getElementById('resetProfile').addEventListener('click', async () => {
+      const defaultPrefs = { ...Shared.DEFAULT_PREFS, profileInputs: blankProfileInputs() };
       Shared.savePrefs(defaultPrefs);
       applyPrefsToForm(defaultPrefs);
-      const status = document.getElementById('saveStatus');
-      status.classList.remove('hidden');
-      status.textContent = 'Defaults restored.';
+      const savedPrefs = saveCurrentPrefs();
+      setProfileStatus(currentUser ? 'Defaults restored. Saving to your account…' : 'Defaults restored for this tab.');
+      if (currentUser) {
+        clearTimeout(cloudSaveTimer);
+        await saveProfileToCloud(savedPrefs);
+      }
     });
+
+    void initializeProfilePersistence();
   </script>
 </body>
 </html>

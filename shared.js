@@ -1,13 +1,21 @@
 /**
  * shared.js — Cross-page state, scoring, formatting.
- * Persists prefs + compare cart in localStorage (swap for Supabase auth/profile later).
+ * Stores guest preferences for the current tab and signed-in preferences per account.
  */
 
 const STORE_KEYS = {
   prefs: 'nc_prefs_v1',
+  guestPrefs: 'nc_guest_prefs_v1',
+  prefsOwner: 'nc_prefs_owner_v1',
   compare: 'nc_compare_v1',
   favorites: 'nc_favorites_v1',
 };
+
+if (!localStorage.getItem(STORE_KEYS.prefsOwner)) {
+  localStorage.removeItem(STORE_KEYS.prefs);
+  const navigation = performance.getEntriesByType('navigation')[0];
+  if (navigation?.type === 'reload') sessionStorage.removeItem(STORE_KEYS.guestPrefs);
+}
 
 const DEFAULT_PREFS = {
   goal: '',
@@ -23,6 +31,18 @@ const DEFAULT_PREFS = {
   lactoseIntolerant: false,
   lowArtificial: false,
   sugarPreference: 'no-preference',
+  userType: 'beginner',
+  supplementGoal: 'daily-wellness',
+  routine: 'balanced',
+  experience: 'new',
+  healthFlags: [],
+  age: 28,
+  heightCm: 170,
+  weightKg: 70,
+  sex: 'prefer-not-to-say',
+  activityLevel: 'moderate',
+  bmi: 24.2,
+  estimatedCalories: 2200,
 };
 
 const Shared = (() => {
@@ -40,7 +60,10 @@ const Shared = (() => {
 
   function loadPrefs() {
     try {
-      const raw = JSON.parse(localStorage.getItem(STORE_KEYS.prefs) || '{}');
+      const ownerId = localStorage.getItem(STORE_KEYS.prefsOwner);
+      const storage = ownerId ? localStorage : sessionStorage;
+      const key = ownerId ? STORE_KEYS.prefs : STORE_KEYS.guestPrefs;
+      const raw = JSON.parse(storage.getItem(key) || '{}');
       return normalizePrefs(raw);
     } catch {
       return { ...DEFAULT_PREFS };
@@ -48,7 +71,53 @@ const Shared = (() => {
   }
 
   function savePrefs(prefs) {
-    localStorage.setItem(STORE_KEYS.prefs, JSON.stringify(prefs));
+    const ownerId = localStorage.getItem(STORE_KEYS.prefsOwner);
+    const storage = ownerId ? localStorage : sessionStorage;
+    const key = ownerId ? STORE_KEYS.prefs : STORE_KEYS.guestPrefs;
+    storage.setItem(key, JSON.stringify(prefs));
+  }
+
+  function getRecommendationSummary(prefs = loadPrefs()) {
+    const safe = { ...DEFAULT_PREFS, ...prefs };
+    const summary = [];
+
+    if (safe.userType === 'daily-life') summary.push('Daily-life focused');
+    if (safe.userType === 'gym') summary.push('Gym & performance');
+    if (safe.userType === 'medical') summary.push('Health-sensitive');
+    if (safe.userType === 'beginner') summary.push('Beginner-friendly');
+
+    if (safe.supplementGoal === 'daily-wellness') summary.push('Daily wellness');
+    if (safe.supplementGoal === 'gym-performance') summary.push('Workout support');
+    if (safe.supplementGoal === 'weight-management') summary.push('Weight management');
+    if (safe.supplementGoal === 'recovery') summary.push('Recovery focus');
+    if (safe.supplementGoal === 'not-sure') summary.push('Simple starter picks');
+    if (safe.supplementGoal === 'daily-energy-vitality') summary.push('Daily energy & vitality');
+    if (safe.supplementGoal === 'immunity-longevity') summary.push('Immunity & longevity');
+    if (safe.supplementGoal === 'joint-bone-mobility') summary.push('Joint & bone mobility');
+    if (safe.supplementGoal === 'stress-sleep-quality') summary.push('Stress & sleep quality');
+
+    if (safe.userType === 'desk-worker') summary.push('Desk worker / student');
+    if (safe.userType === 'busy-professional') summary.push('Busy professional');
+    if (safe.userType === 'senior-active-adult') summary.push('Senior / active adult');
+    if (safe.userType === 'post-recovery') summary.push('Post-recovery wellness');
+
+    if (safe.routine === 'low') summary.push('Low-effort routine');
+    if (safe.routine === 'moderate') summary.push('Balanced routine');
+    if (safe.routine === 'high') summary.push('High activity routine');
+
+    const flags = Array.isArray(safe.healthFlags) ? safe.healthFlags : [];
+    if (flags.includes('lactose')) summary.push('Lactose-aware');
+    if (flags.includes('diabetes')) summary.push('Blood sugar aware');
+    if (flags.includes('caffeine')) summary.push('Caffeine-sensitive');
+    if (flags.includes('vegan')) summary.push('Plant-based friendly');
+    if (flags.includes('stomach')) summary.push('Gentle on digestion');
+    if (flags.includes('medical')) summary.push('Doctor-aware choices');
+    if (flags.includes('vitamin-deficiency')) summary.push('Vitamin D / B12 focus');
+    if (flags.includes('joint-discomfort')) summary.push('Joint support focus');
+    if (flags.includes('sleep-stress')) summary.push('Sleep & stress aware');
+    if (flags.includes('desk-brain-fog')) summary.push('Focus support');
+
+    return summary.length ? summary.slice(0, 5) : ['General support'];
   }
 
   function loadCompareIds() {
@@ -182,6 +251,72 @@ const Shared = (() => {
     const purity = servingG > 0 && protein > 0 ? (protein / servingG) * 100 : 0;
     const sodium = (p.sodiumMg || 0) * s;
     const list = [];
+    const productText = [
+      p.name, p.typeLabel, p.subcategory, p.activeName, p.summary,
+      ...(p.bestFor || []), ...(p.actives || []).map((active) => active.name),
+    ].filter(Boolean).join(' ').toLowerCase();
+    const hasAnyTerm = (terms) => terms.some((term) => productText.includes(term));
+    const isCaffeineHeavy = (p.caffeineMg || 0) >= 150;
+    const profileTargets = {
+      'vitamin-deficiency': {
+        label: 'Vitamin D / B12 fit',
+        matches: ['vitamin d', 'b12', 'multivitamin'],
+        categories: ['multi'],
+      },
+      'joint-discomfort': {
+        label: 'Joint support fit',
+        matches: ['collagen', 'glucosamine', 'omega-3', 'fish oil', 'joint', 'knee'],
+        categories: ['collagen', 'omega'],
+      },
+      'sleep-stress': {
+        label: 'Sleep / stress fit',
+        matches: ['ashwagandha', 'magnesium glycinate', 'glycinate', 'glycine', 'magnesium'],
+        categories: [],
+      },
+      'desk-brain-fog': {
+        label: 'Focus support fit',
+        matches: ['l-theanine', 'theanine', 'electrolyte', 'nootropic'],
+        categories: [],
+      },
+      'daily-energy-vitality': {
+        label: 'Energy / vitality fit',
+        matches: ['b12', 'vitamin d', 'electrolyte', 'energy'],
+        categories: ['multi'],
+      },
+      'immunity-longevity': {
+        label: 'Immunity / longevity fit',
+        matches: ['multivitamin', 'vitamin c', 'vitamin d', 'omega-3', 'fish oil'],
+        categories: ['multi', 'omega'],
+      },
+      'joint-bone-mobility': {
+        label: 'Joint / bone mobility fit',
+        matches: ['collagen', 'glucosamine', 'omega-3', 'fish oil', 'joint'],
+        categories: ['collagen', 'omega'],
+      },
+      'stress-sleep-quality': {
+        label: 'Stress / sleep fit',
+        matches: ['ashwagandha', 'magnesium glycinate', 'glycinate', 'glycine', 'magnesium'],
+        categories: [],
+      },
+    };
+    const selectedTargets = [
+      ...(Array.isArray(prefs.healthFlags) ? prefs.healthFlags : []),
+      prefs.supplementGoal,
+    ];
+    [...new Set(selectedTargets)].forEach((target) => {
+      const definition = profileTargets[target];
+      if (!definition) return;
+      const isMatch = definition.categories.includes(p.category) || hasAnyTerm(definition.matches);
+      const score = isMatch ? 5 :
+        ['sleep-stress', 'stress-sleep-quality'].includes(target) && isCaffeineHeavy ? 1 : 2.5;
+      list.push({
+        key: `profile-${target}`,
+        label: definition.label,
+        display: isMatch ? 'Relevant match' : isCaffeineHeavy && score === 1 ? 'High caffeine' : 'No direct match',
+        score,
+        weight: 1.2,
+      });
+    });
 
     if (['whey', 'plant', 'gainer', 'collagen'].includes(p.category)) {
       const proteinBest = p.category === 'gainer' ? 45 : p.category === 'collagen' ? 12 : 28;
@@ -410,6 +545,7 @@ const Shared = (() => {
   return {
     loadPrefs,
     savePrefs,
+    getRecommendationSummary,
     loadCompareIds,
     saveCompareIds,
     loadFavorites,

@@ -776,9 +776,63 @@ function renderTray() {
 
 function showView(name) {
   state.view = name;
-  document.getElementById('viewExplore').classList.toggle('hidden', name !== 'explore');
-  document.getElementById('viewCompare').classList.toggle('hidden', name !== 'compare');
+  const viewExplore = document.getElementById('viewExplore');
+  const viewCompare = document.getElementById('viewCompare');
+  if (viewExplore) viewExplore.classList.toggle('hidden', name !== 'explore');
+  if (viewCompare) viewCompare.classList.toggle('hidden', name !== 'compare');
   if (name === 'compare') renderCompare();
+}
+
+function getCompareMatches(query = '') {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+
+  return state.catalog.filter((p) => {
+    const haystack = [p.name, p.code, p.brand, p.typeLabel, p.summary, p.subcategory].join(' ').toLowerCase();
+    return haystack.includes(q);
+  }).slice(0, 8);
+}
+
+function renderCompareSuggestions(slot, query = '') {
+  const inputId = slot === 'A' ? 'searchSlotA' : 'searchSlotB';
+  const listId = slot === 'A' ? 'suggestA' : 'suggestB';
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+  if (!input || !list) return;
+
+  const matches = getCompareMatches(query);
+  if (!matches.length) {
+    list.innerHTML = '<li class="px-3 py-2 text-xs text-brand-muted">No matches</li>';
+    list.classList.remove('hidden');
+    return;
+  }
+
+  list.innerHTML = matches
+    .map(
+      (p) => `
+        <li>
+          <button type="button" class="w-full text-left px-3 py-2 hover:bg-white/5" data-slot-product="${slot}" data-product-id="${p.id}">
+            <span class="font-medium text-brand-text">${escapeHtml(p.name)}</span>
+            <span class="block text-[10px] uppercase tracking-wider text-brand-muted">${escapeHtml(p.code)} · ${escapeHtml(p.brand)}</span>
+          </button>
+        </li>`
+    )
+    .join('');
+
+  list.classList.remove('hidden');
+
+  list.querySelectorAll('[data-slot-product]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const productId = btn.dataset.productId;
+      const next = [...state.compareIds];
+      if (slot === 'A') next[0] = productId;
+      else next[1] = productId;
+      state.compareIds = next;
+      input.value = '';
+      list.classList.add('hidden');
+      renderCompare();
+    });
+  });
 }
 
 function renderCompare() {
@@ -1052,75 +1106,144 @@ function readPrefsFromDOM() {
 }
 
 function initEvents() {
-  document.getElementById('logoHome').addEventListener('click', () => {
-    state.category = 'all';
-    state.brand = null;
-    showView('explore');
-    renderExplore();
-  });
-  document.getElementById('viewAllCats').addEventListener('click', () => {
-    state.category = 'all';
-    state.brand = null;
-    renderExplore();
+  const logoHome = document.getElementById('logoHome');
+  if (logoHome) {
+    logoHome.addEventListener('click', () => {
+      state.category = 'all';
+      state.brand = null;
+      showView('explore');
+      renderExplore();
+    });
+  }
+
+  const viewAllCats = document.getElementById('viewAllCats');
+  if (viewAllCats) {
+    viewAllCats.addEventListener('click', () => {
+      state.category = 'all';
+      state.brand = null;
+      renderExplore();
+    });
+  }
+
+  const prefsBtn = document.getElementById('prefsBtn');
+  if (prefsBtn) prefsBtn.addEventListener('click', () => openPrefs(true));
+  const prefsClose = document.getElementById('prefsClose');
+  if (prefsClose) prefsClose.addEventListener('click', () => openPrefs(false));
+  const prefsBackdrop = document.getElementById('prefsBackdrop');
+  if (prefsBackdrop) prefsBackdrop.addEventListener('click', () => openPrefs(false));
+  const prefsApply = document.getElementById('prefsApply');
+  if (prefsApply) {
+    prefsApply.addEventListener('click', () => {
+      readPrefsFromDOM();
+      openPrefs(false);
+      if (state.view === 'compare') renderCompare();
+      else renderExplore();
+    });
+  }
+
+  const detailClose = document.getElementById('detailClose');
+  if (detailClose) detailClose.addEventListener('click', closeDetail);
+  const detailBackdrop = document.getElementById('detailBackdrop');
+  if (detailBackdrop) detailBackdrop.addEventListener('click', closeDetail);
+
+  ['A', 'B'].forEach((slot) => {
+    const input = document.getElementById(`searchSlot${slot}`);
+    const list = document.getElementById(`suggest${slot}`);
+    if (!input || !list) return;
+
+    input.addEventListener('input', (e) => renderCompareSuggestions(slot, e.target.value));
+    input.addEventListener('focus', () => renderCompareSuggestions(slot, input.value));
+    input.addEventListener('blur', () => setTimeout(() => list.classList.add('hidden'), 120));
   });
 
-  document.getElementById('prefsBtn').addEventListener('click', () => openPrefs(true));
-  document.getElementById('prefsClose').addEventListener('click', () => openPrefs(false));
-  document.getElementById('prefsBackdrop').addEventListener('click', () => openPrefs(false));
-  document.getElementById('prefsApply').addEventListener('click', () => {
-    readPrefsFromDOM();
-    openPrefs(false);
-    if (state.view === 'compare') renderCompare();
-    else renderExplore();
-  });
+  const globalSearch = document.getElementById('globalSearch');
+  if (globalSearch) {
+    globalSearch.addEventListener('input', (e) => {
+      state.search = e.target.value;
+      renderProducts();
+    });
+  }
 
-  document.getElementById('detailClose').addEventListener('click', closeDetail);
-  document.getElementById('detailBackdrop').addEventListener('click', closeDetail);
+  const sortBy = document.getElementById('sortBy');
+  if (sortBy) {
+    sortBy.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      renderProducts();
+    });
+  }
 
-  document.getElementById('globalSearch').addEventListener('input', (e) => {
-    state.search = e.target.value;
-    renderProducts();
-  });
-  document.getElementById('sortBy').addEventListener('change', (e) => {
-    state.sort = e.target.value;
-    renderProducts();
-  });
-  document.getElementById('filterToggle').addEventListener('click', () => {
-    document.getElementById('filterPanel').classList.toggle('hidden');
-  });
-  document.getElementById('filterSafeOnly').addEventListener('change', (e) => {
-    state.filterSafeOnly = e.target.checked;
-    renderProducts();
-  });
-  document.getElementById('filterInBudget').addEventListener('change', (e) => {
-    state.filterInBudget = e.target.checked;
-    renderProducts();
-  });
-  document.getElementById('filterLabOnly').addEventListener('change', (e) => {
-    state.filterLabOnly = e.target.checked;
-    renderProducts();
-  });
-  document.getElementById('filterNoProp').addEventListener('change', (e) => {
-    state.filterNoProp = e.target.checked;
-    renderProducts();
-  });
+  const filterToggle = document.getElementById('filterToggle');
+  if (filterToggle) {
+    filterToggle.addEventListener('click', () => {
+      const panel = document.getElementById('filterPanel');
+      if (panel) panel.classList.toggle('hidden');
+    });
+  }
 
-  document.getElementById('navCompare').addEventListener('click', () => {
-    if (state.compareIds.length >= 2) showView('compare');
-    else renderTray();
-  });
-  document.getElementById('trayGo').addEventListener('click', () => {
-    if (state.compareIds.length >= 2) showView('compare');
-  });
-  document.getElementById('trayClear').addEventListener('click', () => {
-    state.compareIds = [];
-    renderTray();
-    renderProducts();
-  });
-  document.getElementById('backToExplore').addEventListener('click', () => {
-    showView('explore');
-    renderExplore();
-  });
+  const filterSafeOnly = document.getElementById('filterSafeOnly');
+  if (filterSafeOnly) {
+    filterSafeOnly.addEventListener('change', (e) => {
+      state.filterSafeOnly = e.target.checked;
+      renderProducts();
+    });
+  }
+
+  const filterInBudget = document.getElementById('filterInBudget');
+  if (filterInBudget) {
+    filterInBudget.addEventListener('change', (e) => {
+      state.filterInBudget = e.target.checked;
+      renderProducts();
+    });
+  }
+
+  const filterLabOnly = document.getElementById('filterLabOnly');
+  if (filterLabOnly) {
+    filterLabOnly.addEventListener('change', (e) => {
+      state.filterLabOnly = e.target.checked;
+      renderProducts();
+    });
+  }
+
+  const filterNoProp = document.getElementById('filterNoProp');
+  if (filterNoProp) {
+    filterNoProp.addEventListener('change', (e) => {
+      state.filterNoProp = e.target.checked;
+      renderProducts();
+    });
+  }
+
+  const navCompare = document.getElementById('navCompare');
+  if (navCompare) {
+    navCompare.addEventListener('click', () => {
+      if (state.compareIds.length >= 2) showView('compare');
+      else renderTray();
+    });
+  }
+
+  const trayGo = document.getElementById('trayGo');
+  if (trayGo) {
+    trayGo.addEventListener('click', () => {
+      if (state.compareIds.length >= 2) showView('compare');
+    });
+  }
+
+  const trayClear = document.getElementById('trayClear');
+  if (trayClear) {
+    trayClear.addEventListener('click', () => {
+      state.compareIds = [];
+      Shared.saveCompareIds([]);
+      renderTray();
+      renderProducts();
+    });
+  }
+
+  const backToExplore = document.getElementById('backToExplore');
+  if (backToExplore) {
+    backToExplore.addEventListener('click', () => {
+      showView('explore');
+      renderExplore();
+    });
+  }
 
   document.querySelectorAll('.norm-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -1135,17 +1258,27 @@ function initEvents() {
 
 async function boot() {
   initEvents();
+
   const badge = document.getElementById('dataModeBadge');
-  badge.textContent = Api.USE_SUPABASE ? 'Supabase' : 'Mock DB';
-  badge.classList.toggle('hidden', false);
+  if (badge) {
+    badge.textContent = Api.USE_SUPABASE ? 'Supabase' : 'Mock DB';
+    badge.classList.toggle('hidden', false);
+  }
 
   try {
     const [categories, supplements] = await Promise.all([Api.getCategories(), Api.getSupplements()]);
     state.categories = categories;
     state.catalog = supplements;
-    renderExplore();
+    state.compareIds = Shared.loadCompareIds();
+
+    if (document.getElementById('categoryGrid') || document.getElementById('productGrid')) {
+      renderExplore();
+    } else if (document.getElementById('compareSlots')) {
+      renderCompare();
+    }
   } catch (err) {
-    document.getElementById('loadingState').textContent = `Failed to load catalog: ${err.message}`;
+    const loading = document.getElementById('loadingState');
+    if (loading) loading.textContent = `Failed to load catalog: ${err.message}`;
   }
 }
 
