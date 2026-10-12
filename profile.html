@@ -46,12 +46,15 @@
   </header>
 
   <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-    <div>
-      <h1 class="font-display font-bold text-2xl text-brand-text">Profile</h1>
-      <p class="text-sm text-brand-muted mt-1">
-        Preferences drive allergen flags, score weighting, and budget checks across Explore &amp; Compare.
-        Saved to your account when signed in. Guest profiles last until you refresh.
-      </p>
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <h1 class="font-display font-bold text-2xl text-brand-text">Profile</h1>
+        <p class="text-sm text-brand-muted mt-1">
+          Preferences drive allergen flags, score weighting, and budget checks across Explore &amp; Compare.
+          Saved to your account when signed in. Guest profiles last until you refresh.
+        </p>
+      </div>
+      <a id="profileAccountLink" href="auth.html" class="btn-outline px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap">Sign in / Create account</a>
     </div>
 
     <form id="profileForm" class="glass rounded-2xl p-5 sm:p-6 space-y-1">
@@ -570,6 +573,9 @@
         const { data: { session }, error: sessionError } = await client.auth.getSession();
         if (sessionError) throw sessionError;
         currentUser = session?.user || null;
+        document.getElementById('profileAccountLink').textContent = currentUser
+          ? 'Account settings'
+          : 'Sign in / Create account';
 
         if (!currentUser) {
           if (localSavedOwnerId) {

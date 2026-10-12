@@ -3,8 +3,11 @@ const authStatus = document.getElementById('authStatus');
 const sessionPanel = document.getElementById('sessionPanel');
 const sessionEmail = document.getElementById('sessionEmail');
 const signOutButton = document.getElementById('signOutButton');
+const signupPendingPanel = document.getElementById('signupPendingPanel');
+const returnToSignInButton = document.getElementById('returnToSignInButton');
 const client = window.SupabaseApp?.client;
 const navigationEntry = performance.getEntriesByType('navigation')[0];
+let awaitingEmailConfirmation = false;
 
 if (!localStorage.getItem('nc_prefs_owner_v1') && navigationEntry?.type === 'reload') {
   sessionStorage.removeItem('nc_guest_prefs_v1');
@@ -18,7 +21,8 @@ function showAuthMessage(message, isError = false) {
 
 function renderSession(session) {
   const signedIn = Boolean(session?.user);
-  authForm.classList.toggle('hidden', signedIn);
+  authForm.classList.toggle('hidden', signedIn || awaitingEmailConfirmation);
+  signupPendingPanel.classList.toggle('hidden', signedIn || !awaitingEmailConfirmation);
   sessionPanel.classList.toggle('hidden', !signedIn);
   sessionEmail.textContent = session?.user?.email || '';
 }
@@ -53,12 +57,14 @@ if (!client) {
           options: { emailRedirectTo: new URL('auth.html', window.location.href).href },
         });
         if (error) throw error;
-        showAuthMessage(data.session
-          ? 'Account created and signed in.'
-          : 'Account created. Check your email to confirm your address, then sign in.');
+        awaitingEmailConfirmation = !data.session;
+        renderSession(data.session);
+        showAuthMessage(data.session ? 'Account created and signed in.' : 'Account created successfully.');
       } else {
-        const { error } = await client.auth.signInWithPassword({ email, password });
+        const { data, error } = await client.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        awaitingEmailConfirmation = false;
+        renderSession(data.session);
         showAuthMessage('You are signed in.');
       }
     } catch (error) {
@@ -68,11 +74,19 @@ if (!client) {
     }
   });
 
+  returnToSignInButton.addEventListener('click', () => {
+    awaitingEmailConfirmation = false;
+    renderSession(null);
+    showAuthMessage('Sign in after confirming your email.');
+  });
+
   signOutButton.addEventListener('click', async () => {
     signOutButton.disabled = true;
     const { error } = await client.auth.signOut();
     signOutButton.disabled = false;
     if (!error) {
+      awaitingEmailConfirmation = false;
+      renderSession(null);
       localStorage.removeItem('nc_prefs_v1');
       localStorage.removeItem('nc_prefs_owner_v1');
       sessionStorage.removeItem('nc_guest_prefs_v1');
