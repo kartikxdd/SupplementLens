@@ -1,0 +1,501 @@
+[
+  {
+    "id": "bigmuscles-xtreme-weight-gainer",
+    "name": "BigMuscles Xtreme Weight Gainer",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 3 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 378,
+      "proteinG": 15,
+      "carbsG": 75,
+      "sugarG": 12,
+      "addedSugarG": 0,
+      "fatG": 2.2,
+      "sodiumMg": 170
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Sucrose",
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Soy Lecithin"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/xtreme-weight-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-smart-gainer",
+    "name": "BigMuscles Smart Gainer",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 60,
+    "nutritionPerServing": {
+      "calories": 222,
+      "proteinG": 12,
+      "carbsG": 40,
+      "sugarG": 4,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 110
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Digestive Enzymes",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/smart-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-xtreme-muscle-fusion",
+    "name": "BigMuscles Xtreme Muscle Fusion",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 75,
+    "nutritionPerServing": {
+      "calories": 280,
+      "proteinG": 22,
+      "carbsG": 44,
+      "sugarG": 5,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 140
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Calcium Caseinate",
+      "Cocoa Powder",
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/xtreme-muscle-fusion",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-quick-mass-gainer",
+    "name": "BigMuscles Quick Mass Gainer",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 75,
+    "nutritionPerServing": {
+      "calories": 282,
+      "proteinG": 15,
+      "carbsG": 52,
+      "sugarG": 6,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 150
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Milk Solids",
+      "Cocoa Powder",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/quick-mass-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-mass-forge",
+    "name": "BigMuscles Mass Forge",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 75,
+    "nutritionPerServing": {
+      "calories": 285,
+      "proteinG": 18,
+      "carbsG": 50,
+      "sugarG": 5,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 145
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Blend",
+      "Cocoa Powder",
+      "Creatine Monohydrate",
+      "L-Glutamine"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/mass-forge",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-mass-gainer",
+    "name": "AS-IT-IS ATOM Mass Gainer",
+    "brand": "AS-IT-IS",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 375,
+      "proteinG": 20,
+      "carbsG": 70,
+      "sugarG": 4,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 160
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Milk Solids",
+      "Cocoa Powder",
+      "Creatine Monohydrate",
+      "Digestive Enzymes",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-mass-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-weight-gainer",
+    "name": "AS-IT-IS ATOM Weight Gainer",
+    "brand": "AS-IT-IS",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 380,
+      "proteinG": 15,
+      "carbsG": 75,
+      "sugarG": 6,
+      "addedSugarG": 0,
+      "fatG": 2.2,
+      "sodiumMg": 150
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Sucrose",
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Sunflower Lecithin",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-weight-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-gold-mass-gainer",
+    "name": "Nakpro Gold Mass Gainer",
+    "brand": "Nakpro",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 376,
+      "proteinG": 20,
+      "carbsG": 71,
+      "sugarG": 5,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 170
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Skimmed Milk Powder",
+      "Cocoa Powder",
+      "Creatine Monohydrate",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-gold-mass-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-gold-weight-gainer",
+    "name": "Nakpro Gold Weight Gainer",
+    "brand": "Nakpro",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 380,
+      "proteinG": 15,
+      "carbsG": 74,
+      "sugarG": 8,
+      "addedSugarG": 0,
+      "fatG": 2.2,
+      "sodiumMg": 165
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Sucrose",
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Soy Lecithin"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-gold-weight-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pure-creatine-monohydrate",
+    "name": "Nutrabay Pure Creatine Monohydrate",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Micronized Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pure-creatine-monohydrate/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

@@ -1,0 +1,399 @@
+[
+  {
+    "id": "gnc-mega-men-50-multivitamin-veg",
+    "name": "GNC Mega Men 50+ Multivitamin (Veg)",
+    "brand": "GNC",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.4,
+    "nutritionPerServing": {
+      "calories": 5,
+      "proteinG": 0.3,
+      "carbsG": 1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Vegetarian Multivitamin Blend",
+      "Prostate Health Blend",
+      "Antioxidants",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://www.gnc.com/mens-vitamins/351650.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-mega-men-sport-veg-60-tablets",
+    "name": "GNC Mega Men Sport Veg — 60 Tablets",
+    "brand": "GNC",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.5,
+    "nutritionPerServing": {
+      "calories": 6,
+      "proteinG": 0.4,
+      "carbsG": 1.1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 8
+    },
+    "ingredients": [
+      "Sport Multivitamin Blend",
+      "Amino Acid Blend",
+      "Energy & Metabolism Blend",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://www.gnc.com/mens-vitamins/351660.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-pure-korean-marine-collagen-peptides",
+    "name": "Wellbeing Nutrition Pure Korean Marine Collagen Peptides",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Unflavoured, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 30,
+      "proteinG": 7.5,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 15
+    },
+    "ingredients": [
+      "Hydrolyzed Korean Marine Collagen Peptides (Type I & III)"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/pure-korean-marine-collagen",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-glow-korean-marine-collagen",
+    "name": "Wellbeing Nutrition Glow Korean Marine Collagen",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Japanese Matcha & Rose, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 32,
+      "proteinG": 7.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 18
+    },
+    "ingredients": [
+      "Korean Marine Collagen Peptides",
+      "Hyaluronic Acid",
+      "Matcha Green Tea Extract",
+      "Rose Petal Extract",
+      "Vitamin C"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/glow-korean-marine-collagen",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-beauty-korean-marine-collagen",
+    "name": "Wellbeing Nutrition Beauty Korean Marine Collagen",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Berries & Mint, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 32,
+      "proteinG": 7.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 18
+    },
+    "ingredients": [
+      "Korean Marine Collagen Peptides",
+      "Hyaluronic Acid",
+      "Biotin",
+      "Vitamin C",
+      "Natural Berry Flavour"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/beauty-korean-marine-collagen",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-matcha-collagen",
+    "name": "Wellbeing Nutrition Matcha Collagen",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Matcha, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 31,
+      "proteinG": 7.3,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 16
+    },
+    "ingredients": [
+      "Korean Marine Collagen Peptides",
+      "Ceremonial Grade Japanese Matcha",
+      "Vitamin C"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/matcha-collagen",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-vegan-pro-collagen",
+    "name": "Wellbeing Nutrition Vegan Pro Collagen",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Builder Formula, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 36,
+      "proteinG": 6.5,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.5,
+      "sodiumMg": 25
+    },
+    "ingredients": [
+      "Pea Protein Isolate",
+      "Sesbania Agati Extract (Biotin)",
+      "Amla Extract (Vitamin C)",
+      "Bamboo Shoot Extract (Silica)",
+      "Hyaluronic Acid"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://wellbeingnutrition.com/products/vegan-pro-collagen",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-skin-glow-collagen-powder",
+    "name": "Neuherbs Skin Glow Collagen Powder",
+    "brand": "Neuherbs",
+    "variant": "Orange Flavour, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 30,
+      "proteinG": 6,
+      "carbsG": 1.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 20
+    },
+    "ingredients": [
+      "Marine Collagen Peptides",
+      "Glutathione",
+      "Vitamin C",
+      "Hyaluronic Acid",
+      "Natural Orange Extract"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/skin-glow-collagen-powder",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "neuherbs-veg-collagen-powder-with-antioxidants",
+    "name": "Neuherbs Veg Collagen Powder with Antioxidants",
+    "brand": "Neuherbs",
+    "variant": "Mixed Fruit, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 28,
+      "proteinG": 5,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 22
+    },
+    "ingredients": [
+      "Plant-Based Collagen Builder Blend",
+      "Sesbania Extract",
+      "Amla Extract",
+      "Green Tea Extract",
+      "Hyaluronic Acid"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://neuherbs.com/products/veg-collagen-powder-with-antioxidants",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-marine-collagen-powder-orange",
+    "name": "GNC Marine Collagen Powder Orange",
+    "brand": "GNC",
+    "variant": "Orange, 200 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 30,
+      "proteinG": 7,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 15
+    },
+    "ingredients": [
+      "Hydrolyzed Marine Collagen",
+      "Vitamin C",
+      "Hyaluronic Acid",
+      "Citric Acid",
+      "Orange Flavor"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://www.gnc.com/collagen/352910.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

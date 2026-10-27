@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookmarks — SupplementLens</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { bg: '#0B0F12', surface: '#141A1F', border: '#2A343D', text: '#E8ECEF', muted: '#8A99A6', sage: '#2DD4BF' },
+          },
+          fontFamily: {
+            display: ['"DM Sans"', 'system-ui', 'sans-serif'],
+            body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand-lockup">
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
+        <span>
+          <span class="brand-name">SupplementLens</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
+        <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
+        <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
+        <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
+        <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-brand-sage mb-2">Your shortlist</p>
+        <h1 class="font-display font-bold text-2xl text-brand-text">Bookmarks</h1>
+        <p class="text-sm text-brand-muted mt-1">Products you saved while exploring.</p>
+      </div>
+      <a href="explore.html" class="btn-outline text-sm px-3 py-2 rounded-lg">Explore products</a>
+    </div>
+
+    <p id="bookmarksStatus" class="text-sm text-brand-muted py-8 text-center" role="status">Loading bookmarks…</p>
+    <div id="bookmarksGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-4"></div>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="shared.js"></script>
+  <script src="bookmarks.js"></script>
+</body>
+</html>

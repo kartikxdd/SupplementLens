@@ -1,0 +1,476 @@
+[
+  {
+    "id": "nakpro-soy-protein-isolate",
+    "name": "Nakpro Soy Protein Isolate",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 112,
+      "proteinG": 26,
+      "carbsG": 1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.5,
+      "sodiumMg": 240
+    },
+    "ingredients": [
+      "Soy Protein Isolate"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-soy-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "soy"
+    ],
+    "mayContain": [
+      "milk"
+    ],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "soy"
+      ],
+      "mayContain": [
+        "milk"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-plant-protein-powder",
+    "name": "Nakpro Plant Protein Powder",
+    "brand": "Nakpro",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 130,
+      "proteinG": 24,
+      "carbsG": 4,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 210
+    },
+    "ingredients": [
+      "Pea Protein Isolate",
+      "Brown Rice Protein",
+      "Cocoa Powder",
+      "Xanthan Gum",
+      "Stevia"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-plant-protein-powder",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-pea-protein-isolate",
+    "name": "Nakpro Pea Protein Isolate",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 115,
+      "proteinG": 25,
+      "carbsG": 1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.2,
+      "sodiumMg": 250
+    },
+    "ingredients": [
+      "Pea Protein Isolate"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-pea-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "naturaltein-natural-plant-protein",
+    "name": "Naturaltein Natural Plant Protein",
+    "brand": "Naturaltein",
+    "variant": "Rich Chocolate, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 132,
+      "proteinG": 24,
+      "carbsG": 3.2,
+      "sugarG": 0.5,
+      "addedSugarG": 0,
+      "fatG": 1.8,
+      "sodiumMg": 180
+    },
+    "ingredients": [
+      "European Pea Protein Isolate",
+      "Brown Rice Protein",
+      "Cocoa Powder",
+      "Stevia Extract",
+      "Natural Chocolate Flavour"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://naturaltein.in/products/natural-plant-protein",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-plant-protein-isolate-pea-brown-rice",
+    "name": "BigMuscles Plant Protein Isolate — Pea & Brown Rice",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 134,
+      "proteinG": 25,
+      "carbsG": 3.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 190
+    },
+    "ingredients": [
+      "Pea Protein Isolate",
+      "Brown Rice Protein Isolate",
+      "Cocoa Powder",
+      "Stevia",
+      "Himalayan Pink Salt"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/plant-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "origin-daily-plant-protein",
+    "name": "Origin Daily Plant Protein",
+    "brand": "Origin Nutrition",
+    "variant": "Madagascar Vanilla, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 130,
+      "proteinG": 25,
+      "carbsG": 3,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 200
+    },
+    "ingredients": [
+      "Golden Pea Protein Isolate",
+      "Cold Pressed Organic Hemp Seed Protein",
+      "Natural Vanilla Flavour",
+      "Stevia Extract"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://originnutrition.in/products/daily-plant-protein",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-mamoth-gainer",
+    "name": "BigMuscles Mamoth Gainer",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 3 kg",
+    "servingSizeG": 75,
+    "nutritionPerServing": {
+      "calories": 280,
+      "proteinG": 15,
+      "carbsG": 52,
+      "sugarG": 8,
+      "addedSugarG": 0,
+      "fatG": 2.5,
+      "sodiumMg": 160
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Skimmed Milk Powder",
+      "Cocoa Powder",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/mamoth-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-real-mass-gainer",
+    "name": "BigMuscles Real Mass Gainer",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 75,
+    "nutritionPerServing": {
+      "calories": 285,
+      "proteinG": 15,
+      "carbsG": 54,
+      "sugarG": 6,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 150
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Whey Protein Concentrate",
+      "Whole Milk Powder",
+      "Cocoa Powder",
+      "Creatine Monohydrate",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/real-mass-gainer",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-body-fuel-hardcore",
+    "name": "BigMuscles Body Fuel Hardcore",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 3 kg",
+    "servingSizeG": 100,
+    "nutritionPerServing": {
+      "calories": 374,
+      "proteinG": 20,
+      "carbsG": 70,
+      "sugarG": 10,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 180
+    },
+    "ingredients": [
+      "Maltodextrin",
+      "Sucrose",
+      "Whey Protein Concentrate",
+      "Calcium Caseinate",
+      "Cocoa Powder",
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/body-fuel-hardcore",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-lean-gain",
+    "name": "BigMuscles Lean Gain",
+    "brand": "BigMuscles",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 50,
+    "nutritionPerServing": {
+      "calories": 185,
+      "proteinG": 18,
+      "carbsG": 26,
+      "sugarG": 3,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 130
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Maltodextrin",
+      "Skimmed Milk Powder",
+      "Cocoa Powder",
+      "L-Glutamine",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy",
+      "gluten",
+      "tree nuts"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/lean-gain",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "milk",
+      "soy"
+    ],
+    "mayContain": [
+      "gluten",
+      "tree nuts"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "milk",
+        "soy"
+      ],
+      "mayContain": [
+        "gluten",
+        "tree nuts"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

@@ -1,0 +1,459 @@
+[
+  {
+    "id": "wellbeing-nutrition-multi-omega-for-him-slow",
+    "name": "Wellbeing Nutrition Multi + Omega for Him Slow",
+    "brand": "Wellbeing Nutrition",
+    "variant": "60 Capsules",
+    "servingSizeG": 1.5,
+    "nutritionPerServing": {
+      "calories": 14,
+      "proteinG": 0.5,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Multivitamin Blend",
+      "Omega-3 Fish Oil",
+      "Amino Acids",
+      "Plant Extracts",
+      "Capsule Shell"
+    ],
+    "allergens": [
+      "fish",
+      "soy"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/multi-omega-for-him-slow",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-multi-omega-50-slow",
+    "name": "Wellbeing Nutrition Multi + Omega 50+ Slow",
+    "brand": "Wellbeing Nutrition",
+    "variant": "60 Capsules",
+    "servingSizeG": 1.5,
+    "nutritionPerServing": {
+      "calories": 14,
+      "proteinG": 0.5,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Senior Multivitamin Blend",
+      "Omega-3 Fish Oil",
+      "Joint Support Extracts",
+      "Capsule Shell"
+    ],
+    "allergens": [
+      "fish",
+      "soy"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/multi-omega-50-slow",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-melts-multivitamins",
+    "name": "Wellbeing Nutrition Melts Multivitamins",
+    "brand": "Wellbeing Nutrition",
+    "variant": "30 Oral Strips",
+    "servingSizeG": 0.2,
+    "nutritionPerServing": {
+      "calories": 1,
+      "proteinG": 0,
+      "carbsG": 0.2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Pullulan",
+      "Plant Cellulose",
+      "Multivitamin Extract Blend",
+      "Natural Mint Flavor",
+      "Stevia"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/melts-multivitamins",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-multivitamin-daily-tablets",
+    "name": "Neuherbs Multivitamin Daily Tablets",
+    "brand": "Neuherbs",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.2,
+    "nutritionPerServing": {
+      "calories": 4,
+      "proteinG": 0.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Vitamin and Mineral Blend",
+      "Ginseng Extract",
+      "Antioxidants",
+      "Bulking Agent (INS 460)",
+      "Binding Agent"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/multivitamin-daily-tablets",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-true-vitamin-adult-50",
+    "name": "Neuherbs True Vitamin Adult 50+",
+    "brand": "Neuherbs",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.2,
+    "nutritionPerServing": {
+      "calories": 4,
+      "proteinG": 0.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Senior Multivitamin & Mineral Blend",
+      "Joint Support Blend",
+      "Antioxidants",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/true-vitamin-adult-50-plus",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-true-vitamin-men",
+    "name": "Neuherbs True Vitamin Men",
+    "brand": "Neuherbs",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.2,
+    "nutritionPerServing": {
+      "calories": 4,
+      "proteinG": 0.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Vitamins and Minerals",
+      "Men's Vitality Blend",
+      "Amino Acids",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/true-vitamin-men",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-true-vitamin-women",
+    "name": "Neuherbs True Vitamin Women",
+    "brand": "Neuherbs",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.2,
+    "nutritionPerServing": {
+      "calories": 4,
+      "proteinG": 0.2,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Vitamins and Minerals",
+      "Women's Health Blend",
+      "Superfoods Extract",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/true-vitamin-women",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-select-one-daily-multivitamin",
+    "name": "GNC Select One Daily Multivitamin",
+    "brand": "GNC",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.3,
+    "nutritionPerServing": {
+      "calories": 5,
+      "proteinG": 0.3,
+      "carbsG": 0.9,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Multi-Vitamin and Mineral Complex",
+      "Cellulose",
+      "Stearic Acid",
+      "Magnesium Stearate"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://www.gnc.com/multivitamins/201210.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-select-women-s-one-daily-multivitamin",
+    "name": "GNC Select Women’s One Daily Multivitamin",
+    "brand": "GNC",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.3,
+    "nutritionPerServing": {
+      "calories": 5,
+      "proteinG": 0.3,
+      "carbsG": 0.9,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Women's Vitamin Blend",
+      "Iron",
+      "Folic Acid",
+      "Calcium",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://www.gnc.com/multivitamins/201220.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-select-men-s-one-daily-multivitamin",
+    "name": "GNC Select Men’s One Daily Multivitamin",
+    "brand": "GNC",
+    "variant": "60 Tablets",
+    "servingSizeG": 1.3,
+    "nutritionPerServing": {
+      "calories": 5,
+      "proteinG": 0.3,
+      "carbsG": 0.9,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Men's Vitamin Blend",
+      "Lycopene",
+      "Selenium",
+      "Zinc",
+      "Cellulose"
+    ],
+    "allergens": [
+      "soy",
+      "milk"
+    ],
+    "sourceUrl": "https://www.gnc.com/multivitamins/201230.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy",
+      "milk"
+    ],
+    "allergenNotes": "No direct major allergens added",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy",
+        "milk"
+      ],
+      "notes": "No direct major allergens added",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

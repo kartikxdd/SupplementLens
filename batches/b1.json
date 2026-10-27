@@ -1,0 +1,270 @@
+[
+  {
+    "id": "mb-biozyme-perf-whey-rich-choco-2kg",
+    "name": "Biozyme Performance Whey - Rich Chocolate (2 kg)",
+    "brand": "MuscleBlaze",
+    "variant": "Rich Chocolate, 2 kg",
+    "servingSizeG": 36,
+    "nutritionPerServing": {
+      "calories": 138,
+      "proteinG": 25,
+      "carbsG": 3,
+      "sugarG": 0.5,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 140
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Biozyme Digestive Enzyme Blend (Protease, Amylase, Lactase, Cellulase, Lipase)",
+      "Sodium Chloride",
+      "Emulsifier (INS 322)",
+      "Stabilizer (INS 415)",
+      "Artificial Sweeteners (INS 955, INS 950)"
+    ],
+    "allergens": ["milk", "soy"],
+    "sourceUrl": "https://www.muscleblaze.com/sv/muscleblaze-biozyme-performance-whey/SP-88093",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-whey-protein",
+    "name": "AS-IT-IS ATOM Whey Protein",
+    "brand": "AS-IT-IS",
+    "variant": "Double Rich Chocolate, 1 kg",
+    "servingSizeG": 36,
+    "nutritionPerServing": {
+      "calories": 135,
+      "proteinG": 27,
+      "carbsG": 3.2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 110
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Whey Protein Isolate",
+      "Cocoa Powder",
+      "Digestive Enzyme Blend",
+      "Sucralose",
+      "Sunflower Lecithin"
+    ],
+    "allergens": ["milk", "soy"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-whey-protein",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-one-whey-protein-concentrate",
+    "name": "AS-IT-IS ONE Whey Protein Concentrate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 141,
+      "proteinG": 28,
+      "carbsG": 3.2,
+      "sugarG": 1.5,
+      "addedSugarG": 0,
+      "fatG": 1.8,
+      "sodiumMg": 93
+    },
+    "ingredients": [
+      "Whey Protein Concentrate Powder"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/one-whey-protein-concentrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-one-whey-protein-isolate",
+    "name": "AS-IT-IS ONE Whey Protein Isolate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 130,
+      "proteinG": 30,
+      "carbsG": 0.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.5,
+      "sodiumMg": 75
+    },
+    "ingredients": [
+      "Whey Protein Isolate 90% Powder"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/one-whey-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-whey-protein-isolate",
+    "name": "AS-IT-IS ATOM Whey Protein Isolate",
+    "brand": "AS-IT-IS",
+    "variant": "Double Rich Chocolate, 1 kg",
+    "servingSizeG": 36,
+    "nutritionPerServing": {
+      "calories": 135,
+      "proteinG": 27,
+      "carbsG": 2.0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.0,
+      "sodiumMg": 95
+    },
+    "ingredients": [
+      "Whey Protein Isolate",
+      "Cocoa Powder",
+      "Digestive Enzyme Blend (Fungal Lactase, Protease)",
+      "Sucralose",
+      "Sunflower Lecithin"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-whey-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-pwr-whey-xl",
+    "name": "AS-IT-IS ATOM PWR Whey XL",
+    "brand": "AS-IT-IS",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 138,
+      "proteinG": 24,
+      "carbsG": 5.0,
+      "sugarG": 0.5,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 105
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Maltodextrin",
+      "Cocoa Powder",
+      "Creatine Monohydrate",
+      "Digestive Enzymes",
+      "Sucralose"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-pwr-whey-xl",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-performance-whey",
+    "name": "AS-IT-IS ATOM Performance Whey",
+    "brand": "AS-IT-IS",
+    "variant": "Cafe Latte, 1 kg",
+    "servingSizeG": 36,
+    "nutritionPerServing": {
+      "calories": 136,
+      "proteinG": 25,
+      "carbsG": 3.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.2,
+      "sodiumMg": 100
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Coffee Powder",
+      "Digestive Enzyme Blend",
+      "Sucralose",
+      "Xanthan Gum"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-performance-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-beginners-whey-protein",
+    "name": "AS-IT-IS ATOM Beginners Whey Protein",
+    "brand": "AS-IT-IS",
+    "variant": "Chocolate, 1 kg",
+    "servingSizeG": 32,
+    "nutritionPerServing": {
+      "calories": 124,
+      "proteinG": 20,
+      "carbsG": 6.5,
+      "sugarG": 1.0,
+      "addedSugarG": 0,
+      "fatG": 1.0,
+      "sodiumMg": 85
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Maltodextrin",
+      "Cocoa Powder",
+      "Digestive Enzymes",
+      "Sucralose"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-beginners-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-nitro-whey-creasure",
+    "name": "AS-IT-IS ATOM Nitro Whey with Creasure",
+    "brand": "AS-IT-IS",
+    "variant": "Double Rich Chocolate, 1 kg",
+    "servingSizeG": 38,
+    "nutritionPerServing": {
+      "calories": 142,
+      "proteinG": 27,
+      "carbsG": 4.0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.2,
+      "sodiumMg": 115
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Whey Protein Isolate",
+      "Creasure Micronized Creatine Monohydrate",
+      "Cocoa Powder",
+      "Tribulus Terrestris Extract",
+      "Digestive Enzymes",
+      "Sucralose"
+    ],
+    "allergens": ["milk"],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-nitro-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-titan-whey",
+    "name": "BigMuscles Titan Whey",
+    "brand": "BigMuscles",
+    "variant": "Caffe Latte, 1 kg",
+    "servingSizeG": 33,
+    "nutritionPerServing": {
+      "calories": 128,
+      "proteinG": 24,
+      "carbsG": 4.5,
+      "sugarG": 1.2,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 130
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Whey Protein Isolate",
+      "Coffee Powder",
+      "Digestive Enzymes (Protease, Amylase)",
+      "Sucralose (INS 955)"
+    ],
+    "allergens": ["milk", "soy"],
+    "sourceUrl": "https://bigmusclesnutrition.com/products/titan-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  }
+]

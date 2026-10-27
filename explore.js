@@ -5,6 +5,7 @@
 const state = {
   categories: [],
   catalog: [],
+  brands: [],
   category: 'all',
   brand: null,
   search: '',
@@ -22,6 +23,7 @@ const state = {
   filterGluten: false,
   filterNoArtificial: false,
   filterZeroSugar: false,
+  applyProfileGoals: false,
   favorites: Shared.loadFavorites(),
   prefs: Shared.loadPrefs(),
 };
@@ -32,6 +34,120 @@ function catMeta(id) {
 
 function getProduct(id) {
   return state.catalog.find((p) => p.id === id);
+}
+
+function compareKnownValues(a, b, getValue, direction = 1) {
+  const valueA = getValue(a);
+  const valueB = getValue(b);
+  const knownA = Number.isFinite(valueA);
+  const knownB = Number.isFinite(valueB);
+  if (knownA !== knownB) return knownA ? -1 : 1;
+  return knownA ? (valueA - valueB) * direction : 0;
+}
+
+function smartVerdict(product) {
+  let score = 5;
+  let knownChecks = 0;
+  const missingChecks = [];
+  const deductions = [];
+  const deduct = (label, amount) => {
+    score -= amount;
+    knownChecks += 1;
+    deductions.push({ label, amount });
+  };
+
+  if (Array.isArray(product.cheapFillers)) {
+    if (product.cheapFillers.length) deduct('Cheap fillers', Math.min(1.5, product.cheapFillers.length * 0.5));
+    else knownChecks += 1;
+  } else if (Number.isFinite(product.fillersPct)) {
+    if (product.fillersPct > 0) deduct('Fillers', Math.min(1.5, product.fillersPct / 20));
+    else knownChecks += 1;
+  } else missingChecks.push('Fillers');
+
+  if (Array.isArray(product.sweeteners)) {
+    const artificial = product.sweeteners.filter((name) =>
+      /sucralose|acesulfame|aspartame|saccharin|neotame/i.test(name)
+    );
+    if (artificial.length) deduct('Artificial sweeteners', Math.min(1, artificial.length * 0.5));
+    else knownChecks += 1;
+  } else missingChecks.push('Sweeteners');
+
+  if (Number.isFinite(product.sodiumMg)) {
+    if (product.sodiumMg > 500) deduct('High sodium', Math.min(1, (product.sodiumMg - 500) / 500));
+    else knownChecks += 1;
+  } else missingChecks.push('Sodium');
+
+  const proteinCategory = ['whey', 'plant', 'gainer'].includes(product.category);
+  if (proteinCategory && Number.isFinite(product.protein) && Number.isFinite(product.servingSizeG) && product.servingSizeG > 0) {
+    if (product.protein < 20) {
+      deduct('Low protein yield', Math.min(1.5, (20 - product.protein) / 10));
+    } else {
+      knownChecks += 1;
+    }
+  } else if (proteinCategory) {
+    missingChecks.push('Protein yield');
+  }
+
+  return {
+    score: knownChecks ? Math.max(0, Math.round(score * 10) / 10) : null,
+    knownChecks,
+    totalChecks: missingChecks.length + knownChecks,
+    missingChecks,
+    deductions,
+  };
+}
+
+function compatibilityMatch(product, prefs = state.prefs) {
+  let earned = 0;
+  let possible = 0;
+  const reasons = [];
+  const restrictions = new Set((prefs.allergens || [])
+    .map((value) => String(value).toLowerCase())
+    .filter((value) => value !== 'artificial'));
+  if (prefs.lactoseIntolerant || (prefs.healthFlags || []).includes('lactose')) restrictions.add('lactose');
+  const allergenMatch = Shared.allergenConflicts(product, prefs);
+  const hasUnknownRestriction = restrictions.size > 0 && !allergenMatch.restrictionsKnown;
+  let hasUnknownData = hasUnknownRestriction;
+
+  if (restrictions.size) {
+    possible += 50;
+    if (allergenMatch.conflicts.length) {
+      allergenMatch.conflicts.forEach(({ allergen, type }) => {
+        reasons.push(type === 'may-contain' ? `May contain ${allergen}` : `Contains ${allergen}`);
+      });
+    } else if (allergenMatch.known) {
+      earned += 50;
+    }
+  }
+
+  if (Number.isFinite(prefs.supplementCalorieCap) && prefs.supplementCalorieCap > 0) {
+    possible += 25;
+    if (!Number.isFinite(product.calories)) {
+      hasUnknownData = true;
+    } else if (product.calories <= prefs.supplementCalorieCap) {
+      earned += 25;
+    } else {
+      reasons.push('Exceeds per-serving calorie cap');
+    }
+  }
+
+  if (prefs.goal === 'cutting' || prefs.goal === 'bulking') {
+    possible += 25;
+    const goalFits = prefs.goal === 'cutting'
+      ? product.category !== 'gainer'
+      : ['gainer', 'whey', 'plant', 'creatine', 'amino'].includes(product.category);
+    if (goalFits) earned += 25;
+    else reasons.push(`Less suited to ${prefs.goal}`);
+  }
+
+  return {
+    percent: possible && !hasUnknownData
+      ? Math.round((earned / possible) * 100)
+      : null,
+    reasons,
+    hasConflict: allergenMatch.conflicts.length > 0,
+    hasUnknownRestriction,
+  };
 }
 
 function filteredProducts() {
@@ -50,44 +166,113 @@ function filteredProducts() {
         (p.subcategory || '').toLowerCase().includes(q)
     );
   }
-  if (state.filterSafeOnly) list = list.filter((p) => !Shared.isBlocked(p, state.prefs));
+  if (state.filterSafeOnly) {
+    list = list.filter((p) => !Shared.isBlocked(p, state.prefs) && !compatibilityMatch(p).hasUnknownRestriction);
+  }
   if (state.filterInBudget) {
-    list = list.filter((p) => Shared.productPrice(p, state.prefs) <= state.prefs.budget);
+    list = list.filter((p) => {
+      const price = Shared.productPrice(p, state.prefs);
+      return Number.isFinite(price) && price <= state.prefs.budget;
+    });
   }
   if (state.filterMyProfileGoals) {
     list = list.filter((p) => {
-      const issues = Shared.preferenceIssues(p, state.prefs);
-      const blockedByProfile = issues.some((issue) => issue.startsWith('Not for you') || issue.startsWith('Over budget') || issue.startsWith('High added sugar'));
-      if (blockedByProfile) return false;
-      const fitScore = Shared.overallScore(p, state.prefs).avg;
-      return fitScore >= 3.2;
+      const match = compatibilityMatch(p);
+      return match.percent >= 70 && !match.hasConflict && !match.hasUnknownRestriction;
     });
   }
   if (state.filterLabOnly) list = list.filter((p) => p.thirdPartyTested);
   if (state.filterNoProp) list = list.filter((p) => !p.proprietaryBlend);
   if (state.filterSugarPreference === 'low') {
-    list = list.filter((p) => (p.addedSugar || 0) <= 5);
+    list = list.filter((p) => Number.isFinite(p.addedSugar) && p.addedSugar <= 5);
   }
   if (state.filterSugarPreference === 'zero') {
-    list = list.filter((p) => (p.addedSugar || 0) <= 0);
+    list = list.filter((p) => Number.isFinite(p.addedSugar) && p.addedSugar <= 0);
   }
-  if (state.filterSoy) list = list.filter((p) => !(p.allergens || []).includes('soy'));
-  if (state.filterSoyBased) list = list.filter((p) => (p.allergens || []).includes('soy') || p.category === 'plant');
+  if (state.filterSoy) {
+    list = list.filter((p) => {
+      const disclosure = Shared.allergenDisclosure(p);
+      return disclosure.known &&
+        !disclosure.contains.includes('soy') &&
+        !disclosure.mayContain.includes('soy');
+    });
+  }
+  if (state.filterSoyBased) {
+    list = list.filter((p) => Shared.allergenDisclosure(p).contains.includes('soy'));
+  }
   if (state.filterPlantBased) list = list.filter((p) => p.category === 'plant');
   if (state.filterWhey) list = list.filter((p) => p.category === 'whey');
-  if (state.filterGluten) list = list.filter((p) => !(p.allergens || []).includes('gluten'));
-  if (state.filterNoArtificial) list = list.filter((p) => !(p.allergens || []).includes('artificial') && !p.artificial);
-  if (state.filterZeroSugar) list = list.filter((p) => (p.addedSugar || 0) <= 0);
+  if (state.filterGluten) {
+    list = list.filter((p) => {
+      const disclosure = Shared.allergenDisclosure(p);
+      return disclosure.known &&
+        !disclosure.contains.includes('gluten') &&
+        !disclosure.mayContain.includes('gluten');
+    });
+  }
+  if (state.filterNoArtificial) list = list.filter((p) => p.artificial === false);
+  if (state.filterZeroSugar) list = list.filter((p) => Number.isFinite(p.addedSugar) && p.addedSugar <= 0);
 
   list.sort((a, b) => {
+    if (state.applyProfileGoals) {
+      return (compatibilityMatch(b).percent ?? -1) - (compatibilityMatch(a).percent ?? -1);
+    }
     if (state.sort === 'code') return a.code.localeCompare(b.code);
-    if (state.sort === 'price') return Shared.productPrice(a, state.prefs) - Shared.productPrice(b, state.prefs);
-    if (state.sort === 'sugar') return (a.addedSugar || 0) - (b.addedSugar || 0);
-    if (state.sort === 'protein') return (b.protein || 0) - (a.protein || 0);
-    if (state.sort === 'purity') return (a.fillersPct || 0) - (b.fillersPct || 0);
+    if (state.sort === 'price') return compareKnownValues(a, b, (p) => Shared.productPrice(p, state.prefs));
+    if (state.sort === 'sugar') return compareKnownValues(a, b, (p) => p.addedSugar);
+    if (state.sort === 'protein') return compareKnownValues(a, b, (p) => p.protein, -1);
+    if (state.sort === 'purity') return compareKnownValues(a, b, (p) => p.fillersPct);
     return Shared.overallScore(b, state.prefs).avg - Shared.overallScore(a, state.prefs).avg;
   });
   return list;
+}
+
+function renderSearchSuggestions(query) {
+  const input = document.getElementById('globalSearch');
+  const list = document.getElementById('searchSuggestions');
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) {
+    list.innerHTML = '';
+    list.classList.add('hidden');
+    input.setAttribute('aria-expanded', 'false');
+    return;
+  }
+
+  const matches = state.catalog
+    .filter((product) => state.category === 'all' || product.category === state.category)
+    .filter((product) => !state.brand || product.brand === state.brand)
+    .map((product) => ({
+      product,
+      text: [product.name, product.code, product.brand, product.typeLabel, product.subcategory, catMeta(product.category)?.name]
+        .filter(Boolean).join(' ').toLowerCase(),
+    }))
+    .filter(({ text }) => terms.every((term) => text.includes(term)))
+    .slice(0, 7);
+
+  list.innerHTML = matches.length
+    ? matches.map(({ product }) => `
+      <li role="option">
+        <button type="button" class="search-suggestion" data-search-product="${product.id}">
+          <span class="search-suggestion-name">${Shared.escapeHtml(product.name)}</span>
+          <span class="search-suggestion-meta">${Shared.escapeHtml(product.brand)} · ${Shared.escapeHtml(product.code)}</span>
+        </button>
+      </li>`).join('')
+    : '<li class="search-suggestion-empty">No matching products</li>';
+  list.classList.remove('hidden');
+  input.setAttribute('aria-expanded', 'true');
+
+  list.querySelectorAll('[data-search-product]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const product = state.catalog.find((item) => item.id === button.dataset.searchProduct);
+      if (!product) return;
+      input.value = product.name;
+      state.search = product.name;
+      list.classList.add('hidden');
+      input.setAttribute('aria-expanded', 'false');
+      renderProducts();
+      openDetail(product.id);
+    });
+  });
 }
 
 function topChips(criteria) {
@@ -154,12 +339,16 @@ function renderBrands() {
   const row = document.getElementById('brandRow');
   const pool = state.category === 'all' ? state.catalog : state.catalog.filter((p) => p.category === state.category);
   const brands = [...new Set(pool.map((p) => p.brand))];
+  const brandDetails = new Map(state.brands.map((brand) => [brand.name, brand]));
   row.innerHTML = brands
     .map(
-      (b) =>
-        `<button type="button" class="brand-pill muted ${state.brand === b ? 'active' : ''}" data-brand="${Shared.escapeHtml(b)}">${Shared.escapeHtml(b)}</button>`
+      (name) => {
+        const brand = brandDetails.get(name) || { name, logoUrl: null };
+        return `<button type="button" class="brand-pill muted ${state.brand === name ? 'active' : ''}" data-brand="${Shared.escapeHtml(name)}">${Shared.brandLogoMarkup(brand)}</button>`;
+      }
     )
     .join('');
+  Shared.activateBrandLogos(row);
   row.querySelectorAll('[data-brand]').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.brand = state.brand === btn.dataset.brand ? null : btn.dataset.brand;
@@ -179,7 +368,7 @@ function renderProducts() {
   document.getElementById('productsHeading').textContent = cat ? cat.name : 'Catalog entries';
   document.getElementById('productsSub').textContent = cat
     ? `${cat.short} · category-specific scoring`
-    : `${state.catalog.length} placeholder entries`;
+    : `${state.catalog.length} sourced entries`;
   document.getElementById('productCount').textContent = `${list.length} shown`;
 
   if (!list.length) {
@@ -191,10 +380,17 @@ function renderProducts() {
 
   grid.innerHTML = list
     .map((p) => {
-      const { avg, criteria } = Shared.overallScore(p, state.prefs);
-      const grade = Shared.letterGrade(avg);
+      const verdict = smartVerdict(p);
+      const match = compatibilityMatch(p);
+      const { criteria } = Shared.overallScore(p, state.prefs);
+      const grade = verdict.score == null ? '' : Shared.letterGrade(verdict.score);
       const issues = Shared.preferenceIssues(p, state.prefs);
+      const allergenData = Shared.allergenDisclosure(p);
       const inCompare = compareIds.includes(p.id);
+      const officialUrl = Shared.officialProductUrl(p);
+      const coveragePercent = verdict.totalChecks
+        ? Math.round((verdict.knownChecks / verdict.totalChecks) * 100)
+        : 0;
       const chips = topChips(criteria)
         .map(
           (c) =>
@@ -202,41 +398,58 @@ function renderProducts() {
         )
         .join('');
 
-      const tags = [p.form, p.subcategory, p.thirdPartyTested ? 'lab-tested' : 'unverified', p.proprietaryBlend ? 'proprietary' : null]
+      const tags = [catMeta(p.category)?.name, p.code, p.form, p.subcategory, p.thirdPartyTested ? 'lab-tested' : 'unverified', p.proprietaryBlend ? 'proprietary' : null]
         .filter(Boolean)
         .map((t) => `<span class="meta-tag">${Shared.escapeHtml(t)}</span>`)
         .join('');
 
       return `
         <article class="product-card dense ${inCompare ? 'in-compare' : ''} ${Shared.isBlocked(p, state.prefs) ? 'blocked' : ''}">
-          <div class="product-thumb">
-            <span class="cat-tag">${Shared.escapeHtml(catMeta(p.category)?.name || '')}</span>
-            <span class="thumb-emoji">${p.icon}</span>
-            <span class="code-badge">${Shared.escapeHtml(p.code)}</span>
-          </div>
           <div class="product-body">
             <div class="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <div class="text-[10px] uppercase tracking-wider text-brand-muted">${Shared.escapeHtml(p.brand)} · ${Shared.escapeHtml(p.typeLabel)}</div>
                 <h3 class="product-title">${Shared.escapeHtml(p.name)}</h3>
               </div>
-              <span class="grade-pill grade-${grade}">Rating: ${grade} · ${avg}/5</span>
+              ${verdict.score == null
+                ? `<span class="grade-pill" title="A rating needs at least one known applicable label value.">Smart Verdict unavailable</span>`
+                : `<span class="grade-pill grade-${grade}">${verdict.knownChecks < verdict.totalChecks ? 'Provisional Smart Verdict' : 'Smart Verdict'}: ${verdict.score.toFixed(1)}/5</span>`}
             </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+              ${match.percent == null ? '' : `<span class="meta-tag match-badge">${match.percent}% profile match</span>`}
+              ${match.hasUnknownRestriction ? '<span class="meta-tag">Cannot confirm allergen compatibility</span>' : ''}
+              <span class="meta-tag label-coverage" title="Checks covered by values present in the catalog: ${verdict.knownChecks}/${verdict.totalChecks}. Missing values were not published in the catalog source.">${coveragePercent}% label coverage · ${verdict.knownChecks}/${verdict.totalChecks}</span>
+            </div>
+            ${verdict.score == null
+              ? `<p class="text-[11px] text-brand-muted mt-1">No quality rating: this source does not list ${Shared.escapeHtml(verdict.missingChecks.join(', ').toLowerCase())}. Missing information does not mean those ingredients or values are absent.</p>`
+              : verdict.knownChecks < verdict.totalChecks
+                ? `<p class="text-[11px] text-brand-muted mt-1">Provisional rating from ${verdict.knownChecks} available check${verdict.knownChecks === 1 ? '' : 's'}; source does not list ${Shared.escapeHtml(verdict.missingChecks.join(', ').toLowerCase())}. Missing information is not treated as zero.</p>`
+                : ''}
+            <p class="text-[11px] text-brand-muted mt-1">${verdict.deductions.length
+              ? `Deductions: ${verdict.deductions.map((item) => `${Shared.escapeHtml(item.label)} −${item.amount.toFixed(1)}`).join(' · ')}`
+              : 'No deduction from available label data'}</p>
             <p class="claim-line">${Shared.escapeHtml(p.summary || '')}</p>
             <div class="meta-row">${tags}</div>
             <div class="score-chips">${chips}</div>
             ${
               issues.length
                 ? `<div class="pref-warn">${Shared.escapeHtml(issues[0])}${issues.length > 1 ? ` · +${issues.length - 1} more` : ''}</div>`
-                : `<div class="text-[11px] ok-line">✓ No hard allergen conflict</div>`
+                : allergenData.known
+                  ? `<div class="text-[11px] ok-line">✓ No selected-allergen conflict listed</div>`
+                  : `<div class="text-[11px] text-brand-muted">Allergen information unavailable; compatibility cannot be confirmed</div>`
             }
             <div class="info-strip">
-              <span>Fillers <strong>${p.fillersPct || 0}%</strong></span>
-              <span>Sugar <strong>${p.addedSugar || 0}g</strong></span>
-              <span>Sodium <strong>${p.sodiumMg || 0}mg</strong></span>
-              <span>MSRP <strong>${Shared.money(Shared.productPrice(p, state.prefs), state.prefs.currency)}</strong></span>
+              <span>Protein <strong>${Number.isFinite(p.protein) ? `${p.protein}g` : '—'}</strong></span>
+              <span>Calories <strong>${Number.isFinite(p.calories) ? `${p.calories} kcal` : '—'}</strong></span>
+              <span>Carbs <strong>${Number.isFinite(p.carbs) ? `${p.carbs}g` : '—'}</strong></span>
+              <span>Fat <strong>${Number.isFinite(p.fat) ? `${p.fat}g` : '—'}</strong></span>
+              <span>Fillers <strong>${Number.isFinite(p.fillersPct) ? `${p.fillersPct}%` : '—'}</strong></span>
+              <span>Sugar <strong>${Number.isFinite(p.addedSugar) ? `${p.addedSugar}g` : '—'}</strong></span>
+              <span>Sodium <strong>${Number.isFinite(p.sodiumMg) ? `${p.sodiumMg}mg` : '—'}</strong></span>
+              <span title="${Shared.escapeHtml(p.priceSource || 'Price source not recorded')}">Price <strong>${Shared.money(Shared.productPrice(p, state.prefs), state.prefs.currency)}</strong></span>
             </div>
             <div class="product-actions">
+              ${officialUrl ? `<a class="btn-buy" href="${Shared.escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
               <button type="button" class="btn-compare ${inCompare ? 'is-on' : ''}" data-compare="${p.id}">${inCompare ? 'Added' : 'Compare'}</button>
               <button type="button" class="btn-outline text-xs px-2.5 py-1.5 rounded-md" data-detail="${p.id}">Full dossier</button>
               <button type="button" class="btn-star ${state.favorites.has(p.id) ? 'on' : ''}" data-fav="${p.id}">★</button>
@@ -275,7 +488,7 @@ function renderPrefChips() {
   }
 
   if (state.filterMyProfileGoals) {
-    chips.push('<span class="pref-chip">My profile goals</span>');
+    chips.push('<span class="pref-chip">Profile goals · best matches first</span>');
   }
 
   state.prefs.allergens.forEach((a) => {
@@ -318,9 +531,11 @@ function renderTray() {
 function openDetail(id) {
   const p = getProduct(id);
   if (!p) return;
+  const officialUrl = Shared.officialProductUrl(p);
   const { avg, criteria } = Shared.overallScore(p, state.prefs);
   const grade = Shared.letterGrade(avg);
   const issues = Shared.preferenceIssues(p, state.prefs);
+  const allergenData = Shared.allergenDisclosure(p);
   document.getElementById('detailBody').innerHTML = `
     <div>
       <div class="text-xs text-brand-muted">${Shared.escapeHtml(p.code)} · ${Shared.escapeHtml(p.brand)}</div>
@@ -334,10 +549,21 @@ function openDetail(id) {
       <div class="score-chips">${criteria.map((c) => `<span class="score-chip ${Shared.scoreTone(c.score)}">${Shared.escapeHtml(c.label)}: ${c.score}/5</span>`).join('')}</div>
     </div>
     <div class="detail-block">
+      <h4>Allergen disclosures</h4>
+      <dl class="detail-dl">
+        <div><dt>Contains</dt><dd>${Shared.escapeHtml(allergenData.contains.join(', ') || (allergenData.known ? 'None listed' : 'Not stated'))}</dd></div>
+        <div><dt>May contain</dt><dd>${Shared.escapeHtml(allergenData.mayContain.join(', ') || (allergenData.known ? 'None listed' : 'Not stated'))}</dd></div>
+        <div><dt>Lactose-free</dt><dd>${p.lactoseFree === true ? 'Label says yes' : p.lactoseFree === false ? 'Label says no' : 'Not stated'}</dd></div>
+        <div><dt>Vegan</dt><dd>${p.vegan === true ? 'Label says yes' : p.vegan === false ? 'Label says no' : 'Not stated'}</dd></div>
+        <div><dt>Disclosure source</dt><dd>${Shared.escapeHtml(p.labelDisclosures?.provenance || 'Catalog record; verification status not recorded')}</dd></div>
+      </dl>
+    </div>
+    <div class="detail-block">
       <h4>How to use</h4>
       <p class="text-brand-muted">${Shared.escapeHtml(p.howToUse)}</p>
       <p class="text-xs text-brand-faint mt-1" style="color:var(--brand-faint)">Timing: ${Shared.escapeHtml(p.timing || '—')}</p>
     </div>
+    ${officialUrl ? `<a class="btn-buy w-full justify-center" href="${Shared.escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
     <button type="button" class="btn-teal w-full py-2.5 rounded-xl" data-compare-detail="${p.id}">
       ${Shared.loadCompareIds().includes(p.id) ? 'Already in compare' : 'Add to compare'}
     </button>`;
@@ -369,9 +595,27 @@ function initEvents() {
     state.brand = null;
     renderAll();
   });
-  document.getElementById('globalSearch').addEventListener('input', (e) => {
+  const searchInput = document.getElementById('globalSearch');
+  const searchSuggestions = document.getElementById('searchSuggestions');
+  searchInput.addEventListener('input', (e) => {
     state.search = e.target.value;
+    renderSearchSuggestions(e.target.value);
     renderProducts();
+  });
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim()) renderSearchSuggestions(searchInput.value);
+  });
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchSuggestions.classList.add('hidden');
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.explore-search-panel')) {
+      searchSuggestions.classList.add('hidden');
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
   });
   document.getElementById('sortBy').addEventListener('change', (e) => {
     state.sort = e.target.value;
@@ -385,6 +629,7 @@ function initEvents() {
     if (!el) return;
     el.addEventListener('change', (e) => {
       state[id] = e.target.checked;
+      if (id === 'filterMyProfileGoals') state.applyProfileGoals = e.target.checked;
       renderProducts();
       renderPrefChips();
     });
@@ -410,9 +655,16 @@ async function boot() {
   initEvents();
   try {
     state.prefs = Shared.loadPrefs();
-    const [categories, supplements] = await Promise.all([Api.getCategories(), Api.getSupplements()]);
+    const [categories, supplements, brands] = await Promise.all([
+      Api.getCategories(),
+      Api.getSupplements(),
+      Api.getBrands(),
+    ]);
     state.categories = categories;
     state.catalog = supplements;
+    state.brands = brands;
+    document.getElementById('exploreCategoryTotal').textContent = categories.length;
+    document.getElementById('exploreProductTotal').textContent = supplements.length;
     renderAll();
   } catch (err) {
     document.getElementById('loadingState').textContent = `Failed to load: ${err.message}`;

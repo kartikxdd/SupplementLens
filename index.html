@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SupplementLens — Lab-grade supplement comparison</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,21 +24,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen">
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand-lockup" data-nav="index.html">
-        <span class="logo-badge">NC</span>
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
         <span>
           <span class="brand-name">SupplementLens</span>
-          <span class="brand-tag">Lab-precision scoring</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
         <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
         <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
         <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
         <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
@@ -89,7 +92,7 @@
             <ul class="space-y-2 list-disc pl-4">
               <li>A category-aware comparison engine for gym &amp; nutrition supplements</li>
               <li>A scoring layer for dose honesty, fillers, sugars, allergens, and cost efficiency</li>
-              <li>Built to connect to Supabase later for real product data via API</li>
+              <li>Loads source-attributed catalog data from a local JSON file; Supabase can be wired later</li>
             </ul>
           </div>
           <div>
@@ -97,7 +100,7 @@
             <ul class="space-y-2 list-disc pl-4">
               <li>Medical advice or a substitute for a clinician / dietitian</li>
               <li>A storefront — no checkout, just decision support</li>
-              <li>Finished brand data yet — placeholders until your database is live</li>
+              <li>A complete, live-updating brand database; the local catalog is a small verified starting set</li>
             </ul>
           </div>
         </div>
@@ -108,11 +111,10 @@
   <footer class="site-footer">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 text-xs text-brand-muted flex flex-wrap justify-between gap-2">
       <span>SupplementLens · Lab Precision UI</span>
-      <span>Mock catalog · Supabase-ready API layer</span>
+      <span>Source-attributed local catalog · Supabase-ready API layer</span>
     </div>
   </footer>
 
-  <script src="data.js"></script>
   <script src="api.js"></script>
   <script src="shared.js"></script>
 </body>

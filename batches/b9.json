@@ -1,0 +1,422 @@
+[
+  {
+    "id": "neuherbs-deep-sea-fish-oil-capsules-2500-mg-omega-3",
+    "name": "Neuherbs Deep Sea Fish Oil Capsules — 2500 mg Omega 3",
+    "brand": "Neuherbs",
+    "variant": "2500 mg, 60 Capsules",
+    "servingSizeG": 2.5,
+    "nutritionPerServing": {
+      "calories": 22,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 2.4,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Deep Sea Fish Oil",
+      "Omega-3 Fatty Acids (EPA & DHA)",
+      "Gelatin Capsule Shell",
+      "Glycerin"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/deep-sea-fish-oil-2500mg",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-deep-sea-veg-omega-algae-oil-capsules",
+    "name": "Neuherbs Deep-Sea Veg Omega — Algae Oil Capsules",
+    "brand": "Neuherbs",
+    "variant": "Algae Oil, 60 Capsules",
+    "servingSizeG": 1.2,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 0.1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Marine Algae Oil",
+      "DHA",
+      "EPA",
+      "Plant Cellulose Capsule Shell"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://neuherbs.com/products/deep-sea-veg-omega-algae-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-deep-sea-cod-liver-oil",
+    "name": "Neuherbs Deep Sea Cod Liver Oil",
+    "brand": "Neuherbs",
+    "variant": "60 Capsules",
+    "servingSizeG": 1,
+    "nutritionPerServing": {
+      "calories": 9,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Cod Liver Oil",
+      "Vitamin A",
+      "Vitamin D3",
+      "Gelatin Capsule Shell"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/deep-sea-cod-liver-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-mini-deep-sea-fish-oil-1000-mg",
+    "name": "Neuherbs Mini Deep Sea Fish Oil 1000 mg",
+    "brand": "Neuherbs",
+    "variant": "1000 mg, 60 Capsules",
+    "servingSizeG": 1,
+    "nutritionPerServing": {
+      "calories": 9,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Refined Fish Oil",
+      "EPA",
+      "DHA",
+      "Gelatin Capsule Shell"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/mini-deep-sea-fish-oil-1000mg",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-flaxseed-oil-capsules",
+    "name": "Neuherbs Flaxseed Oil Capsules",
+    "brand": "Neuherbs",
+    "variant": "Omega 3,6,9, 60 Capsules",
+    "servingSizeG": 1,
+    "nutritionPerServing": {
+      "calories": 9,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Organic Flaxseed Oil (Linseed Oil)",
+      "Alpha-Linolenic Acid (ALA)",
+      "Gelatin Capsule Shell"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://neuherbs.com/products/flaxseed-oil-capsules",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-fish-oil-omega-3-capsules-1000mg",
+    "name": "GNC Fish Oil Omega 3 Capsules — 1000mg",
+    "brand": "GNC",
+    "variant": "1000 mg, 90 Capsules",
+    "servingSizeG": 1,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Fish Oil",
+      "EPA",
+      "DHA",
+      "Gelatin",
+      "Glycerin"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://www.gnc.com/fish-oil/350220.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-kids-omega-3-dha-gummies",
+    "name": "GNC Kids Omega 3 DHA Gummies",
+    "brand": "GNC",
+    "variant": "60 Gummies",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 0,
+      "carbsG": 3,
+      "sugarG": 2,
+      "addedSugarG": 2,
+      "fatG": 0,
+      "sodiumMg": 5
+    },
+    "ingredients": [
+      "Glucose Syrup",
+      "Sugar",
+      "Fish Oil",
+      "DHA",
+      "Pectin",
+      "Citric Acid",
+      "Natural Flavors"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://www.gnc.com/kids-vitamins/352210.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-3x-omega-3-pure-triglyceride-30",
+    "name": "GNC 3x Omega-3 Pure Triglyceride 30",
+    "brand": "GNC",
+    "variant": "30 Capsules",
+    "servingSizeG": 1.3,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.3,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Purified Fish Oil (Triglyceride Form)",
+      "EPA",
+      "DHA",
+      "Gelatin",
+      "Glycerin"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://www.gnc.com/omega-3/369910.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "gnc-4x-omega-3-pure-triglyceride-30",
+    "name": "GNC 4x Omega-3 Pure Triglyceride 30",
+    "brand": "GNC",
+    "variant": "30 Capsules",
+    "servingSizeG": 1.4,
+    "nutritionPerServing": {
+      "calories": 13,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.4,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Ultra-Concentrated Fish Oil (Triglyceride)",
+      "EPA",
+      "DHA",
+      "Gelatin",
+      "Glycerin"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://www.gnc.com/omega-3/369920.html",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-multi-omega-for-her-slow",
+    "name": "Wellbeing Nutrition Multi + Omega for Her Slow",
+    "brand": "Wellbeing Nutrition",
+    "variant": "60 Capsules",
+    "servingSizeG": 1.5,
+    "nutritionPerServing": {
+      "calories": 14,
+      "proteinG": 0.5,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Multivitamin Blend",
+      "Omega-3 Fish Oil",
+      "Evening Primrose Oil",
+      "Botanical Extracts",
+      "Capsule Shell"
+    ],
+    "allergens": [
+      "fish",
+      "soy"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/multi-omega-for-her-slow",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

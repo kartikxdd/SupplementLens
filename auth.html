@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Account — SupplementLens</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,21 +24,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand-lockup">
-        <span class="logo-badge">NC</span>
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
         <span>
           <span class="brand-name">SupplementLens</span>
-          <span class="brand-tag">Your account</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" class="nav-link">Home</a>
         <a href="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
         <a href="compare.html" class="nav-link">Compare</a>
         <a href="profile.html" class="nav-link">Profile</a>
         <a href="auth.html" class="nav-link nav-active" aria-current="page">Account</a>

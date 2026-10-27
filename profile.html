@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile — SupplementLens</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,21 +24,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand-lockup">
-        <span class="logo-badge">NC</span>
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
         <span>
           <span class="brand-name">SupplementLens</span>
-          <span class="brand-tag">Your profile</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
         <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
         <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
         <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
         <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
@@ -193,6 +196,11 @@
           <input type="number" id="prefCalories" min="800" max="6000" step="50" />
         </label>
         <label class="field">
+          <span>Maximum calories per supplement serving</span>
+          <input type="number" id="prefSupplementCalorieCap" min="0" max="1000" step="10" />
+          <small class="text-xs text-brand-muted">Set to 0 to skip the calorie-cap check in Explore.</small>
+        </label>
+        <label class="field">
           <span>Protein target (g/day)</span>
           <input type="number" id="prefProtein" min="40" max="400" />
         </label>
@@ -221,6 +229,22 @@
           <label class="health-option"><input type="checkbox" class="pref-health" value="desk-brain-fog" /><span class="health-option-copy"><strong>Desk work / brain fog</strong><small>Prioritizes L-theanine, electrolytes, or nootropics when available.</small></span></label>
         </div>
       </div>
+
+      <fieldset class="field">
+        <legend>Allergies to avoid</legend>
+        <div class="health-options">
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="milk" /><span>Milk / dairy</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="soy" /><span>Soy</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="fish" /><span>Fish</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="shellfish" /><span>Shellfish</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="peanuts" /><span>Peanuts</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="tree nuts" /><span>Tree nuts</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="egg" /><span>Egg</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="wheat" /><span>Wheat</span></label>
+          <label class="health-option"><input type="checkbox" class="pref-allergen" value="gluten" /><span>Gluten</span></label>
+        </div>
+        <small class="text-xs text-brand-muted">Explore checks product “contains” and “may contain” disclosures. Unknown label information is not treated as allergen-free; always verify the package for serious allergies.</small>
+      </fieldset>
 
       <label class="field">
         <span>Are you lactose intolerant?</span>
@@ -277,7 +301,6 @@
     </section>
   </main>
 
-  <script src="data.js"></script>
   <script src="api.js"></script>
   <script src="shared.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -312,7 +335,7 @@
       return {
         prefName: '', prefAge: '', prefSex: '', prefHeightCm: '', prefWeightKg: '',
         prefActivityLevel: '', prefUserType: '', prefSupplementGoal: '', prefGoal: '',
-        prefCalories: '', prefProtein: '', prefBudget: '',
+        prefCalories: '', prefSupplementCalorieCap: '', prefProtein: '', prefBudget: '',
       };
     }
 
@@ -449,6 +472,7 @@
       document.getElementById('prefSupplementGoal').value = valueFor('prefSupplementGoal', 'supplementGoal');
       document.getElementById('prefGoal').value = valueFor('prefGoal', 'goal');
       document.getElementById('prefCalories').value = valueFor('prefCalories', 'calories');
+      document.getElementById('prefSupplementCalorieCap').value = valueFor('prefSupplementCalorieCap', 'supplementCalorieCap');
       document.getElementById('prefProtein').value = valueFor('prefProtein', 'protein');
       document.getElementById('prefBudget').value = valueFor('prefBudget', 'budget');
       document.getElementById('prefLactoseIntolerant').value = prefs.lactoseIntolerant ? '1' : '0';
@@ -486,6 +510,8 @@
         ['active', 'very-active'].includes(prefs.activityLevel) ? 'high' : 'moderate';
       prefs.goal = document.getElementById('prefGoal').value || '';
       prefs.calories = Number(document.getElementById('prefCalories').value) || 2200;
+      const supplementCalorieCap = document.getElementById('prefSupplementCalorieCap').value;
+      prefs.supplementCalorieCap = supplementCalorieCap === '' ? 250 : Number(supplementCalorieCap);
       prefs.protein = Number(document.getElementById('prefProtein').value) || 160;
       prefs.budget = Number(document.getElementById('prefBudget').value) || 2000;
       prefs.currency = 'INR';

@@ -1,0 +1,326 @@
+[
+  {
+    "id": "bigmuscles-magnum-whey",
+    "name": "BigMuscles Magnum Whey",
+    "brand": "BigMuscles",
+    "variant": "Rich Chocolate, 2 kg",
+    "servingSizeG": 39,
+    "nutritionPerServing": {
+      "calories": 148,
+      "proteinG": 25,
+      "carbsG": 4,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 120
+    },
+    "ingredients": [
+      "Whey Protein Isolate",
+      "Whey Protein Concentrate",
+      "Cocoa Powder",
+      "Natural and Artificial Flavors",
+      "Digestive Enzyme Blend",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/magnum-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-clean-protein-100-whey",
+    "name": "BigMuscles Clean Protein 100% Whey",
+    "brand": "BigMuscles",
+    "variant": "Rich Chocolate, 1 kg",
+    "servingSizeG": 34,
+    "nutritionPerServing": {
+      "calories": 132,
+      "proteinG": 27,
+      "carbsG": 2.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 95
+    },
+    "ingredients": [
+      "Whey Protein Concentrate",
+      "Whey Protein Isolate",
+      "Cocoa Powder",
+      "Bromelain Digestive Enzyme",
+      "Stevia Leaf Extract",
+      "Monk Fruit Powder",
+      "Himalayan Pink Salt"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/clean-protein-100-whey",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-clean-protein-100-isolate",
+    "name": "BigMuscles Clean Protein 100% Isolate",
+    "brand": "BigMuscles",
+    "variant": "Rich Chocolate, 2 kg",
+    "servingSizeG": 33,
+    "nutritionPerServing": {
+      "calories": 122,
+      "proteinG": 29,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.5,
+      "sodiumMg": 80
+    },
+    "ingredients": [
+      "Whey Protein Isolate",
+      "Cocoa Powder",
+      "Bromelain Digestive Enzyme",
+      "Stevia Leaf Extract",
+      "Monk Fruit Powder",
+      "Himalayan Salt"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/clean-protein-100-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-gold-whey-isolate",
+    "name": "BigMuscles Gold Whey Isolate",
+    "brand": "BigMuscles",
+    "variant": "Belgian Chocolate, 2 kg",
+    "servingSizeG": 38,
+    "nutritionPerServing": {
+      "calories": 142,
+      "proteinG": 33,
+      "carbsG": 1.2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.8,
+      "sodiumMg": 90
+    },
+    "ingredients": [
+      "Whey Protein Isolate",
+      "Milk Solids",
+      "Cocoa Powder",
+      "Natural Flavor",
+      "Monk Fruit Powder",
+      "Himalayan Salt",
+      "Bromelain Digestive Enzyme"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/gold-whey-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-atom-plant-protein-complex",
+    "name": "AS-IT-IS ATOM Plant Protein Complex",
+    "brand": "AS-IT-IS",
+    "variant": "Chocolate Gourmet, 1 kg",
+    "servingSizeG": 35,
+    "nutritionPerServing": {
+      "calories": 132,
+      "proteinG": 25,
+      "carbsG": 4,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.8,
+      "sodiumMg": 180
+    },
+    "ingredients": [
+      "Pea Protein Isolate",
+      "Brown Rice Protein Concentrate",
+      "Cocoa Powder",
+      "Digestive Enzyme Blend (Protease, Amylase)",
+      "Sucralose"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-plant-protein-complex",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-pea-protein",
+    "name": "AS-IT-IS ATOM Pea Protein",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 32,
+    "nutritionPerServing": {
+      "calories": 125,
+      "proteinG": 25,
+      "carbsG": 1.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 2,
+      "sodiumMg": 260
+    },
+    "ingredients": [
+      "Pea Protein Isolate 85%"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-pea-protein",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "lactoseFree": true,
+    "vegan": true,
+    "allergenNotes": "No major allergens declared",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": "No major allergens declared",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-one-soy-protein-isolate",
+    "name": "AS-IT-IS ONE Soy Protein Isolate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 114,
+      "proteinG": 27,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0.5,
+      "sodiumMg": 290
+    },
+    "ingredients": [
+      "Soy Protein Isolate 90%"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/one-soy-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "asitis-one-pea-protein-isolate",
+    "name": "AS-IT-IS ONE Pea Protein Isolate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 118,
+      "proteinG": 25,
+      "carbsG": 1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.8,
+      "sodiumMg": 280
+    },
+    "ingredients": [
+      "Pea Protein Isolate 85%"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://asitisnutrition.com/products/one-pea-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-one-brown-rice-protein-isolate",
+    "name": "AS-IT-IS ONE Brown Rice Protein Isolate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 112,
+      "proteinG": 24,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 40
+    },
+    "ingredients": [
+      "Brown Rice Protein Isolate 80%"
+    ],
+    "allergens": [],
+    "sourceUrl": "https://asitisnutrition.com/products/one-brown-rice-protein-isolate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-roti-protein",
+    "name": "AS-IT-IS ATOM Roti Protein",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 1 kg",
+    "servingSizeG": 30,
+    "nutritionPerServing": {
+      "calories": 116,
+      "proteinG": 24,
+      "carbsG": 3,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1,
+      "sodiumMg": 150
+    },
+    "ingredients": [
+      "Pea Protein Isolate",
+      "Soy Protein Isolate",
+      "Wheat Gluten",
+      "Defatted Soya Flour"
+    ],
+    "allergens": [
+      "soy",
+      "wheat"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-roti-protein",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  }
+]

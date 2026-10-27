@@ -1,0 +1,404 @@
+[
+  {
+    "id": "nakpro-bcaa-6000",
+    "name": "Nakpro BCAA 6000",
+    "brand": "Nakpro",
+    "variant": "Refreshing Cola, 250 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 24,
+      "proteinG": 6,
+      "carbsG": 0.2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 30
+    },
+    "ingredients": [
+      "L-Leucine",
+      "L-Isoleucine",
+      "L-Valine",
+      "Citric Acid",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-bcaa-6000",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-l-glutamine",
+    "name": "Nakpro L-Glutamine",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 5,
+    "nutritionPerServing": {
+      "calories": 20,
+      "proteinG": 5,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Glutamine"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-l-glutamine",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-l-citrulline",
+    "name": "Nakpro L-Citrulline",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Citrulline"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-l-citrulline",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-l-arginine",
+    "name": "Nakpro L-Arginine",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 3,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Arginine"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-l-arginine",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-citrulline-malate",
+    "name": "Nakpro Citrulline Malate",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Citrulline Malate (2:1)"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-citrulline-malate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-karnage",
+    "name": "BigMuscles Karnage",
+    "brand": "BigMuscles",
+    "variant": "Fruit Punch, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 15,
+      "proteinG": 2,
+      "carbsG": 1.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 100
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Creatine Monohydrate",
+      "L-Citrulline",
+      "Caffeine Anhydrous",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "not listed"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/karnage",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-freak",
+    "name": "BigMuscles Freak",
+    "brand": "BigMuscles",
+    "variant": "Blue Raspberry, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 16,
+      "proteinG": 2,
+      "carbsG": 1.8,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 110
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Citrulline Malate",
+      "Caffeine Anhydrous",
+      "Taurine",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "not listed"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/freak",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "bigmuscles-karnage-black",
+    "name": "BigMuscles Karnage Black",
+    "brand": "BigMuscles",
+    "variant": "Extreme Cola, 250 g",
+    "servingSizeG": 12,
+    "nutritionPerServing": {
+      "calories": 18,
+      "proteinG": 2.5,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 120
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Creatine Nitrate",
+      "Citrulline Malate",
+      "Caffeine",
+      "Yohimbine Extract",
+      "Sucralose"
+    ],
+    "allergens": [
+      "not listed"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/karnage-black",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26"
+  },
+  {
+    "id": "nutrabay-gold-spark-pre-workout",
+    "name": "Nutrabay Gold Spark Pre-Workout",
+    "brand": "Nutrabay",
+    "variant": "Tangy Orange, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 14,
+      "proteinG": 1,
+      "carbsG": 2.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 80
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "L-Citrulline DL-Malate",
+      "Creatine Monohydrate",
+      "Caffeine Anhydrous",
+      "Vitamin B6",
+      "Vitamin B12",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-gold-spark-pre-workout/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-blast",
+    "name": "AS-IT-IS ATOM Blast",
+    "brand": "AS-IT-IS",
+    "variant": "Fruit Punch, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 15,
+      "proteinG": 1,
+      "carbsG": 2.2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 75
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Citrulline Malate",
+      "Creatine Monohydrate",
+      "Caffeine Anhydrous",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-blast-pre-workout",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

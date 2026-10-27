@@ -7,6 +7,7 @@ const state = {
   view: 'explore',
   categories: [],
   catalog: [],
+  brands: [],
   category: 'all',
   brand: null,
   search: '',
@@ -18,17 +19,7 @@ const state = {
   favorites: new Set(),
   compareIds: [],
   normMode: 'serving',
-  prices: {},
-  prefs: {
-    goal: '',
-    calories: 2200,
-    protein: 160,
-    currency: 'INR',
-    budget: 80,
-    allergens: [],
-    lowSugar: false,
-    preferLab: false,
-  },
+  prefs: Shared.loadPrefs(),
 };
 
 let radarChart = null;
@@ -53,15 +44,16 @@ function money(n) {
 }
 
 function productPrice(p) {
-  const o = state.prices[p.id];
-  if (o) return o.price;
-  return state.prefs.currency === 'INR'
-    ? Math.round(p.defaultPriceUSD * USD_TO_INR)
-    : p.defaultPriceUSD;
+  if (state.prefs.currency === 'INR') {
+    if (Number.isFinite(p.defaultPriceINR)) return p.defaultPriceINR;
+    return Number.isFinite(p.defaultPriceUSD) ? Math.round(p.defaultPriceUSD * USD_TO_INR) : null;
+  }
+  if (Number.isFinite(p.defaultPriceUSD)) return p.defaultPriceUSD;
+  return Number.isFinite(p.defaultPriceINR) ? p.defaultPriceINR / USD_TO_INR : null;
 }
 
 function productPackageG(p) {
-  return state.prices[p.id]?.packageG ?? p.defaultPackageG ?? p.packageSizeG;
+  return p.defaultPackageG ?? p.packageSizeG;
 }
 
 function scale(p) {
@@ -96,51 +88,39 @@ function scoreLinear(value, best, worst) {
 /* ---------- preferences / conflicts ---------- */
 
 function preferenceIssues(p) {
-  const issues = [];
-  const { allergens, budget, lowSugar, goal } = state.prefs;
-
-  (p.allergens || []).forEach((a) => {
-    if (allergens.includes(a)) issues.push(`Not for you — contains ${a}`);
-  });
-  if (allergens.includes('artificial') && p.artificial) {
-    issues.push('Not for you — artificial sweeteners / fillers');
-  }
-  if (productPrice(p) > budget) {
-    issues.push(`Over budget (${money(productPrice(p))} vs ${money(budget)})`);
-  }
-  if (lowSugar && (p.addedSugar || 0) >= 5) {
-    issues.push(`High added sugar (${p.addedSugar}g) vs low-sugar preference`);
-  }
-  if (goal === 'cutting' && p.category === 'gainer') {
-    issues.push('Mass gainer conflicts with a cutting goal');
-  }
-  if (p.proprietaryBlend) {
-    issues.push('Proprietary blend — active doses opaque');
-  }
-  return issues;
+  return Shared.preferenceIssues(p, state.prefs);
 }
 
 function isBlocked(p) {
-  return preferenceIssues(p).some((i) => i.startsWith('Not for you'));
+  return Shared.isBlocked(p, state.prefs);
 }
 
 /* ---------- scoring ---------- */
 
 function buildCriteria(p) {
   const s = scale(p);
-  const protein = (p.protein || 0) * s;
-  const sugar = (p.addedSugar || 0) * s;
+  const protein = Number.isFinite(p.protein) ? p.protein * s : null;
+  const sugar = Number.isFinite(p.addedSugar) ? p.addedSugar * s : null;
   const servingG = p.servingSizeG * s;
   const price = productPrice(p);
   const pkg = productPackageG(p);
-  const costPerServing = pkg > 0 ? (price / pkg) * (p.servingSizeG * s) : null;
+  const costPerServing = Number.isFinite(price) && Number.isFinite(pkg) && pkg > 0 &&
+    Number.isFinite(p.servingSizeG) && p.servingSizeG > 0
+    ? (price / pkg) * (p.servingSizeG * s)
+    : null;
   const costPerGProtein =
     protein > 0 && costPerServing != null ? costPerServing / protein : null;
+  const costPerServingUSD = costPerServing == null
+    ? null
+    : state.prefs.currency === 'INR' ? costPerServing / USD_TO_INR : costPerServing;
+  const costPerGProteinUSD = costPerGProtein == null
+    ? null
+    : state.prefs.currency === 'INR' ? costPerGProtein / USD_TO_INR : costPerGProtein;
   const purity = servingG > 0 && protein > 0 ? (protein / servingG) * 100 : 0;
-  const sodium = (p.sodiumMg || 0) * s;
+  const sodium = Number.isFinite(p.sodiumMg) ? p.sodiumMg * s : null;
   const list = [];
 
-  if (['whey', 'plant', 'gainer', 'collagen'].includes(p.category)) {
+  if (['whey', 'plant', 'gainer', 'collagen'].includes(p.category) && protein != null) {
     const proteinBest = p.category === 'gainer' ? 45 : p.category === 'collagen' ? 12 : 28;
     const proteinWorst = p.category === 'gainer' ? 20 : p.category === 'collagen' ? 5 : 15;
     list.push({
@@ -150,7 +130,7 @@ function buildCriteria(p) {
       score: scoreLinear(protein, proteinBest, proteinWorst),
       weight: 1.4,
     });
-    if (protein > 0) {
+    if (protein > 0 && servingG > 0) {
       list.push({
         key: 'purity',
         label: 'Protein % of serving',
@@ -162,54 +142,64 @@ function buildCriteria(p) {
   }
 
   if (p.category === 'creatine') {
-    list.push({
-      key: 'dose',
-      label: 'Creatine dose / serving',
-      display: `${((p.activeDoseG || 0) * s).toFixed(1)}g`,
-      score: scoreLinear((p.activeDoseG || 0) * s, 5, 2),
-      weight: 1.5,
-    });
-    list.push({
-      key: 'purity',
-      label: 'Creatine purity',
-      display: `${(100 - (p.fillersPct || 0)).toFixed(0)}%`,
-      score: scoreLinear(100 - (p.fillersPct || 0), 100, 50),
-      weight: 1.3,
-    });
+    if (Number.isFinite(p.activeDoseG)) {
+      list.push({
+        key: 'dose',
+        label: 'Creatine dose / serving',
+        display: `${(p.activeDoseG * s).toFixed(1)}g`,
+        score: scoreLinear(p.activeDoseG * s, 5, 2),
+        weight: 1.5,
+      });
+    }
+    if (Number.isFinite(p.fillersPct)) {
+      list.push({
+        key: 'purity',
+        label: 'Creatine purity',
+        display: `${(100 - p.fillersPct).toFixed(0)}%`,
+        score: scoreLinear(100 - p.fillersPct, 100, 50),
+        weight: 1.3,
+      });
+    }
   }
 
-  if (p.category === 'amino') {
+  if (p.category === 'amino' && Number.isFinite(p.activeDoseG)) {
     list.push({
       key: 'dose',
       label: 'Active aminos / scoop',
-      display: `${((p.activeDoseG || 0) * s).toFixed(1)}g`,
-      score: scoreLinear((p.activeDoseG || 0) * s, 8, 3),
+      display: `${(p.activeDoseG * s).toFixed(1)}g`,
+      score: scoreLinear(p.activeDoseG * s, 8, 3),
       weight: 1.4,
     });
   }
 
   if (p.category === 'pre') {
-    const caf = (p.caffeineMg || 0) * s;
-    const cit = (p.citrullineG || 0) * s;
-    list.push({
-      key: 'citrulline',
-      label: 'Citrulline dose',
-      display: `${cit.toFixed(1)}g`,
-      score: scoreLinear(cit, 6, 0.5),
-      weight: 1.3,
-    });
-    list.push({
-      key: 'caffeine',
-      label: 'Caffeine transparency',
-      display: caf > 0 ? `${caf.toFixed(0)}mg` : 'Stim-free',
-      score: caf === 0 ? 5 : scoreLinear(caf <= 300 ? caf : 600 - caf, 250, 50),
-      weight: 1.0,
-    });
+    if (Number.isFinite(p.citrullineG)) {
+      const cit = p.citrullineG * s;
+      list.push({
+        key: 'citrulline',
+        label: 'Citrulline dose',
+        display: `${cit.toFixed(1)}g`,
+        score: scoreLinear(cit, 6, 0.5),
+        weight: 1.3,
+      });
+    }
+    if (Number.isFinite(p.caffeineMg)) {
+      const caf = p.caffeineMg * s;
+      list.push({
+        key: 'caffeine',
+        label: 'Caffeine transparency',
+        display: caf > 0 ? `${caf.toFixed(0)}mg` : 'Stim-free',
+        score: caf === 0 ? 5 : scoreLinear(caf <= 300 ? caf : 600 - caf, 250, 50),
+        weight: 1.0,
+      });
+    }
     list.push({
       key: 'prop',
       label: 'Formula transparency',
-      display: p.proprietaryBlend ? 'Proprietary' : 'Fully disclosed',
-      score: p.proprietaryBlend ? 1 : 5,
+      display: typeof p.proprietaryBlend === 'boolean'
+        ? p.proprietaryBlend ? 'Proprietary' : 'Fully disclosed'
+        : 'Not stated',
+      score: typeof p.proprietaryBlend === 'boolean' ? p.proprietaryBlend ? 1 : 5 : 2.5,
       weight: 1.2,
     });
   }
@@ -217,17 +207,19 @@ function buildCriteria(p) {
   if (p.category === 'omega') {
     const epa = (p.actives || []).find((a) => /epa/i.test(a.name));
     const dha = (p.actives || []).find((a) => /dha/i.test(a.name));
-    const totalMg = (epa?.amount || 0) + (dha?.amount || 0);
-    list.push({
-      key: 'epadha',
-      label: 'EPA + DHA / serving',
-      display: `${totalMg}mg`,
-      score: scoreLinear(totalMg, 600, 150),
-      weight: 1.5,
-    });
+    if (Number.isFinite(epa?.amount) && Number.isFinite(dha?.amount)) {
+      const totalMg = epa.amount + dha.amount;
+      list.push({
+        key: 'epadha',
+        label: 'EPA + DHA / serving',
+        display: `${totalMg}mg`,
+        score: scoreLinear(totalMg, 600, 150),
+        weight: 1.5,
+      });
+    }
   }
 
-  if (p.category === 'multi') {
+  if (p.category === 'multi' && p.actives?.length) {
     list.push({
       key: 'coverage',
       label: 'Disclosed actives count',
@@ -237,36 +229,42 @@ function buildCriteria(p) {
     });
   }
 
-  list.push({
-    key: 'sugar',
-    label: 'Added sugars',
-    display: `${sugar.toFixed(1)}g`,
-    score: sugar <= 0 ? 5 : scoreLinear(sugar, 0, 12),
-    weight: state.prefs.lowSugar ? 1.3 : 1.0,
-  });
+  if (sugar != null) {
+    list.push({
+      key: 'sugar',
+      label: 'Added sugars',
+      display: `${sugar.toFixed(1)}g`,
+      score: sugar <= 0 ? 5 : scoreLinear(sugar, 0, 12),
+      weight: state.prefs.lowSugar ? 1.3 : 1.0,
+    });
+  }
 
-  list.push({
-    key: 'fillers',
-    label: 'Net fillers',
-    display: `${p.fillersPct || 0}%`,
-    score: scoreLinear(p.fillersPct || 0, 0, 40),
-    weight: 1.1,
-  });
+  if (Number.isFinite(p.fillersPct)) {
+    list.push({
+      key: 'fillers',
+      label: 'Net fillers',
+      display: `${p.fillersPct}%`,
+      score: scoreLinear(p.fillersPct, 0, 40),
+      weight: 1.1,
+    });
+  }
 
-  list.push({
-    key: 'sodium',
-    label: 'Sodium',
-    display: `${sodium.toFixed(0)}mg`,
-    score: scoreLinear(sodium, 0, 350),
-    weight: 0.8,
-  });
+  if (sodium != null) {
+    list.push({
+      key: 'sodium',
+      label: 'Sodium',
+      display: `${sodium.toFixed(0)}mg`,
+      score: scoreLinear(sodium, 0, 350),
+      weight: 0.8,
+    });
+  }
 
   if (costPerGProtein != null) {
     list.push({
       key: 'costProtein',
       label: 'Cost / g protein',
       display: money(costPerGProtein),
-      score: scoreLinear(costPerGProtein, 0.02, 0.2),
+      score: scoreLinear(costPerGProteinUSD, 0.02, 0.2),
       weight: 1.2,
     });
   } else if (costPerServing != null) {
@@ -274,18 +272,20 @@ function buildCriteria(p) {
       key: 'costServing',
       label: 'Cost / serving',
       display: money(costPerServing),
-      score: scoreLinear(costPerServing, 0.15, 2.5),
+      score: scoreLinear(costPerServingUSD, 0.15, 2.5),
       weight: 1.2,
     });
   }
 
-  list.push({
-    key: 'testing',
-    label: '3rd-party tested',
-    display: p.thirdPartyTested ? `Yes${p.labName ? ` · ${p.labName}` : ''}` : 'No',
-    score: p.thirdPartyTested ? (state.prefs.preferLab ? 5 : 4.5) : state.prefs.preferLab ? 1 : 2,
-    weight: state.prefs.preferLab ? 1.3 : 0.9,
-  });
+  if (typeof p.thirdPartyTested === 'boolean') {
+    list.push({
+      key: 'testing',
+      label: '3rd-party tested',
+      display: p.thirdPartyTested ? `Yes${p.labName ? ` · ${p.labName}` : ''}` : 'No',
+      score: p.thirdPartyTested ? (state.prefs.preferLab ? 5 : 4.5) : state.prefs.preferLab ? 1 : 2,
+      weight: state.prefs.preferLab ? 1.3 : 0.9,
+    });
+  }
 
   if (p.labelAccuracyPct != null) {
     list.push({
@@ -297,44 +297,55 @@ function buildCriteria(p) {
     });
   }
 
+  const allergenData = Shared.allergenDisclosure(p);
   list.push({
     key: 'allergens',
     label: 'Allergen fit',
-    display: isBlocked(p) ? 'Conflict' : (p.allergens || []).length ? (p.allergens || []).join(', ') : 'Clean',
-    score: isBlocked(p) ? 0 : (p.allergens || []).length === 0 ? 5 : 3.5,
+    display: isBlocked(p)
+      ? 'Conflict'
+      : allergenData.known
+        ? allergenData.contains.length || allergenData.mayContain.length
+          ? [...new Set([...allergenData.contains, ...allergenData.mayContain])].join(', ')
+          : 'No allergens listed'
+        : 'Not stated',
+    score: isBlocked(p) ? 0 : allergenData.known
+      ? allergenData.contains.length || allergenData.mayContain.length ? 3.5 : 5
+      : 2.5,
     weight: 1.5,
   });
 
-  let goalScore = 3.5;
-  let goalDisplay = 'Neutral';
-  if (state.prefs.goal === 'cutting') {
-    if (p.category === 'gainer') {
-      goalScore = 1;
-      goalDisplay = 'Poor for cutting';
-    } else if (protein > 0 && p.calories > 0) {
-      const dens = protein / (p.calories * s || p.calories);
-      goalScore = scoreLinear(dens, 0.25, 0.05);
-      goalDisplay = 'Protein density vs calories';
-    } else if (p.category === 'creatine') {
-      goalScore = 4.5;
-      goalDisplay = 'Useful on a cut';
+  if (state.prefs.goal === 'cutting' || state.prefs.goal === 'bulking') {
+    let goalScore = 3.5;
+    let goalDisplay = 'Neutral';
+    if (state.prefs.goal === 'cutting') {
+      if (p.category === 'gainer') {
+        goalScore = 1;
+        goalDisplay = 'Poor for cutting';
+      } else if (protein > 0 && Number.isFinite(p.calories) && p.calories > 0) {
+        const dens = protein / (p.calories * s || p.calories);
+        goalScore = scoreLinear(dens, 0.25, 0.05);
+        goalDisplay = 'Protein density vs calories';
+      } else if (p.category === 'creatine') {
+        goalScore = 4.5;
+        goalDisplay = 'Useful on a cut';
+      }
+    } else if (state.prefs.goal === 'bulking') {
+      if (p.category === 'gainer' || (Number.isFinite(p.calories) && p.calories >= 120)) {
+        goalScore = 4.5;
+        goalDisplay = 'Supports surplus';
+      } else if (p.category === 'creatine') {
+        goalScore = 5;
+        goalDisplay = 'Excellent for bulking';
+      }
     }
-  } else if (state.prefs.goal === 'bulking') {
-    if (p.category === 'gainer' || (p.calories || 0) >= 120) {
-      goalScore = 4.5;
-      goalDisplay = 'Supports surplus';
-    } else if (p.category === 'creatine') {
-      goalScore = 5;
-      goalDisplay = 'Excellent for bulking';
-    }
+    list.push({
+      key: 'goal',
+      label: `Fit for ${state.prefs.goal}`,
+      display: goalDisplay,
+      score: clampScore(goalScore),
+      weight: 1.0,
+    });
   }
-  list.push({
-    key: 'goal',
-    label: `Fit for ${state.prefs.goal}`,
-    display: goalDisplay,
-    score: clampScore(goalScore),
-    weight: 1.0,
-  });
 
   return list;
 }
@@ -454,12 +465,16 @@ function renderBrands() {
       ? state.catalog
       : state.catalog.filter((p) => p.category === state.category);
   const brands = [...new Set(pool.map((p) => p.brand))];
+  const brandDetails = new Map(state.brands.map((brand) => [brand.name, brand]));
   row.innerHTML = brands
     .map(
-      (b) =>
-        `<button type="button" class="brand-pill muted ${state.brand === b ? 'active' : ''}" data-brand="${escapeHtml(b)}">${escapeHtml(b)}</button>`
+      (name) => {
+        const brand = brandDetails.get(name) || { name, logoUrl: null };
+        return `<button type="button" class="brand-pill muted ${state.brand === name ? 'active' : ''}" data-brand="${escapeHtml(name)}">${Shared.brandLogoMarkup(brand)}</button>`;
+      }
     )
     .join('');
+  Shared.activateBrandLogos(row);
   row.querySelectorAll('[data-brand]').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.brand = state.brand === btn.dataset.brand ? null : btn.dataset.brand;
@@ -490,7 +505,7 @@ function renderProducts() {
   document.getElementById('productsHeading').textContent = cat ? cat.name : 'Catalog entries';
   document.getElementById('productsSub').textContent = cat
     ? `${cat.short} · category-specific scoring`
-    : `${state.catalog.length} placeholder entries across ${state.categories.length} categories`;
+    : `${state.catalog.length} sourced entries across ${state.categories.length} categories`;
   document.getElementById('productCount').textContent = `${list.length} shown`;
 
   if (!list.length) {
@@ -506,6 +521,7 @@ function renderProducts() {
       const grade = letterGrade(avg);
       const issues = preferenceIssues(p);
       const inCompare = state.compareIds.includes(p.id);
+      const officialUrl = Shared.officialProductUrl(p);
       const chips = topChips(criteria)
         .map(
           (c) =>
@@ -515,17 +531,21 @@ function renderProducts() {
 
       const s = scale(p);
       const macroBits = [];
-      if (p.protein) macroBits.push(`${(p.protein * s).toFixed(0)}g protein`);
-      if (p.carbs) macroBits.push(`${(p.carbs * s).toFixed(0)}g carbs`);
-      if (p.fat) macroBits.push(`${(p.fat * s).toFixed(1)}g fat`);
-      if (p.calories) macroBits.push(`${Math.round(p.calories * s)} kcal`);
-      if (p.category === 'creatine') macroBits.push(`${((p.activeDoseG || 0) * s).toFixed(1)}g creatine`);
+      if (Number.isFinite(p.protein)) macroBits.push(`${(p.protein * s).toFixed(0)}g protein`);
+      if (Number.isFinite(p.carbs)) macroBits.push(`${(p.carbs * s).toFixed(0)}g carbs`);
+      if (Number.isFinite(p.fat)) macroBits.push(`${(p.fat * s).toFixed(1)}g fat`);
+      if (Number.isFinite(p.calories)) macroBits.push(`${Math.round(p.calories * s)} kcal`);
+      if (p.category === 'creatine' && Number.isFinite(p.activeDoseG)) {
+        macroBits.push(`${(p.activeDoseG * s).toFixed(1)}g creatine`);
+      }
       if (p.category === 'pre') {
-        macroBits.push(`${((p.citrullineG || 0) * s).toFixed(1)}g citrulline`);
-        macroBits.push(`${Math.round((p.caffeineMg || 0) * s)}mg caffeine`);
+        if (Number.isFinite(p.citrullineG)) macroBits.push(`${(p.citrullineG * s).toFixed(1)}g citrulline`);
+        if (Number.isFinite(p.caffeineMg)) macroBits.push(`${Math.round(p.caffeineMg * s)}mg caffeine`);
       }
 
       const tags = [
+        catMeta(p.category)?.name,
+        p.code,
         p.form,
         p.subcategory,
         p.thirdPartyTested ? 'lab-tested' : 'unverified',
@@ -538,11 +558,6 @@ function renderProducts() {
 
       return `
         <article class="product-card dense ${inCompare ? 'in-compare' : ''} ${isBlocked(p) ? 'blocked' : ''}">
-          <div class="product-thumb">
-            <span class="cat-tag">${escapeHtml(catMeta(p.category)?.name || '')}</span>
-            <span class="thumb-emoji">${p.icon}</span>
-            <span class="code-badge">${escapeHtml(p.code)}</span>
-          </div>
           <div class="product-body">
             <div class="flex flex-wrap items-start justify-between gap-2">
               <div>
@@ -564,10 +579,11 @@ function renderProducts() {
               <span>Fillers <strong>${p.fillersPct || 0}%</strong></span>
               <span>Added sugar <strong>${p.addedSugar || 0}g</strong></span>
               <span>Sodium <strong>${p.sodiumMg || 0}mg</strong></span>
-              <span>MSRP <strong>${money(productPrice(p))}</strong></span>
+              <span title="${escapeHtml(p.priceSource || 'Price source not recorded')}">Price <strong>${money(productPrice(p))}</strong></span>
               <span>Pkg <strong>${productPackageG(p)}g</strong></span>
             </div>
             <div class="product-actions">
+              ${officialUrl ? `<a class="btn-buy" href="${escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
               <button type="button" class="btn-compare ${inCompare ? 'is-on' : ''}" data-compare="${p.id}">${inCompare ? 'Added' : 'Compare'}</button>
               <button type="button" class="btn-outline text-xs px-2.5 py-1.5 rounded-md" data-detail="${p.id}">Full dossier</button>
               <button type="button" class="btn-star ${state.favorites.has(p.id) ? 'on' : ''}" data-fav="${p.id}">★</button>
@@ -623,6 +639,7 @@ function renderExplore() {
 function openDetail(id) {
   const p = getProduct(id);
   if (!p) return;
+  const officialUrl = Shared.officialProductUrl(p);
   const { avg, criteria } = overallScore(p);
   const grade = letterGrade(avg);
   const issues = preferenceIssues(p);
@@ -645,7 +662,7 @@ function openDetail(id) {
         <div><dt>Form</dt><dd>${escapeHtml(p.form)}</dd></div>
         <div><dt>Type</dt><dd>${escapeHtml(p.typeLabel)}</dd></div>
         <div><dt>Serving</dt><dd>${escapeHtml(p.servingLabel)} · ${p.servingsPerContainer} servings/tub</dd></div>
-        <div><dt>Package</dt><dd>${productPackageG(p)}g · MSRP ${money(productPrice(p))}</dd></div>
+        <div><dt>Package</dt><dd>${productPackageG(p)}g · Price ${money(productPrice(p))} <span class="text-xs text-brand-muted">(${escapeHtml(p.priceSource || 'source not recorded')})</span></dd></div>
         <div><dt>Updated</dt><dd>${escapeHtml(p.updatedAt)}</dd></div>
       </dl>
     </div>
@@ -654,17 +671,17 @@ function openDetail(id) {
       <h4>Macros (label serving)</h4>
       <div class="macro-grid">
         ${[
-          ['Calories', p.calories],
-          ['Protein', `${p.protein}g`],
-          ['Carbs', `${p.carbs}g`],
-          ['Fat', `${p.fat}g`],
-          ['Fiber', `${p.fiber || 0}g`],
-          ['Sugar', `${p.sugar}g`],
-          ['Added sugar', `${p.addedSugar}g`],
-          ['Sodium', `${p.sodiumMg}mg`],
-          ['Potassium', `${p.potassiumMg || 0}mg`],
-          ['Calcium', `${p.calciumMg || 0}mg`],
-          ['Cholesterol', `${p.cholesterolMg || 0}mg`],
+          ['Calories', p.calories == null ? 'Not listed' : p.calories],
+          ['Protein', p.protein == null ? 'Not listed' : `${p.protein}g`],
+          ['Carbs', p.carbs == null ? 'Not listed' : `${p.carbs}g`],
+          ['Fat', p.fat == null ? 'Not listed' : `${p.fat}g`],
+          ['Fiber', p.fiber == null ? 'Not listed' : `${p.fiber}g`],
+          ['Sugar', p.sugar == null ? 'Not listed' : `${p.sugar}g`],
+          ['Added sugar', p.addedSugar == null ? 'Not listed' : `${p.addedSugar}g`],
+          ['Sodium', p.sodiumMg == null ? 'Not listed' : `${p.sodiumMg}mg`],
+          ['Potassium', p.potassiumMg == null ? 'Not listed' : `${p.potassiumMg}mg`],
+          ['Calcium', p.calciumMg == null ? 'Not listed' : `${p.calciumMg}mg`],
+          ['Cholesterol', p.cholesterolMg == null ? 'Not listed' : `${p.cholesterolMg}mg`],
         ]
           .map(([k, v]) => `<div class="macro-cell"><span>${k}</span><strong>${v}</strong></div>`)
           .join('')}
@@ -674,7 +691,7 @@ function openDetail(id) {
     <div class="detail-block">
       <h4>Active ingredients</h4>
       <ul class="detail-list">
-        ${(p.actives || []).map((a) => `<li>${escapeHtml(a.name)} — <strong>${a.amount}${a.unit}</strong></li>`).join('') || '<li class="text-slate-500">None listed</li>'}
+        ${(p.actives || []).map((a) => `<li>${escapeHtml(a.name)} — <strong>${a.amount}${a.unit}</strong></li>`).join('') || '<li class="text-slate-500">No active ingredients disclosed in the catalog source.</li>'}
       </ul>
       ${
         p.aminoProfile
@@ -687,13 +704,17 @@ function openDetail(id) {
     <div class="detail-block">
       <h4>Quality &amp; trust</h4>
       <dl class="detail-dl">
-        <div><dt>Fillers</dt><dd>${p.fillersPct}%</dd></div>
-        <div><dt>Sweeteners</dt><dd>${(p.sweeteners || []).join(', ') || 'None'}</dd></div>
-        <div><dt>Thickeners</dt><dd>${(p.thickeners || []).join(', ') || 'None'}</dd></div>
-        <div><dt>Colors</dt><dd>${(p.colors || []).join(', ') || 'None'}</dd></div>
+        <div><dt>Fillers</dt><dd>${p.fillersPct == null ? 'Not listed' : `${p.fillersPct}%`}</dd></div>
+        <div><dt>Sweeteners</dt><dd>${p.sweeteners == null ? 'Not listed' : p.sweeteners.join(', ') || 'None listed'}</dd></div>
+        <div><dt>Thickeners</dt><dd>${p.thickeners == null ? 'Not listed' : p.thickeners.join(', ') || 'None listed'}</dd></div>
+        <div><dt>Colors</dt><dd>${p.colors == null ? 'Not listed' : p.colors.join(', ') || 'None listed'}</dd></div>
         <div><dt>Proprietary blend</dt><dd>${p.proprietaryBlend ? 'Yes' : 'No'}</dd></div>
         <div><dt>Artificial</dt><dd>${p.artificial ? 'Yes' : 'No'}</dd></div>
-        <div><dt>Allergens</dt><dd>${(p.allergens || []).join(', ') || 'None flagged'}</dd></div>
+        <div><dt>Contains</dt><dd>${escapeHtml((p.contains || Shared.allergenDisclosure(p).contains).join(', ') || (Shared.allergenDisclosure(p).known ? 'None listed' : 'Not stated'))}</dd></div>
+        <div><dt>May contain</dt><dd>${escapeHtml((p.mayContain || Shared.allergenDisclosure(p).mayContain).join(', ') || (Shared.allergenDisclosure(p).known ? 'None listed' : 'Not stated'))}</dd></div>
+        <div><dt>Lactose-free</dt><dd>${p.lactoseFree === true ? 'Label says yes' : p.lactoseFree === false ? 'Label says no' : 'Not stated'}</dd></div>
+        <div><dt>Vegan</dt><dd>${p.vegan === true ? 'Label says yes' : p.vegan === false ? 'Label says no' : 'Not stated'}</dd></div>
+        <div><dt>Disclosure source</dt><dd>${escapeHtml(p.labelDisclosures?.provenance || 'Catalog record; verification status not recorded')}</dd></div>
         <div><dt>3rd-party tested</dt><dd>${p.thirdPartyTested ? `Yes (${p.labName || 'Lab TBD'})` : 'No'}</dd></div>
         <div><dt>Label accuracy</dt><dd>${p.labelAccuracyPct != null ? p.labelAccuracyPct + '%' : '—'}</dd></div>
         <div><dt>Heavy metals</dt><dd>${p.heavyMetalsPass == null ? '—' : p.heavyMetalsPass ? 'Pass' : 'Fail'}</dd></div>
@@ -720,6 +741,7 @@ function openDetail(id) {
       ${p.notes ? `<p class="text-xs text-slate-500 mt-3 border-t border-white/5 pt-3">${escapeHtml(p.notes)}</p>` : ''}
     </div>
 
+    ${officialUrl ? `<a class="btn-buy w-full justify-center" href="${escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
     <button type="button" class="btn-teal w-full py-2.5 rounded-xl" data-compare-detail="${p.id}">
       ${state.compareIds.includes(p.id) ? 'Already in compare' : 'Add to compare'}
     </button>
@@ -748,13 +770,16 @@ function toggleCompare(id) {
     if (state.compareIds.length >= 2) state.compareIds.shift();
     state.compareIds.push(id);
   }
-  renderProducts();
+  Shared.saveCompareIds(state.compareIds);
+  if (document.getElementById('productGrid')) renderProducts();
   renderTray();
-  document.getElementById('compareCount').textContent = `(${state.compareIds.length})`;
+  const count = document.getElementById('compareCount');
+  if (count) count.textContent = `(${state.compareIds.length})`;
 }
 
 function renderTray() {
   const tray = document.getElementById('compareTray');
+  if (!tray) return;
   if (!state.compareIds.length) {
     tray.classList.add('hidden');
     document.getElementById('compareCount').textContent = '(0)';
@@ -783,66 +808,55 @@ function showView(name) {
   if (name === 'compare') renderCompare();
 }
 
-function getCompareMatches(query = '') {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
-
-  return state.catalog.filter((p) => {
-    const haystack = [p.name, p.code, p.brand, p.typeLabel, p.summary, p.subcategory].join(' ').toLowerCase();
-    return haystack.includes(q);
-  }).slice(0, 8);
-}
-
-function renderCompareSuggestions(slot, query = '') {
-  const inputId = slot === 'A' ? 'searchSlotA' : 'searchSlotB';
-  const listId = slot === 'A' ? 'suggestA' : 'suggestB';
-  const input = document.getElementById(inputId);
-  const list = document.getElementById(listId);
-  if (!input || !list) return;
-
-  const matches = getCompareMatches(query);
-  if (!matches.length) {
-    list.innerHTML = '<li class="px-3 py-2 text-xs text-brand-muted">No matches</li>';
-    list.classList.remove('hidden');
-    return;
-  }
-
-  list.innerHTML = matches
-    .map(
-      (p) => `
-        <li>
-          <button type="button" class="w-full text-left px-3 py-2 hover:bg-white/5" data-slot-product="${slot}" data-product-id="${p.id}">
-            <span class="font-medium text-brand-text">${escapeHtml(p.name)}</span>
-            <span class="block text-[10px] uppercase tracking-wider text-brand-muted">${escapeHtml(p.code)} · ${escapeHtml(p.brand)}</span>
-          </button>
-        </li>`
-    )
-    .join('');
-
-  list.classList.remove('hidden');
-
-  list.querySelectorAll('[data-slot-product]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const productId = btn.dataset.productId;
-      const next = [...state.compareIds];
-      if (slot === 'A') next[0] = productId;
-      else next[1] = productId;
-      state.compareIds = next;
-      input.value = '';
-      list.classList.add('hidden');
-      renderCompare();
-    });
-  });
-}
-
 function renderCompare() {
   const [idA, idB] = state.compareIds;
   const a = getProduct(idA);
   const b = getProduct(idB);
   const slots = document.getElementById('compareSlots');
   const mismatch = document.getElementById('compareMismatch');
-  if (!a || !b) {
-    slots.innerHTML = `<div class="compare-slot empty">Add 2 entries to compare.</div>`;
+  const comparisonSections = [
+    document.getElementById('scorecardSection'),
+    document.getElementById('macroSection'),
+    document.getElementById('chartsSection'),
+    document.getElementById('verdictCard'),
+  ];
+  const hasPair = Boolean(a && b);
+  comparisonSections.forEach((section) => section?.classList.toggle('hidden', !hasPair));
+  if (!hasPair) {
+    mismatch.classList.add('hidden');
+    slots.innerHTML = [a, b]
+      .map((product, index) => {
+        if (!product) {
+          return `<div class="compare-slot empty">${a ? 'Choose a second product in Explore to see the comparison.' : 'Choose two products in Explore using the Compare buttons.'}</div>`;
+        }
+        const officialUrl = Shared.officialProductUrl(product);
+        const { avg } = overallScore(product);
+        const grade = letterGrade(avg);
+        return `
+          <article class="compare-slot selected-product">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-slate-500">Selected product · ${escapeHtml(product.code)}</div>
+                <h3 class="font-display font-bold text-base mt-1">${escapeHtml(product.name)}</h3>
+                <p class="text-xs text-slate-400 mt-1">${escapeHtml(product.brand)} · ${escapeHtml(product.typeLabel)}</p>
+              </div>
+              <button type="button" class="btn-ghost text-xs px-2 py-1 rounded-md" data-remove-compare="${index}" aria-label="Remove ${escapeHtml(product.name)}">Remove</button>
+            </div>
+            <p class="text-sm text-brand-muted mt-3">${escapeHtml(product.summary || 'Product selected. Add another product to compare details.')}</p>
+            <div class="mt-3"><span class="grade-pill grade-${grade}">${grade} · ${avg}/5</span></div>
+            ${officialUrl ? `<a class="btn-buy mt-3" href="${escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
+          </article>`;
+      })
+      .join('');
+    slots.querySelectorAll('[data-remove-compare]').forEach((button) =>
+      button.addEventListener('click', () => {
+        state.compareIds.splice(Number(button.dataset.removeCompare), 1);
+        Shared.saveCompareIds(state.compareIds);
+        renderCompare();
+        renderTray();
+        if (document.getElementById('productGrid')) renderProducts();
+      })
+    );
     return;
   }
   if (a.category !== b.category) {
@@ -855,37 +869,36 @@ function renderCompare() {
       const { avg, criteria } = overallScore(p);
       const grade = letterGrade(avg);
       const issues = preferenceIssues(p);
+      const officialUrl = Shared.officialProductUrl(p);
       return `
         <div class="compare-slot">
-          <div class="text-[10px] uppercase tracking-wider text-slate-500">Product ${i === 0 ? 'A' : 'B'} · ${escapeHtml(p.code)}</div>
-          <h3 class="font-display font-bold text-base mt-1">${escapeHtml(p.name)}</h3>
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-slate-500">Product ${i === 0 ? 'A' : 'B'} · ${escapeHtml(p.code)}</div>
+              <h3 class="font-display font-bold text-base mt-1">${escapeHtml(p.name)}</h3>
+            </div>
+            <button type="button" class="btn-ghost text-xs px-2 py-1 rounded-md" data-remove-compare="${i}" aria-label="Remove ${escapeHtml(p.name)}">Remove</button>
+          </div>
           <p class="text-xs text-slate-400 mt-1">${escapeHtml(p.typeLabel)} · ${escapeHtml(p.summary)}</p>
           <div class="mt-2"><span class="grade-pill grade-${grade}">${grade} · ${avg}/5</span></div>
           ${issues.length ? `<div class="pref-warn mt-3">${issues.map(escapeHtml).join(' · ')}</div>` : `<div class="text-xs ok-line mt-3">✓ Fits allergen prefs</div>`}
-          <div class="slot-price-row">
-            <label>Local price<input type="number" data-price-id="${p.id}" value="${productPrice(p)}" min="0" step="0.01" /></label>
-            <label>Package (g)<input type="number" data-pkg-id="${p.id}" value="${productPackageG(p)}" min="1" /></label>
-          </div>
           <div class="score-chips mt-3">${criteria.slice(0, 6).map((c) => `<span class="score-chip ${scoreTone(c.score)}">${escapeHtml(c.label)} ${c.score}/5</span>`).join('')}</div>
+          ${officialUrl ? `<a class="btn-buy mt-3" href="${escapeHtml(officialUrl)}" target="_blank" rel="noopener noreferrer">Buy on official site <span aria-hidden="true">↗</span></a>` : ''}
           <button type="button" class="btn-outline text-xs mt-3 px-2 py-1 rounded-md" data-detail="${p.id}">Open full dossier</button>
         </div>`;
     })
     .join('');
 
-  slots.querySelectorAll('[data-price-id]').forEach((input) => {
-    input.addEventListener('input', () => {
-      const id = input.dataset.priceId;
-      state.prices[id] = { price: +input.value || 0, packageG: state.prices[id]?.packageG ?? productPackageG(getProduct(id)) };
+  slots.querySelectorAll('[data-remove-compare]').forEach((button) =>
+    button.addEventListener('click', () => {
+      state.compareIds.splice(Number(button.dataset.removeCompare), 1);
+      Shared.saveCompareIds(state.compareIds);
       renderCompare();
-    });
-  });
-  slots.querySelectorAll('[data-pkg-id]').forEach((input) => {
-    input.addEventListener('input', () => {
-      const id = input.dataset.pkgId;
-      state.prices[id] = { price: state.prices[id]?.price ?? productPrice(getProduct(id)), packageG: +input.value || 0 };
-      renderCompare();
-    });
-  });
+      renderTray();
+      if (document.getElementById('productGrid')) renderProducts();
+    })
+  );
+
   slots.querySelectorAll('[data-detail]').forEach((btn) =>
     btn.addEventListener('click', () => openDetail(btn.dataset.detail))
   );
@@ -951,13 +964,15 @@ function renderMacroTable(a, b) {
       <tbody>
         ${rows
           .map(([label, key, mode]) => {
-            const va = mode === 'raw' ? a[key] ?? '—' : s(a, key);
-            const vb = mode === 'raw' ? b[key] ?? '—' : s(b, key);
+            const rawA = mode === 'raw' ? a[key] ?? '—' : s(a, key);
+            const rawB = mode === 'raw' ? b[key] ?? '—' : s(b, key);
+            const va = rawA;
+            const vb = rawB;
             return `<tr><td>${label}</td><td>${va}</td><td>${vb}</td></tr>`;
           })
           .join('')}
-        <tr><td>Actives</td><td class="text-xs">${(a.actives || []).map((x) => `${x.name} ${x.amount}${x.unit}`).join('<br/>') || '—'}</td>
-            <td class="text-xs">${(b.actives || []).map((x) => `${x.name} ${x.amount}${x.unit}`).join('<br/>') || '—'}</td></tr>
+        <tr><td>Actives</td><td class="text-xs">${(a.actives || []).map((x) => `${x.name} ${x.amount}${x.unit}`).join('<br/>') || 'Not disclosed in catalog'}</td>
+            <td class="text-xs">${(b.actives || []).map((x) => `${x.name} ${x.amount}${x.unit}`).join('<br/>') || 'Not disclosed in catalog'}</td></tr>
       </tbody>
     </table>`;
 }
@@ -1053,8 +1068,11 @@ function ensureCharts() {
 
 function costKey(p) {
   const s = scale(p);
-  const cost = (productPrice(p) / productPackageG(p)) * (p.servingSizeG * s);
-  const protein = (p.protein || 0) * s;
+  const price = productPrice(p);
+  const packageG = productPackageG(p);
+  if (!Number.isFinite(price) || !Number.isFinite(packageG) || packageG <= 0 || !Number.isFinite(p.servingSizeG)) return null;
+  const cost = (price / packageG) * (p.servingSizeG * s);
+  const protein = Number.isFinite(p.protein) ? p.protein * s : 0;
   if (protein > 0) return cost / protein;
   return cost;
 }
@@ -1067,15 +1085,15 @@ function updateCharts(a, b) {
   const label = (k) => ca.find((c) => c.key === k)?.label || cb.find((c) => c.key === k)?.label || k;
   radarChart.data.labels = keys.map(label);
   radarChart.data.datasets = [
-    { label: a.code, data: keys.map((k) => ca.find((c) => c.key === k)?.score ?? 0), borderColor: '#2DD4BF', backgroundColor: 'rgba(45,212,191,0.12)', pointBackgroundColor: '#2DD4BF' },
-    { label: b.code, data: keys.map((k) => cb.find((c) => c.key === k)?.score ?? 0), borderColor: '#8A99A6', backgroundColor: 'rgba(138,153,166,0.12)', pointBackgroundColor: '#8A99A6' },
+    { label: a.code, data: keys.map((k) => ca.find((c) => c.key === k)?.score ?? null), borderColor: '#2DD4BF', backgroundColor: 'rgba(45,212,191,0.12)', pointBackgroundColor: '#2DD4BF' },
+    { label: b.code, data: keys.map((k) => cb.find((c) => c.key === k)?.score ?? null), borderColor: '#8A99A6', backgroundColor: 'rgba(138,153,166,0.12)', pointBackgroundColor: '#8A99A6' },
   ];
   radarChart.update();
 
   barChart.data.labels = ['Cost efficiency', 'Fillers % ÷ 10', 'Added sugar (g)', 'Sodium ÷ 100'];
   barChart.data.datasets = [
-    { label: a.code, data: [costKey(a), (a.fillersPct || 0) / 10, (a.addedSugar || 0) * scale(a), (a.sodiumMg || 0) / 100], backgroundColor: 'rgba(45,212,191,0.75)', borderRadius: 4, maxBarThickness: 36 },
-    { label: b.code, data: [costKey(b), (b.fillersPct || 0) / 10, (b.addedSugar || 0) * scale(b), (b.sodiumMg || 0) / 100], backgroundColor: 'rgba(138,153,166,0.65)', borderRadius: 4, maxBarThickness: 36 },
+    { label: a.code, data: [costKey(a), Number.isFinite(a.fillersPct) ? a.fillersPct / 10 : null, Number.isFinite(a.addedSugar) ? a.addedSugar * scale(a) : null, Number.isFinite(a.sodiumMg) ? a.sodiumMg / 100 : null], backgroundColor: 'rgba(45,212,191,0.75)', borderRadius: 4, maxBarThickness: 36 },
+    { label: b.code, data: [costKey(b), Number.isFinite(b.fillersPct) ? b.fillersPct / 10 : null, Number.isFinite(b.addedSugar) ? b.addedSugar * scale(b) : null, Number.isFinite(b.sodiumMg) ? b.sodiumMg / 100 : null], backgroundColor: 'rgba(138,153,166,0.65)', borderRadius: 4, maxBarThickness: 36 },
   ];
   barChart.update();
 }
@@ -1088,7 +1106,6 @@ function openPrefs(open) {
 }
 
 function readPrefsFromDOM() {
-  const prev = state.prefs.currency;
   state.prefs.goal = document.getElementById('prefGoal').value;
   state.prefs.calories = +document.getElementById('prefCalories').value || 0;
   state.prefs.protein = +document.getElementById('prefProtein').value || 0;
@@ -1097,12 +1114,6 @@ function readPrefsFromDOM() {
   state.prefs.allergens = [...document.querySelectorAll('.pref-allergen:checked')].map((c) => c.value);
   state.prefs.lowSugar = document.getElementById('prefLowSugar').value === '1';
   state.prefs.preferLab = document.getElementById('prefLabOnly').value === '1';
-  if (prev !== state.prefs.currency) {
-    const factor = state.prefs.currency === 'INR' ? USD_TO_INR : 1 / USD_TO_INR;
-    Object.values(state.prices).forEach((row) => {
-      row.price = +(row.price * factor).toFixed(state.prefs.currency === 'INR' ? 0 : 2);
-    });
-  }
 }
 
 function initEvents() {
@@ -1145,16 +1156,6 @@ function initEvents() {
   if (detailClose) detailClose.addEventListener('click', closeDetail);
   const detailBackdrop = document.getElementById('detailBackdrop');
   if (detailBackdrop) detailBackdrop.addEventListener('click', closeDetail);
-
-  ['A', 'B'].forEach((slot) => {
-    const input = document.getElementById(`searchSlot${slot}`);
-    const list = document.getElementById(`suggest${slot}`);
-    if (!input || !list) return;
-
-    input.addEventListener('input', (e) => renderCompareSuggestions(slot, e.target.value));
-    input.addEventListener('focus', () => renderCompareSuggestions(slot, input.value));
-    input.addEventListener('blur', () => setTimeout(() => list.classList.add('hidden'), 120));
-  });
 
   const globalSearch = document.getElementById('globalSearch');
   if (globalSearch) {
@@ -1261,15 +1262,20 @@ async function boot() {
 
   const badge = document.getElementById('dataModeBadge');
   if (badge) {
-    badge.textContent = Api.USE_SUPABASE ? 'Supabase' : 'Mock DB';
+    badge.textContent = 'Local JSON';
     badge.classList.toggle('hidden', false);
   }
 
   try {
-    const [categories, supplements] = await Promise.all([Api.getCategories(), Api.getSupplements()]);
+    const [categories, supplements, brands] = await Promise.all([
+      Api.getCategories(),
+      Api.getSupplements(),
+      Api.getBrands(),
+    ]);
     state.categories = categories;
     state.catalog = supplements;
-    state.compareIds = Shared.loadCompareIds();
+    state.brands = brands;
+    state.compareIds = Shared.loadCompareIds().filter((id) => getProduct(id));
 
     if (document.getElementById('categoryGrid') || document.getElementById('productGrid')) {
       renderExplore();

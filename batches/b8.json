@@ -1,0 +1,451 @@
+[
+  {
+    "id": "nakpro-pre-workout-energizing-blend",
+    "name": "Nakpro Pre-Workout Energizing Blend",
+    "brand": "Nakpro",
+    "variant": "Fruit Punch, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 15,
+      "proteinG": 1,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 70
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Citrulline Malate",
+      "Creatine Monohydrate",
+      "Caffeine",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-pre-workout",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-caffeine-pre-workout-supplement",
+    "name": "Nakpro Caffeine Pre-Workout Supplement",
+    "brand": "Nakpro",
+    "variant": "Blueberry, 250 g",
+    "servingSizeG": 8,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 0.8,
+      "carbsG": 1.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 60
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Caffeine Anhydrous",
+      "L-Arginine",
+      "Citric Acid",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-caffeine-pre-workout",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "labrada-super-charge-pre-workout",
+    "name": "Labrada Super Charge Pre-Workout",
+    "brand": "Labrada",
+    "variant": "Fruit Punch, 350 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 20,
+      "proteinG": 1.5,
+      "carbsG": 3,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 90
+    },
+    "ingredients": [
+      "Creatine Monohydrate",
+      "Beta-Alanine",
+      "L-Tyrosine",
+      "Caffeine Anhydrous",
+      "Niacin",
+      "Vitamin B6",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://labrada.com/products/super-charge",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabox-pre-workout-effervescent",
+    "name": "Nutrabox Pre-Workout Effervescent",
+    "brand": "Nutrabox",
+    "variant": "Cola, 20 Tablets",
+    "servingSizeG": 4,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 1,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 180
+    },
+    "ingredients": [
+      "Citric Acid",
+      "Sodium Bicarbonate",
+      "Caffeine Anhydrous",
+      "Beta-Alanine",
+      "Vitamins",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabox.in/products/pre-workout-effervescent",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "muscle-strength-india-perfect-preworkout",
+    "name": "Muscle & Strength India Perfect Preworkout",
+    "brand": "Muscle & Strength India",
+    "variant": "Fruit Punch, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 15,
+      "proteinG": 1,
+      "carbsG": 2,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 85
+    },
+    "ingredients": [
+      "Beta-Alanine",
+      "Citrulline Malate",
+      "Creatine Monohydrate",
+      "Caffeine",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://muscleandstrengthindia.com/products/perfect-preworkout",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "muscleblaze-crea-xtreme",
+    "name": "MuscleBlaze Crea-Xtreme",
+    "brand": "MuscleBlaze",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Monohydrate",
+      "Alpha Lipoic Acid",
+      "Chromium Picolinate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://www.muscleblaze.com/sv/muscleblaze-crea-xtreme/SP-45892",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "lactoseFree": true,
+    "vegan": true,
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-3x-strength-omega-3-fish-oil",
+    "name": "Wellbeing Nutrition 3x Strength Omega 3 Fish Oil",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Lemon Flavour, 60 Capsules",
+    "servingSizeG": 1.4,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.3,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Omega-3 Fish Oil (Anchovy)",
+      "EPA (Eicosapentaenoic Acid)",
+      "DHA (Docosahexaenoic Acid)",
+      "Gelatin Capsule Shell",
+      "Glycerin",
+      "Natural Lemon Oil"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/3x-strength-omega-3-fish-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-4x-strength-omega-3-fish-oil",
+    "name": "Wellbeing Nutrition 4x Strength Omega 3 Fish Oil",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Lemon Flavour, 60 Capsules",
+    "servingSizeG": 1.5,
+    "nutritionPerServing": {
+      "calories": 13,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.4,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Ultra-Pure Omega-3 Fish Oil",
+      "High EPA and DHA",
+      "Gelatin Capsule Shell",
+      "Natural Lemon Extract"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/4x-strength-omega-3-fish-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "wellbeing-nutrition-6x-strength-omega-3-fish-oil",
+    "name": "Wellbeing Nutrition 6x Strength Omega 3 Fish Oil",
+    "brand": "Wellbeing Nutrition",
+    "variant": "Enteric Coated, 60 Capsules",
+    "servingSizeG": 1.6,
+    "nutritionPerServing": {
+      "calories": 14,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.5,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Concentrated Omega-3 Fish Oil",
+      "EPA",
+      "DHA",
+      "Enteric Coating",
+      "Gelatin Capsule Shell"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://wellbeingnutrition.com/products/6x-strength-omega-3-fish-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "neuherbs-gold-deep-sea-fish-oil-with-higher-strength-omega-3",
+    "name": "Neuherbs Gold Deep-Sea Fish Oil With Higher Strength Omega-3",
+    "brand": "Neuherbs",
+    "variant": "Lemon Flavour, 60 Capsules",
+    "servingSizeG": 1.4,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 1.3,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Deep Sea Fish Oil",
+      "EPA",
+      "DHA",
+      "Gelatin Capsule",
+      "Antioxidant (INS 321)"
+    ],
+    "allergens": [
+      "fish"
+    ],
+    "sourceUrl": "https://neuherbs.com/products/gold-deep-sea-fish-oil",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [
+      "fish"
+    ],
+    "mayContain": [],
+    "lactoseFree": true,
+    "labelDisclosures": {
+      "contains": [
+        "fish"
+      ],
+      "mayContain": [],
+      "notes": null,
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

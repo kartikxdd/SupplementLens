@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compare — SupplementLens</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -24,21 +25,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-12">
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand-lockup">
-        <span class="logo-badge">NC</span>
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
         <span>
           <span class="brand-name">SupplementLens</span>
-          <span class="brand-tag">Compare desk</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
         <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
         <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
         <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
         <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
@@ -50,7 +53,7 @@
     <div class="flex flex-wrap items-end justify-between gap-3">
       <div>
         <h1 class="font-display font-bold text-2xl text-brand-text">Compare</h1>
-        <p class="text-sm text-brand-muted mt-1">Two slots. Add from Explore or search below. Same-category pairs score fairest.</p>
+        <p class="text-sm text-brand-muted mt-1">Choose two products in Explore using Compare, then return here to see the comparison. Same-category pairs score fairest.</p>
       </div>
       <div class="norm-toggle rounded-lg p-0.5 flex text-xs font-medium">
         <button type="button" class="norm-btn active px-3 py-1.5 rounded-md" data-mode="serving">Per serving</button>
@@ -58,36 +61,21 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="compare-add-box glass rounded-xl p-4">
-        <label class="field mb-0"><span>Add to slot A</span>
-          <input type="search" id="searchSlotA" class="field-input-plain" placeholder="Type code or name…" autocomplete="off" />
-        </label>
-        <ul id="suggestA" class="autocomplete-list hidden"></ul>
-      </div>
-      <div class="compare-add-box glass rounded-xl p-4">
-        <label class="field mb-0"><span>Add to slot B</span>
-          <input type="search" id="searchSlotB" class="field-input-plain" placeholder="Type code or name…" autocomplete="off" />
-        </label>
-        <ul id="suggestB" class="autocomplete-list hidden"></ul>
-      </div>
-    </div>
-
     <div id="compareMismatch" class="hidden rounded-xl border border-brand-border bg-brand-surface px-4 py-3 text-sm text-brand-muted" style="border-left: 3px solid #C4A35A"></div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="compareSlots"></div>
 
-    <section class="glass rounded-2xl p-5">
+    <section id="scorecardSection" class="glass rounded-2xl p-5">
       <h2 class="font-display font-semibold mb-4">Criterion scorecard</h2>
       <div id="scorecardTable" class="overflow-x-auto"></div>
     </section>
 
-    <section class="glass rounded-2xl p-5">
+    <section id="macroSection" class="glass rounded-2xl p-5">
       <h2 class="font-display font-semibold mb-4">Macro &amp; active table</h2>
       <div id="macroTable" class="overflow-x-auto"></div>
     </section>
 
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <section id="chartsSection" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="glass rounded-2xl p-5">
         <h2 class="font-display font-semibold mb-1">Score radar</h2>
         <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
@@ -111,7 +99,6 @@
     </p>
   </main>
 
-  <script src="data.js"></script>
   <script src="api.js"></script>
   <script src="shared.js"></script>
   <script src="app.js"></script>

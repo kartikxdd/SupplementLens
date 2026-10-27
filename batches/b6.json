@@ -1,0 +1,438 @@
+[
+  {
+    "id": "beastlife-super-micronized-creatine-monohydrate",
+    "name": "BeastLife Super Micronized Creatine Monohydrate",
+    "brand": "BeastLife",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Super Micronized Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://beastlife.in/products/super-micronized-creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "naturaltein-crea-boost-creatine-monohydrate",
+    "name": "Naturaltein CREA BOOST Creatine Monohydrate",
+    "brand": "Naturaltein",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://naturaltein.in/products/crea-boost-creatine",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pure-bcaa-2-1-1",
+    "name": "Nutrabay Pure BCAA 2:1:1",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 5,
+    "nutritionPerServing": {
+      "calories": 20,
+      "proteinG": 5,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Leucine",
+      "L-Isoleucine",
+      "L-Valine"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pure-bcaa-2-1-1/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pure-l-arginine",
+    "name": "Nutrabay Pure L-Arginine",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 3,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Arginine Base"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pure-l-arginine/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pure-l-glutamine",
+    "name": "Nutrabay Pure L-Glutamine",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 5,
+    "nutritionPerServing": {
+      "calories": 20,
+      "proteinG": 5,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Glutamine"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pure-l-glutamine/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pure-citrulline-malate",
+    "name": "Nutrabay Pure Citrulline Malate",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 10,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Citrulline DL-Malate (2:1)"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pure-citrulline-malate/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-gold-bcaa-4-1-1",
+    "name": "Nutrabay Gold BCAA 4:1:1",
+    "brand": "Nutrabay",
+    "variant": "Blueberry, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 28,
+      "proteinG": 7,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 45
+    },
+    "ingredients": [
+      "L-Leucine",
+      "L-Isoleucine",
+      "L-Valine",
+      "L-Glutamine",
+      "Citric Acid",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-gold-bcaa-4-1-1/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pro-eaa",
+    "name": "Nutrabay Pro EAA",
+    "brand": "Nutrabay",
+    "variant": "Fruit Punch, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 30,
+      "proteinG": 7.5,
+      "carbsG": 0.5,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 50
+    },
+    "ingredients": [
+      "Essential Amino Acid Blend (L-Leucine, L-Isoleucine, L-Valine, L-Lysine, L-Threonine, L-Phenylalanine, L-Methionine, L-Histidine, L-Tryptophan)",
+      "Electrolytes",
+      "Citric Acid",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pro-eaa/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pro-bcaa-8-1-1",
+    "name": "Nutrabay Pro BCAA 8:1:1",
+    "brand": "Nutrabay",
+    "variant": "Watermelon, 250 g",
+    "servingSizeG": 10,
+    "nutritionPerServing": {
+      "calories": 28,
+      "proteinG": 7.2,
+      "carbsG": 0.4,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 40
+    },
+    "ingredients": [
+      "L-Leucine",
+      "L-Isoleucine",
+      "L-Valine",
+      "Citric Acid",
+      "Flavour",
+      "Sucralose"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pro-bcaa-8-1-1/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-pro-l-arginine",
+    "name": "Nutrabay Pro L-Arginine",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 12,
+      "proteinG": 3,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "L-Arginine"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-pro-l-arginine/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

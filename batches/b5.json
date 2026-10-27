@@ -1,0 +1,424 @@
+[
+  {
+    "id": "nutrabay-gold-creatine",
+    "name": "Nutrabay Gold Creatine",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creapure Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-gold-creatine-creapure/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabay-creapeak",
+    "name": "Nutrabay CreaPeak",
+    "brand": "Nutrabay",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Micronized Creatine Monohydrate",
+      "Creatine HCL"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabay.com/product/nutrabay-creapeak-creatine/",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-one-creatine-monohydrate",
+    "name": "AS-IT-IS ONE Creatine Monohydrate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/one-creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "asitis-atom-creatine-monohydrate",
+    "name": "AS-IT-IS ATOM Creatine Monohydrate",
+    "brand": "AS-IT-IS",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Micronized Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://asitisnutrition.com/products/atom-creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "muscleblaze-creamp-micronised-creatine",
+    "name": "MuscleBlaze CreAMP Micronised Creatine",
+    "brand": "MuscleBlaze",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Micronised Creatine Monohydrate",
+      "Piperine (BioPerine)"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://www.muscleblaze.com/sv/muscleblaze-creamp-micronised-creatine/SP-77562",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-creatine-monohydrate",
+    "name": "BigMuscles Creatine Monohydrate",
+    "brand": "BigMuscles",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "bigmuscles-benchmark-creatine",
+    "name": "BigMuscles Benchmark Creatine",
+    "brand": "BigMuscles",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Micronized Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://www.bigmusclesnutrition.com/products/benchmark-creatine",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nakpro-creatine-monohydrate",
+    "name": "Nakpro Creatine Monohydrate",
+    "brand": "Nakpro",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nakpro.com/products/nakpro-creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabox-creapure-creatine-monohydrate",
+    "name": "Nutrabox Creapure® Creatine Monohydrate",
+    "brand": "Nutrabox",
+    "variant": "Unflavoured, 250 g",
+    "servingSizeG": 3,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creapure Creatine Monohydrate"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabox.in/products/creapure-creatine-monohydrate",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  },
+  {
+    "id": "nutrabox-creatine-hcl",
+    "name": "Nutrabox Creatine HCL",
+    "brand": "Nutrabox",
+    "variant": "Unflavoured, 200 g",
+    "servingSizeG": 2.5,
+    "nutritionPerServing": {
+      "calories": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "sugarG": 0,
+      "addedSugarG": 0,
+      "fatG": 0,
+      "sodiumMg": 0
+    },
+    "ingredients": [
+      "Creatine Hydrochloride (HCL)"
+    ],
+    "allergens": [
+      "milk",
+      "soy"
+    ],
+    "sourceUrl": "https://nutrabox.in/products/creatine-hcl",
+    "sourceType": "manufacturer label",
+    "checkedAt": "2026-10-26",
+    "contains": [],
+    "mayContain": [
+      "milk",
+      "soy"
+    ],
+    "allergenNotes": "Produced in a facility processing dairy, soy, and gluten",
+    "labelDisclosures": {
+      "contains": [],
+      "mayContain": [
+        "milk",
+        "soy"
+      ],
+      "notes": "Produced in a facility processing dairy, soy, and gluten",
+      "provenance": "User-provided; not independently verified",
+      "verified": false
+    }
+  }
+]

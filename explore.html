@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore — SupplementLens</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,21 +24,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-brand-bg text-brand-text font-body antialiased min-h-screen pb-24">
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand-lockup">
-        <span class="logo-badge">NC</span>
+        <span class="logo-badge" aria-label="SupplementLens">SL</span>
         <span>
           <span class="brand-name">SupplementLens</span>
-          <span class="brand-tag">Explore catalog</span>
+          <span class="brand-tag">Supplement research &amp; comparison</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" data-nav="index.html" class="nav-link">Home</a>
         <a href="explore.html" data-nav="explore.html" class="nav-link">Explore</a>
+        <a href="bookmarks.html" data-nav="bookmarks.html" class="nav-link">Bookmarks</a>
         <a href="compare.html" data-nav="compare.html" class="nav-link">Compare <span data-compare-count></span></a>
         <a href="profile.html" data-nav="profile.html" class="nav-link">Profile</a>
         <a href="auth.html" data-nav="auth.html" class="nav-link">Account</a>
@@ -45,29 +48,41 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
-    <div>
-      <h1 class="font-display font-bold text-2xl text-brand-text mb-1">Explore</h1>
-      <p class="text-sm text-brand-muted mb-4">Search placeholder entries by code, type, or category. Add up to two to Compare.</p>
-      <div class="relative">
-        <input id="globalSearch" type="search" class="search-input" placeholder="Search for a product code, type, or category…" autocomplete="off" />
-        <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
+  <main class="explore-main max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <section class="explore-hero">
+      <div class="explore-hero-copy">
+        <span class="explore-eyebrow"><span class="explore-eyebrow-dot"></span> Your supplement, better understood</span>
+        <h1 class="font-display font-bold text-2xl text-brand-text">Find your better fit.</h1>
+        <p>Compare products by what matters to you: label transparency, nutrition, value, and your personal goals.</p>
+        <div class="explore-points" aria-label="Catalog features">
+          <span><strong id="exploreCategoryTotal">9</strong> categories</span>
+          <span><strong id="exploreProductTotal">110</strong> sourced products</span>
+          <span><strong>—</strong> unknown label values stay unknown</span>
+        </div>
       </div>
-      <div class="flex flex-wrap gap-2 mt-3">
-        <button type="button" id="filterToggle" class="btn-outline text-sm px-3 py-1.5 rounded-lg">Filters</button>
-        <select id="sortBy" class="btn-outline text-sm px-3 py-1.5 rounded-lg bg-transparent">
-          <option value="score">Sort: Best score</option>
-          <option value="protein">Sort: Protein / scoop</option>
-          <option value="price">Sort: Lowest price</option>
-          <option value="sugar">Sort: Lowest sugar</option>
-          <option value="purity">Sort: Lowest fillers</option>
-          <option value="code">Sort: Entry code</option>
-        </select>
-        <div id="activePrefChips" class="flex flex-wrap gap-1.5 items-center"></div>
+      <div class="explore-search-panel">
+        <label class="explore-search-label" for="globalSearch">Search the catalog</label>
+        <div class="relative">
+          <input id="globalSearch" type="search" class="search-input" placeholder="Try a product, brand, or category…" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false" />
+          <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
+          <ul id="searchSuggestions" class="search-suggestions hidden" role="listbox" aria-label="Product suggestions"></ul>
+        </div>
+        <div class="explore-toolbar">
+          <button type="button" id="filterToggle" class="btn-outline text-sm px-3 py-1.5 rounded-lg">Filters <span aria-hidden="true">＋</span></button>
+          <select id="sortBy" class="btn-outline text-sm px-3 py-1.5 rounded-lg bg-transparent" aria-label="Sort products">
+            <option value="score">Sort: Best score</option>
+            <option value="protein">Sort: Protein / scoop</option>
+            <option value="price">Sort: Lowest price</option>
+            <option value="sugar">Sort: Lowest sugar</option>
+            <option value="purity">Sort: Lowest fillers</option>
+            <option value="code">Sort: Entry code</option>
+          </select>
+          <div id="activePrefChips" class="flex flex-wrap gap-1.5 items-center"></div>
+        </div>
       </div>
       <div id="filterPanel" class="filter-panel hidden mt-3 space-y-3">
         <div class="grid sm:grid-cols-2 gap-2">
-          <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterSafeOnly" /> Hide allergen conflicts</label>
+          <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterSafeOnly" /> Hide allergen conflicts and unknowns</label>
           <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterInBudget" /> Within budget only</label>
           <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterLabOnly" /> Lab-tested only</label>
           <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterNoProp" /> Hide proprietary blends</label>
@@ -91,7 +106,7 @@
             <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterWhey" /> Whey</label>
           </div>
           <div class="mt-3">
-            <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterMyProfileGoals" /> My profile goals</label>
+            <label class="inline-flex items-center gap-2 text-sm text-brand-muted"><input type="checkbox" id="filterMyProfileGoals" /> Apply my profile goals · filter to 70%+ matches and rank by compatibility</label>
           </div>
         </div>
 
@@ -105,12 +120,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <section>
       <div class="flex items-center justify-between mb-3">
-        <h2 class="section-label">Categories</h2>
-        <button type="button" class="text-xs link-sage" id="viewAllCats">View all entries</button>
+        <div>
+          <h2 class="section-label">Explore by category</h2>
+          <p class="section-caption">Start with the kind of supplement you’re looking for.</p>
+        </div>
+        <button type="button" class="text-xs link-sage" id="viewAllCats">View all products →</button>
       </div>
       <div id="categoryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
     </section>
@@ -118,17 +136,24 @@
     <section id="categoryBrief" class="hidden glass rounded-2xl p-5"></section>
 
     <section>
-      <h2 class="section-label mb-3">Manufacturer placeholders</h2>
+      <div class="section-heading">
+        <div>
+          <h2 class="section-label">Shop by brand</h2>
+          <p class="section-caption">Choose a brand to narrow your results.</p>
+        </div>
+      </div>
       <div id="brandRow" class="brand-row"></div>
     </section>
 
     <section>
       <div class="flex items-end justify-between gap-3 mb-3">
         <div>
-          <h2 class="section-label" id="productsHeading">Catalog entries</h2>
-          <p id="productsSub" class="text-xs text-brand-muted mt-1">Scored against your profile</p>
+          <div>
+            <h2 class="section-label products-heading" id="productsHeading">Catalog entries</h2>
+            <p id="productsSub" class="section-caption">Scored against your profile</p>
+          </div>
         </div>
-        <span id="productCount" class="text-xs text-brand-muted"></span>
+        <span id="productCount" class="product-count"></span>
       </div>
       <div id="productGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-4"></div>
       <p id="emptyState" class="hidden text-center text-brand-muted py-12 text-sm">No entries match.</p>
@@ -161,7 +186,6 @@
     </div>
   </div>
 
-  <script src="data.js"></script>
   <script src="api.js"></script>
   <script src="shared.js"></script>
   <script src="explore.js"></script>
